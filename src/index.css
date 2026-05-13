@@ -1,0 +1,339 @@
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+
+/* ═══════════════════════════════════════════════════════
+   RAIS DESIGN SYSTEM TOKENS
+   Generated from Figma variable collections:
+   - Primitives (colors, base values)
+   - Semantic (component-level aliases)
+   - Typography (desktop scale)
+   - Spacing
+   - Border radius
+   Do not edit hex values directly — update in Figma.
+═══════════════════════════════════════════════════════ */
+
+:root {
+
+  /* ─────────────────────────────────────────────
+     PRIMITIVE TOKENS — raw values only.
+     Components should never reference these directly.
+     Use semantic tokens below instead.
+  ───────────────────────────────────────────── */
+
+  /* Brand Blues */
+  --primitive-brand-blue-50:  #EDF6FC;
+  --primitive-brand-blue-100: #178FCF;
+  --primitive-brand-blue-200: #007CBD; /* Primary Brand Blue */
+  --primitive-brand-blue-300: #004288;
+  --primitive-brand-blue-400: #002552;
+
+  /* Base */
+  --primitive-black: #000000;
+  --primitive-white: #FFFFFF;
+
+  /* Gray */
+  --primitive-gray-900: #333333;
+  --primitive-gray-800: #454545;
+  --primitive-gray-700: #606060;
+  --primitive-gray-600: #8D9091;
+  --primitive-gray-500: #CCCCCC;
+  --primitive-gray-400: #DCDCDC;
+  --primitive-gray-300: #EFEFEF;
+  --primitive-gray-200: #F3F3F3;
+  --primitive-gray-100: #FBFBFB;
+
+  /* Cool Gray */
+  --primitive-cool-gray-900: #101928;
+  --primitive-cool-gray-800: #293542;
+  --primitive-cool-gray-700: #354557;
+  --primitive-cool-gray-600: #4D586A;
+  --primitive-cool-gray-500: #667185;
+  --primitive-cool-gray-400: #98A2B3;
+  --primitive-cool-gray-300: #D0D5DD;
+  --primitive-cool-gray-200: #E4E7EC;
+  --primitive-cool-gray-100: #F0F2F5;
+
+  /* Warm Gray */
+  --primitive-warm-gray-600: #3B3434;
+  --primitive-warm-gray-500: #625B5B;
+  --primitive-warm-gray-400: #9B9494;
+  --primitive-warm-gray-300: #CDC7C7;
+  --primitive-warm-gray-200: #E1DBDB;
+  --primitive-warm-gray-100: #F4EFEF;
+
+  /* System Red */
+  --primitive-system-red-600: #CA222D;
+  --primitive-system-red-500: #E85657;
+  --primitive-system-red-400: #FC827F;
+  --primitive-system-red-300: #FFB1AC;
+  --primitive-system-red-200: #FFDAD7;
+  --primitive-system-red-100: #FFF4F4;
+
+  /* System Gold */
+  --primitive-system-gold-600: #A36B00;
+  --primitive-system-gold-500: #D69A00;
+  --primitive-system-gold-400: #EEBE1C;
+  --primitive-system-gold-300: #F6D573;
+  --primitive-system-gold-200: #FCEAB5;
+  --primitive-system-gold-100: #FFF9E6;
+
+  /* System Green */
+  --primitive-system-green-600: #117C1A;
+  --primitive-system-green-500: #479E34;
+  --primitive-system-green-400: #70BE4B;
+  --primitive-system-green-300: #A1D782;
+  --primitive-system-green-200: #D2ECBF;
+  --primitive-system-green-100: #F0FAEC;
+
+  /* System Blue */
+  --primitive-system-blue-600: #016CA5;
+  --primitive-system-blue-500: #298CC7;
+  --primitive-system-blue-400: #56BCF4;
+  --primitive-system-blue-300: #98D4F9;
+  --primitive-system-blue-200: #B3D8EB;
+  --primitive-system-blue-100: #CFEAFB;
+  --primitive-system-blue-50:  #EDF6FB;
+
+  /* Expansion: Gray Blue */
+  --primitive-gray-blue-600: #293B52;
+  --primitive-gray-blue-500: #38506D;
+  --primitive-gray-blue-400: #63758C;
+  --primitive-gray-blue-300: #96A5B8;
+  --primitive-gray-blue-200: #BCC8D7;
+  --primitive-gray-blue-100: #E1EAF4;
+
+  /* Expansion: Periwinkle */
+  --primitive-periwinkle-600: #1E4D66;
+  --primitive-periwinkle-500: #26739C;
+  --primitive-periwinkle-400: #5C9BBD;
+  --primitive-periwinkle-300: #98C8E1;
+  --primitive-periwinkle-200: #BEDFF0;
+  --primitive-periwinkle-100: #E3F5FF;
+
+  /* Expansion: Magenta */
+  --primitive-magenta-600: #54143F;
+  --primitive-magenta-500: #7B2F62;
+  --primitive-magenta-400: #A97096;
+  --primitive-magenta-300: #CFA6C2;
+  --primitive-magenta-200: #DFC5D7;
+  --primitive-magenta-100: #EFE3EB;
+
+  /* Expansion: Pink */
+  --primitive-pink-300: #F8CAD9;
+  --primitive-pink-100: #FBE8E9;
+
+
+  /* ─────────────────────────────────────────────
+     SEMANTIC TOKENS
+     Named exactly as they appear in your Figma variables.
+     These are what components and the agent use.
+  ───────────────────────────────────────────── */
+
+  /* Surfaces */
+  --color-surface-primary:   #FFFFFF;
+  --color-surface-secondary: #F0F2F5;
+  --color-surface-disabled:  #EFEFEF;
+  --color-bg-page:           #F0F2F5;
+  --color-bg-hover:          #FBFBFB;
+  --color-bg-selected:       #EDF6FC; /* selected row, active nav, selected tab, filter chip */
+
+  /* Text */
+  --color-text-primary:     #4D586A;
+  --color-text-secondary:   #8D9091;
+  --color-text-disabled:    #8D9091;
+  --color-text-placeholder: #CCCCCC;
+  --color-text-inverse:     #FFFFFF;
+  --color-display-primary:  #333333; /* headings and display text */
+
+  /* Icons */
+  --color-icon-primary:   #333333;
+  --color-icon-secondary: #454545;
+
+  /* Borders */
+  --color-border-default:  #CCCCCC;
+  --color-border-dark:     #8D9091;
+  --color-border-focus:    #007CBD;
+  --color-border-error:    #CA222D;
+  --color-border-disabled: #EFEFEF;
+
+  /* Divider */
+  --color-divider: #EFEFEF;
+
+  /* Links */
+  --color-link-primary:          #007CBD;
+  --color-link-primary-hover:    #178FCF;
+  --color-link-primary-disabled: #B3D8EB;
+
+  /* Inputs */
+  --color-input-bg:            #FFFFFF;
+  --color-input-border:        #EFEFEF;
+  --color-input-border-focus:  #007CBD;
+  --color-input-placeholder:   #CCCCCC;
+
+  /* Buttons — Primary */
+  --color-btn-bg-primary:          #007CBD;
+  --color-btn-bg-primary-hover:    #178FCF;
+  --color-btn-bg-primary-disabled: #B3D8EB;
+  --color-btn-text-primary:        #FFFFFF;
+
+  /* Buttons — Secondary */
+  --color-btn-bg-secondary:              #FFFFFF;
+  --color-btn-bg-secondary-hover:        #EDF6FC;
+  --color-btn-border-secondary:          #007CBD;
+  --color-btn-border-secondary-disabled: #B3D8EB;
+  --color-btn-text-secondary:            #007CBD;
+  --color-btn-text-secondary-disabled:   #B3D8EB;
+
+  /* Buttons — Error */
+  --color-btn-bg-error:   #CA222D;
+  --color-btn-text-error: #CA222D;
+
+
+  /* ─────────────────────────────────────────────
+     TYPOGRAPHY — Desktop scale (Figtree)
+  ───────────────────────────────────────────── */
+
+  --font-family-display: 'Figtree', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-family-text:    'Figtree', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --font-weight-regular:  400;
+  --font-weight-medium:   500;
+  --font-weight-semibold: 600;
+  --font-weight-bold:     700;
+
+  --font-size-xxs: 11px;
+  --font-size-xs:  12px;
+  --font-size-sm:  14px;
+  --font-size-md:  16px;
+  --font-size-lg:  20px;
+  --font-size-xl:  24px;
+  --font-size-2xl: 36px;
+  --font-size-3xl: 44px;
+  --font-size-4xl: 52px;
+
+  /* Heading scale */
+  --heading-h1-font-size:   64px;
+  --heading-h1-font-weight: 700;
+  --heading-h1-line-height: 64px;
+
+  --heading-h2-font-size:   48px;
+  --heading-h2-font-weight: 500;
+  --heading-h2-line-height: 48px;
+
+  --heading-h3-font-size:   36px;
+  --heading-h3-font-weight: 600;
+  --heading-h3-line-height: 36px;
+
+  --heading-h4-font-size:    24px;
+  --heading-h4-font-weight:  700;
+  --heading-h4-line-height:  28.8px;
+  --heading-h4-letter-spacing: 0.5px;
+
+  --heading-h5-font-size:   24px;
+  --heading-h5-font-weight: 400;
+  --heading-h5-line-height: 24px;
+
+
+  /* ─────────────────────────────────────────────
+     SPACING — spacing-00 through spacing-18
+  ───────────────────────────────────────────── */
+
+  --spacing-00: 0px;
+  --spacing-01: 4px;
+  --spacing-02: 6px;
+  --spacing-03: 8px;
+  --spacing-04: 10px;
+  --spacing-05: 12px;
+  --spacing-06: 16px;
+  --spacing-07: 20px;
+  --spacing-08: 24px;
+  --spacing-09: 28px;
+  --spacing-10: 32px;
+  --spacing-11: 40px;
+  --spacing-12: 48px;
+  --spacing-13: 64px;
+  --spacing-14: 80px;
+  --spacing-15: 96px;
+  --spacing-16: 128px;
+  --spacing-17: 160px;
+  --spacing-18: 192px;
+
+
+  /* ─────────────────────────────────────────────
+     BORDER RADIUS
+  ───────────────────────────────────────────── */
+
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --border-radius-xl: 16px;
+  --border-radius-full: 9999px;
+
+
+  /* ─────────────────────────────────────────────
+     SHADOWS
+  ───────────────────────────────────────────── */
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+
+  /* ─────────────────────────────────────────────
+     PRIMENG OVERRIDES
+     Maps RAIS semantic tokens to PrimeNG internals
+     so every p-* component uses RAIS values.
+  ───────────────────────────────────────────── */
+
+  --p-primary-color:           var(--color-btn-bg-primary);
+  --p-primary-contrast-color:  var(--color-btn-text-primary);
+  --p-primary-hover-color:     var(--color-btn-bg-primary-hover);
+
+  --p-surface-ground:          var(--color-bg-page);
+  --p-surface-section:         var(--color-surface-primary);
+  --p-surface-card:            var(--color-surface-primary);
+  --p-surface-overlay:         var(--color-surface-primary);
+  --p-surface-border:          var(--color-border-default);
+
+  --p-text-color:              var(--color-text-primary);
+  --p-text-secondary-color:    var(--color-text-secondary);
+
+  --p-border-radius-sm:        var(--border-radius-sm);
+  --p-border-radius-md:        var(--border-radius-md);
+  --p-border-radius-lg:        var(--border-radius-lg);
+
+  --p-focus-ring-color:        var(--color-border-focus);
+  --p-focus-ring-shadow:       0 0 0 2px var(--color-btn-bg-primary);
+
+  --p-inputtext-background:          var(--color-input-bg);
+  --p-inputtext-border-color:        var(--color-input-border);
+  --p-inputtext-focus-border-color:  var(--color-input-border-focus);
+  --p-inputtext-placeholder-color:   var(--color-input-placeholder);
+}
+
+
+/* ─────────────────────────────────────────────
+   BASE STYLES
+───────────────────────────────────────────── */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-regular);
+  line-height: 1.5;
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-page);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  margin: 0 auto;
+}
