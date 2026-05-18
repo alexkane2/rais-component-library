@@ -1,4 +1,5 @@
 import type { Preview } from '@storybook/html-vite';
+import 'boxicons/css/boxicons.min.css';
 import '../src/index.css';
 
 const preview: Preview = {
