@@ -1,0 +1,10 @@
+{
+  "storybook": {
+    "designSystemId": "814958",
+    "from": "./storybook-static",
+    "name": "main",
+    "brandId": "40c50678-0ec8-4cbe-84fb-d44f62834a0d",
+    "sourceId": "61576b5b-53ac-4c44-a4f7-810d56354da9",
+    "publicAccess": false
+  }
+}

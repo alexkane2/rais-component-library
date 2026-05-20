@@ -1,19 +1,27 @@
 import type { Meta, StoryObj } from '@storybook/html';
 
 /**
- * Toggle Button — RAIS Filters component
+ * Visibility Toggle — RAIS Filters component
  *
- * Icons sourced from Boxicons (https://boxicons.com)
- * Installed via: npm install boxicons
- * Imported globally in .storybook/preview.ts
+ * (Previously named "Toggle Button" — renamed to Visibility Toggle for clarity,
+ * since this is specifically a show/hide control with an eye icon. Distinguishes
+ * it from the regular Toggle (on/off switch) and from generic toggle buttons.)
  *
- * Icon classes used:
- *   Show state → bx bxs-show
- *   Hide state → bx bxs-hide
+ * Icons (from public/assets/boxicons/):
+ *   bxs-show.svg — eye open  (shown when state = "show")
+ *   bxs-hide.svg — eye closed (shown when state = "hide")
  *
  * Angular usage:
- *   <i class="bx bxs-show"></i>
- *   <i class="bx bxs-hide"></i>
+ *   <img src="assets/boxicons/bxs-show.svg" width="14" height="14" />
+ *   <img src="assets/boxicons/bxs-hide.svg" width="14" height="14" />
+ *
+ * Specs (from Figma):
+ *   height: 26px, padding: T6 R12 B6 L12, gap: 6
+ *   radius: 12px (pill shape)
+ *   bg: #FFFFFF default, #EDF6FC on hover
+ *   border: #CCCCCC 1px
+ *   Label: 12px SemiBold #333333
+ *   Icon: 14×14 #333333
  */
 
 const RAIS_STYLES = `
@@ -28,14 +36,10 @@ const RAIS_STYLES = `
       --font-family: 'Figtree', sans-serif;
     }
 
-    /* ── Toggle Button ──
-       height: 26px, padding T6 R12 B6 L12
-       gap: 6px, HORIZONTAL, crossAxis CENTER
-       radius: 12px (pill shape)
-       bg: white default, #EDF6FC hover
-       border: #CCCCCC 1px
+    /* ── Visibility Toggle ──
+       Pill shape, 26px height
     ── */
-    .rais-toggle-btn {
+    .rais-vis-toggle {
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -49,25 +53,22 @@ const RAIS_STYLES = `
       font-family: var(--font-family);
     }
 
-    .rais-toggle-btn--hover {
+    .rais-vis-toggle--hover {
       background: var(--color-bg-hover);
     }
 
-    /* ── Icon: 14x14 using Boxicons ── */
-    .rais-toggle-btn__icon {
+    /* Icon: 14×14 */
+    .rais-vis-toggle__icon {
       width: 14px;
       height: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      font-size: 14px;
-      color: var(--color-icon);
-      line-height: 1;
     }
 
-    /* ── Label: 12px SemiBold #333333 ── */
-    .rais-toggle-btn__label {
+    /* Label: 12px SemiBold #333333 */
+    .rais-vis-toggle__label {
       font-size: 12px;
       font-weight: 600;
       color: var(--color-text);
@@ -77,24 +78,24 @@ const RAIS_STYLES = `
   </style>
 `;
 
-function renderToggleButton({ label, toggleState, interaction }: any) {
-  const isHover   = interaction === 'hover';
-  const isHide    = toggleState === 'hide';
-  const iconClass = isHide ? 'bx bxs-hide' : 'bx bxs-show';
+function renderVisibilityToggle({ label, toggleState, interaction }: any) {
+  const isHover  = interaction === 'hover';
+  const isHide   = toggleState === 'hide';
+  const iconFile = isHide ? 'bxs-hide' : 'bxs-show';
 
   return `
     ${RAIS_STYLES}
-    <button class="rais-toggle-btn ${isHover ? 'rais-toggle-btn--hover' : ''}">
-      <span class="rais-toggle-btn__icon">
-        <i class="${iconClass}"></i>
+    <button class="rais-vis-toggle ${isHover ? 'rais-vis-toggle--hover' : ''}">
+      <span class="rais-vis-toggle__icon">
+        <img src="assets/boxicons/${iconFile}.svg" width="14" height="14" alt="${iconFile}" />
       </span>
-      <span class="rais-toggle-btn__label">${label ?? 'Label'}</span>
+      <span class="rais-vis-toggle__label">${label ?? 'Label'}</span>
     </button>
   `;
 }
 
 const meta: Meta = {
-  title: 'RAIS/Filters/Toggle Button',
+  title: 'RAIS/Filters/Visibility Toggle',
   tags: ['autodocs'],
   argTypes: {
     label: {
@@ -104,7 +105,7 @@ const meta: Meta = {
     toggleState: {
       control: 'select',
       options: ['show', 'hide'],
-      description: 'show → bx bxs-show icon | hide → bx bxs-hide icon'
+      description: 'show → bxs-show.svg (eye open) | hide → bxs-hide.svg (eye closed)'
     },
     interaction: {
       control: 'select',
@@ -112,7 +113,7 @@ const meta: Meta = {
       description: 'default=white bg | hover=#EDF6FC bg'
     },
   },
-  render: (args) => renderToggleButton(args),
+  render: (args) => renderVisibilityToggle(args),
 };
 
 export default meta;
@@ -145,15 +146,15 @@ export const AllVariants: Story = {
       <div style="display:flex;flex-direction:column;gap:8px;">
         <span style="font-family:'Figtree',sans-serif;font-size:11px;color:#8D9091;">SHOW STATE</span>
         <div style="display:flex;gap:12px;align-items:center;">
-          ${renderToggleButton({ label: 'Label', toggleState: 'show', interaction: 'default' })}
-          ${renderToggleButton({ label: 'Label', toggleState: 'show', interaction: 'hover' })}
+          ${renderVisibilityToggle({ label: 'Label', toggleState: 'show', interaction: 'default' })}
+          ${renderVisibilityToggle({ label: 'Label', toggleState: 'show', interaction: 'hover' })}
         </div>
       </div>
       <div style="display:flex;flex-direction:column;gap:8px;">
         <span style="font-family:'Figtree',sans-serif;font-size:11px;color:#8D9091;">HIDE STATE</span>
         <div style="display:flex;gap:12px;align-items:center;">
-          ${renderToggleButton({ label: 'Label', toggleState: 'hide', interaction: 'default' })}
-          ${renderToggleButton({ label: 'Label', toggleState: 'hide', interaction: 'hover' })}
+          ${renderVisibilityToggle({ label: 'Label', toggleState: 'hide', interaction: 'default' })}
+          ${renderVisibilityToggle({ label: 'Label', toggleState: 'hide', interaction: 'hover' })}
         </div>
       </div>
     </div>
