@@ -10,19 +10,21 @@ import type { Meta, StoryObj } from '@storybook/html';
  * Tokens (from Figma variables):
  *   --gray-blue-600     #293B52 → sidebar background, expanded panel left border
  *   --gray-blue-500     #38506D → active item background, expanded panel background
+ *   --brand-blue        #178FCF → section icon tint (matches Ren "R" logo color)
  *   --divider           rgba(99,117,140,0.4) → between sub-items
- *   --neutrals-white    #FFFFFF → all text and icon tints
+ *   --neutrals-white    #FFFFFF → text and sub-item icon tints
  *
  * Type styles (from Figma):
- *   Section header (collapsed): Figtree SemiBold 10px / line-height 1.3 / letter-spacing 1px / UPPERCASE
  *   Menu item label (collapsed): Figtree SemiBold 13px / line-height 1.2 / letter-spacing 0.39px / center
  *   Expanded section title: Figtree Bold 12px / line-height 1.4 / letter-spacing 2px / UPPERCASE
  *   Sub-item label: Figtree Medium 14px / line-height 1.2 / letter-spacing 0.28px
  *
- * Icons: Boxicons SVGs from public/assets/boxicons/ — tinted white via CSS filter.
- *   Section icons (20px): bx-bulb, bx-copy, bxs-check-circle, bxs-wrench, bxs-pie-chart-alt-2, bxs-megaphone
- *   Sub-item icons (16px): see ITEMS map below
- *   External-link indicator (14px): bx-link-external
+ * Logo: public/assets/r-member-central-logo.svg (90×74, includes "R" + "MEMBER CENTRAL")
+ *
+ * Icons: Boxicons SVGs from public/assets/boxicons/ — tinted via CSS mask-image for exact color.
+ *   Section icons (20px, blue): bx-bulb, bx-copy, bx-check-circle, bx-wrench, bx-pie-chart-alt-2, bxs-megaphone
+ *   Sub-item icons (16px, white): see SUB_ITEMS map
+ *   External-link indicator (14px, white): bx-link-external
  */
 
 const RAIS_STYLES = `
@@ -32,6 +34,7 @@ const RAIS_STYLES = `
     :root {
       --gray-blue-600: #293B52;
       --gray-blue-500: #38506D;
+      --brand-blue:    #178FCF;
       --divider:       rgba(99, 117, 140, 0.4);
       --white:         #FFFFFF;
       --font-family:   'Figtree', sans-serif;
@@ -68,37 +71,16 @@ const RAIS_STYLES = `
       width: 100%;
     }
 
-    /* Logo + brand */
+    /* Brand lockup — uses the full Ren / Member Central SVG */
     .rais-nav__brand {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
+      display: block;
+      width: 70px;
+      height: auto;
+    }
+    .rais-nav__brand img {
+      display: block;
       width: 100%;
-    }
-    .rais-nav__logo {
-      width: 44px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--white);
-      font-family: var(--font-family);
-      font-weight: 700;
-      font-size: 28px;
-      line-height: 1;
-      letter-spacing: -1px;
-    }
-    .rais-nav__brand-text {
-      font-family: var(--font-family);
-      font-weight: 600;
-      font-size: 10px;
-      line-height: 1.3;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--white);
-      text-align: center;
-      white-space: pre;
+      height: auto;
     }
 
     /* Menu items list */
@@ -125,18 +107,14 @@ const RAIS_STYLES = `
     .rais-nav__item:hover { background: rgba(255, 255, 255, 0.04); }
     .rais-nav__item--active { background: var(--gray-blue-500); }
 
+    /* Section icons — tinted brand-blue via CSS mask (exact color, not filter approximation) */
     .rais-nav__icon {
       width: 20px;
       height: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       flex-shrink: 0;
-    }
-    .rais-nav__icon img {
-      width: 20px;
-      height: 20px;
-      filter: brightness(0) invert(1);
+      background-color: var(--brand-blue);
+      -webkit-mask: var(--icon) no-repeat center / contain;
+              mask: var(--icon) no-repeat center / contain;
     }
 
     .rais-nav__label {
@@ -194,18 +172,14 @@ const RAIS_STYLES = `
     }
     .rais-nav__subitem:hover { background: rgba(255, 255, 255, 0.06); }
 
+    /* Sub-item icons — tinted white via CSS mask */
     .rais-nav__subicon {
       width: 16px;
       height: 16px;
       flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .rais-nav__subicon img {
-      width: 16px;
-      height: 16px;
-      filter: brightness(0) invert(1);
+      background-color: var(--white);
+      -webkit-mask: var(--icon) no-repeat center / contain;
+              mask: var(--icon) no-repeat center / contain;
     }
 
     .rais-nav__subitem-text {
@@ -223,15 +197,10 @@ const RAIS_STYLES = `
       width: 14px;
       height: 14px;
       flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .rais-nav__subitem-ext img {
-      width: 14px;
-      height: 14px;
-      filter: brightness(0) invert(1);
       opacity: 0.85;
+      background-color: var(--white);
+      -webkit-mask: url('assets/boxicons/bx-link-external.svg') no-repeat center / contain;
+              mask: url('assets/boxicons/bx-link-external.svg') no-repeat center / contain;
     }
 
     .rais-nav__divider {
@@ -241,14 +210,14 @@ const RAIS_STYLES = `
   </style>
 `;
 
-// ── Section icons for the collapsed sidebar ──
+// ── Section icons for the collapsed sidebar (outlined, matching Figma) ──
 const SECTION_ICONS: Record<string, string> = {
-  'Agency Planning':   'bxs-bulb',
+  'Agency Planning':   'bx-bulb',
   'Revenue Docs':      'bx-copy',
-  'Placement':         'bxs-check-circle',
-  'Servicing':         'bxs-wrench',
-  'Account Insights':  'bxs-pie-chart-alt-2',
-  'Digital Marketing': 'bxs-megaphone',
+  'Placement':         'bx-check-circle',
+  'Servicing':         'bx-wrench',
+  'Account Insights':  'bx-pie-chart-alt-2',
+  'Digital Marketing': 'bxs-megaphone', // only filled variant exists in boxicons set
 };
 
 const SECTION_ORDER = [
@@ -302,8 +271,9 @@ const SUB_ITEMS: Record<string, SubItem[]> = {
   ],
 };
 
-function iconImg(name: string, size: number) {
-  return `<img src="assets/boxicons/${name}.svg" width="${size}" height="${size}" alt="${name}" />`;
+// Section icons use mask-image to tint to brand-blue; sub-item icons use mask-image to tint white
+function iconMaskSpan(cls: string, iconName: string) {
+  return `<span class="${cls}" style="--icon: url('assets/boxicons/${iconName}.svg');"></span>`;
 }
 
 function renderSidebar(activeSection?: string) {
@@ -314,7 +284,7 @@ function renderSidebar(activeSection?: string) {
     const label = section === 'Revenue Docs' ? 'Revenue\nDocs' : section;
     return `
       <button class="rais-nav__item${isActive ? ' rais-nav__item--active' : ''}">
-        <span class="rais-nav__icon">${iconImg(iconName, 20)}</span>
+        ${iconMaskSpan('rais-nav__icon', iconName)}
         <span class="rais-nav__label">${label}</span>
       </button>
     `;
@@ -324,8 +294,7 @@ function renderSidebar(activeSection?: string) {
     <div class="rais-nav__bar">
       <div class="rais-nav__bar-top">
         <div class="rais-nav__brand">
-          <div class="rais-nav__logo">R</div>
-          <div class="rais-nav__brand-text">Member\nCentral</div>
+          <img src="assets/r-member-central-logo.svg" alt="Ren Member Central" />
         </div>
         <div class="rais-nav__items">${items}</div>
       </div>
@@ -337,13 +306,11 @@ function renderSidebar(activeSection?: string) {
 function renderPanel(section: string) {
   const items = SUB_ITEMS[section] || [];
   const rows = items.map((item, i) => {
-    const externalIcon = item.external
-      ? `<span class="rais-nav__subitem-ext">${iconImg('bx-link-external', 14)}</span>`
-      : '';
+    const externalIcon = item.external ? `<span class="rais-nav__subitem-ext"></span>` : '';
     const divider = i < items.length - 1 ? `<div class="rais-nav__divider"></div>` : '';
     return `
       <div class="rais-nav__subitem">
-        <span class="rais-nav__subicon">${iconImg(item.icon, 16)}</span>
+        ${iconMaskSpan('rais-nav__subicon', item.icon)}
         <span class="rais-nav__subitem-text">${item.label}</span>
         ${externalIcon}
       </div>
