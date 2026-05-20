@@ -71,16 +71,16 @@ const RAIS_STYLES = `
       width: 100%;
     }
 
-    /* Brand lockup — uses the full Ren / Member Central SVG */
+    /* Brand lockup — uses the full Ren / Member Central SVG at its native 90×74 size */
     .rais-nav__brand {
       display: block;
-      width: 70px;
-      height: auto;
+      width: 90px;
+      height: 74px;
     }
     .rais-nav__brand img {
       display: block;
-      width: 100%;
-      height: auto;
+      width: 90px;
+      height: 74px;
     }
 
     /* Menu items list */
