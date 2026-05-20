@@ -10,7 +10,7 @@ import type { Meta, StoryObj } from '@storybook/html';
  * Tokens (from Figma variables):
  *   --gray-blue-600     #293B52 → sidebar background, expanded panel left border
  *   --gray-blue-500     #38506D → active item background, expanded panel background
- *   --brand-blue        #178FCF → section icon tint (matches Ren "R" logo color)
+ *   --system-blue-300   #98D4F9 → section icon tint
  *   --divider           rgba(99,117,140,0.4) → between sub-items
  *   --neutrals-white    #FFFFFF → text and sub-item icon tints
  *
@@ -32,10 +32,10 @@ const RAIS_STYLES = `
     @import url('https://fonts.googleapis.com/css2?family=Figtree:wght@500;600;700&display=swap');
 
     :root {
-      --gray-blue-600: #293B52;
-      --gray-blue-500: #38506D;
-      --brand-blue:    #178FCF;
-      --divider:       rgba(99, 117, 140, 0.4);
+      --gray-blue-600:   #293B52;
+      --gray-blue-500:   #38506D;
+      --system-blue-300: #98D4F9;
+      --divider:         rgba(99, 117, 140, 0.4);
       --white:         #FFFFFF;
       --font-family:   'Figtree', sans-serif;
     }
@@ -107,12 +107,12 @@ const RAIS_STYLES = `
     .rais-nav__item:hover { background: rgba(255, 255, 255, 0.04); }
     .rais-nav__item--active { background: var(--gray-blue-500); }
 
-    /* Section icons — tinted brand-blue via CSS mask (exact color, not filter approximation) */
+    /* Section icons — tinted system-blue-300 via CSS mask (exact color, not filter approximation) */
     .rais-nav__icon {
       width: 20px;
       height: 20px;
       flex-shrink: 0;
-      background-color: var(--brand-blue);
+      background-color: var(--system-blue-300);
       -webkit-mask: var(--icon) no-repeat center / contain;
               mask: var(--icon) no-repeat center / contain;
     }
