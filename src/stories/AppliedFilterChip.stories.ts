@@ -8,7 +8,12 @@ import type { Meta, StoryObj } from '@storybook/html';
  *   --brand-blue-200    #007CBD  → border, icon color
  *   --border-focus      #007CBD  → border
  *   --spacing-01        4        → corner radius
- *   Text color          #101928  → category + value text
+ *   --color-text-header  #101928 → category text (SemiBold)
+ *   --color-text-primary #4D586A → value text (Medium)
+ *
+ * Type styles (Figma):
+ *   Label/S SemiBold — Figtree 600 / 12px / line-height 1.2 / letter-spacing 0.36px
+ *   Label/S Medium   — Figtree 500 / 12px / line-height 1.2 / letter-spacing 0.36px
  *
  * Icons (from public/assets/boxicons/):
  *   bxs-filter-alt.svg — filter icon, 14×14 frame
@@ -23,7 +28,7 @@ import type { Meta, StoryObj } from '@storybook/html';
 
 const RAIS_STYLES = `
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Figtree:wght@400;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&display=swap');
 
     /* Tokens — names match Figma variables */
     :root {
@@ -31,7 +36,8 @@ const RAIS_STYLES = `
       --brand-blue-200: #007CBD;
       --border-focus: #007CBD;
       --spacing-01: 4px;
-      --chip-text: #101928;
+      --color-text-header: #101928;
+      --color-text-primary: #4D586A;
       --font-family: 'Figtree', sans-serif;
     }
 
@@ -85,16 +91,20 @@ const RAIS_STYLES = `
 
     .rais-filter-chip__category {
       font-size: 12px;
-      font-weight: 700;
-      color: var(--chip-text);
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: 0.36px;
+      color: var(--color-text-header);
       white-space: nowrap;
       flex-shrink: 0;
     }
 
     .rais-filter-chip__value {
       font-size: 12px;
-      font-weight: 400;
-      color: var(--chip-text);
+      font-weight: 500;
+      line-height: 1.2;
+      letter-spacing: 0.36px;
+      color: var(--color-text-primary);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
