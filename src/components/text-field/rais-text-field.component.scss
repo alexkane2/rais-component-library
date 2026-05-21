@@ -1,0 +1,116 @@
+// Text Field — RAIS Inputs component
+// Tokens (inlined from Figma variables):
+//   --color-label             #4D586A
+//   --color-optional          #8D9091
+//   --color-placeholder       #CCCCCC
+//   --color-text              #4D586A
+//   --color-error             #CA222D
+//   --color-border-default    #CCCCCC
+//   --color-border-focus      #007CBD
+//   --color-border-error      #CA222D
+//   --color-border-disabled   #EFEFEF
+//   --color-bg-white          #FFFFFF
+//   --color-bg-disabled       #EFEFEF
+//   --color-text-disabled     #8D9091
+//   --border-radius-sm        4px
+
+:host {
+  display: inline-block;
+}
+
+.rais-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 350px;
+  font-family: 'Figtree', sans-serif;
+
+  &__label-row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  &__label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #4D586A;
+    line-height: 1.2;
+  }
+
+  &__optional {
+    font-size: 12px;
+    font-weight: 400;
+    color: #8D9091;
+    line-height: 1.2;
+  }
+
+  &__instructions {
+    font-size: 12px;
+    font-weight: 400;
+    color: #4D586A;
+    line-height: 1.2;
+  }
+
+  &__input {
+    width: 100%;
+    height: 40px;
+    padding: 0 12px;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    font-family: 'Figtree', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #4D586A;
+    box-sizing: border-box;
+    outline: none;
+
+    &::placeholder { color: #CCCCCC; }
+    &:focus        { border-color: #007CBD; }
+
+    &--focus     { border-color: #007CBD; }
+    &--error     { border-color: #CA222D; }
+    &--disabled {
+      background: #EFEFEF;
+      border-color: #EFEFEF;
+      color: #8D9091;
+      cursor: not-allowed;
+    }
+  }
+
+  &__textarea {
+    width: 100%;
+    height: 80px;
+    padding: 10px 12px;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    font-family: 'Figtree', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #4D586A;
+    box-sizing: border-box;
+    outline: none;
+    resize: vertical;
+
+    &::placeholder { color: #CCCCCC; }
+    &:focus        { border-color: #007CBD; }
+
+    &--focus     { border-color: #007CBD; }
+    &--error     { border-color: #CA222D; }
+    &--disabled {
+      background: #EFEFEF;
+      border-color: #EFEFEF;
+      color: #8D9091;
+      cursor: not-allowed;
+    }
+  }
+
+  &__error {
+    font-size: 12px;
+    font-weight: 400;
+    color: #CA222D;
+  }
+}

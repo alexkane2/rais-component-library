@@ -1,0 +1,158 @@
+// Calendar — RAIS Inputs component
+// Tokens (inlined from Figma variables):
+//   --color/text-default        #454545
+//   --color/border              #DCDCDC
+//   --color/bg-calendar         #F3F3F3
+//   --color/bg-white            #FFFFFF
+//   --color/action              #007CBD  (chevron tint, selected/hover text)
+//   --color/text-other-month    #8D9091
+//   --color/text-unselected     #333333
+//   --color/bg-selected         #EDF6FC
+//   --border/radius-sm          4px
+//   font-family                 'Figtree', sans-serif
+
+:host {
+  display: inline-block;
+  font-family: 'Figtree', sans-serif;
+}
+
+.rais-calendar {
+  width: 299px;
+  background: #F3F3F3;
+  border: 1px solid #DCDCDC;
+  border-radius: 4px;
+  padding: 12px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+
+  &__nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 12px;
+  }
+
+  &__dropdowns {
+    display: flex;
+    gap: 8px;
+  }
+
+  // Chevron: 24x24, tinted blue via CSS filter (matches #007CBD)
+  &__chevron {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+
+    img {
+      filter: invert(35%) sepia(87%) saturate(500%) hue-rotate(170deg);
+    }
+  }
+
+  // Month/Year dropdowns: 90x40
+  &__dropdown {
+    width: 90px;
+    height: 40px;
+    padding: 8px 16px;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    box-sizing: border-box;
+  }
+
+  &__dropdown-label {
+    font-size: 14px;
+    color: #454545;
+    flex: 1;
+  }
+
+  &__dropdown-caret {
+    display: flex;
+    align-items: center;
+  }
+
+  // Days header row: 299x36
+  &__days-header {
+    width: 299px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    background: #F3F3F3;
+    box-sizing: border-box;
+  }
+
+  &__day-label {
+    width: 37px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #454545;
+    flex-shrink: 0;
+  }
+
+  // Dates grid
+  &__dates {
+    width: 299px;
+    background: #FFFFFF;
+    padding: 12px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    box-sizing: border-box;
+  }
+
+  &__week {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+  }
+}
+
+// .Dates sub-component: 37x41 cells with four states
+.rais-date {
+  width: 37px;
+  height: 41px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  box-sizing: border-box;
+  padding: 8px;
+  cursor: pointer;
+  flex-shrink: 0;
+
+  &__num {
+    font-family: 'Figtree', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1;
+  }
+
+  &--other-month .rais-date__num { color: #8D9091; }
+  &--unselected  .rais-date__num { color: #333333; }
+
+  &--selected {
+    background: #EDF6FC;
+    .rais-date__num { color: #007CBD; }
+  }
+
+  &--hover {
+    border: 1px solid #DCDCDC;
+    .rais-date__num { color: #007CBD; }
+  }
+}

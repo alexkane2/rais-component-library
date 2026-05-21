@@ -1,0 +1,20 @@
+<a
+  class="rais-link"
+  [class.rais-link--large]="size === 'large'"
+  [class.rais-link--medium]="size === 'medium'"
+  [class.rais-link--small]="size === 'small'"
+  [class.rais-link--blue]="color === 'blue'"
+  [class.rais-link--black]="color === 'black'"
+  [class.rais-link--gray]="color === 'gray'"
+  [class.rais-link--hover]="state === 'hover'"
+  [attr.href]="href"
+  [style.pointer-events]="state === 'hover' ? 'none' : null"
+>
+  <span *ngIf="iconLeft" class="rais-link__icon">
+    <img [src]="'assets/boxicons/' + icon + '.svg'" [alt]="icon" />
+  </span>
+  <span>{{ label }}</span>
+  <span *ngIf="iconRight" class="rais-link__icon">
+    <img [src]="'assets/boxicons/' + icon + '.svg'" [alt]="icon" />
+  </span>
+</a>

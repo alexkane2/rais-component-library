@@ -1,0 +1,23 @@
+// Badge — RAIS Labeling component
+// Tokens (from Figma variables):
+//   --color/surface-success   #117C1A → Success variant
+//   --color/surface-focus     #007CBD → Focus variant
+//   --color/surface-error     #CA222D → Error variant
+//   --border/radius-lg        12px    → fully rounded circle
+//   --spacing/spacing-03      8px     → width/height
+
+:host {
+  display: inline-block;
+}
+
+.rais-badge {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 12px;
+  flex-shrink: 0;
+
+  &--success { background: #117C1A; }
+  &--focus   { background: #007CBD; }
+  &--error   { background: #CA222D; }
+}

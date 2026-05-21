@@ -1,0 +1,107 @@
+// Dropdown — RAIS Inputs component
+// Colors:
+//   label/text     #4D586A
+//   optional       #8D9091
+//   placeholder    #CCCCCC
+//   error          #CA222D
+//   border default #CCCCCC
+//   border focus   #007CBD
+//   bg white       #FFFFFF
+
+:host {
+  display: block;
+  font-family: 'Figtree', sans-serif;
+}
+
+.rais-dropdown {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 350px;
+  font-family: 'Figtree', sans-serif;
+  position: relative;
+
+  &__label-row {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+
+  &__label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #4D586A;
+  }
+
+  &__optional {
+    font-size: 14px;
+    color: #8D9091;
+  }
+
+  &__instructions {
+    font-size: 12px;
+    color: #4D586A;
+  }
+
+  &__trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    height: 40px;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    cursor: pointer;
+    box-sizing: border-box;
+
+    &--focus { border-color: #007CBD; }
+    &--error { border-color: #CA222D; }
+    &--open  { border-color: #007CBD; }
+  }
+
+  &__value {
+    font-size: 14px;
+    color: #CCCCCC;
+
+    &--filled { color: #4D586A; }
+  }
+
+  &__caret {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+
+    &--open img {
+      filter: invert(35%) sepia(87%) saturate(500%) hue-rotate(170deg);
+    }
+  }
+
+  &__menu {
+    position: absolute;
+    top: calc(100% + 2px);
+    left: 0;
+    right: 0;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    z-index: 10;
+    max-height: 240px;
+    overflow-y: auto;
+  }
+
+  &__option {
+    padding: 10px 12px;
+    font-size: 14px;
+    color: #4D586A;
+    cursor: pointer;
+
+    &:hover { background: #EDF6FC; }
+  }
+
+  &__error {
+    font-size: 12px;
+    color: #CA222D;
+  }
+}

@@ -1,0 +1,88 @@
+// Dropdown Menu - Searchable — RAIS Inputs component
+// Colors:
+//   option name      #101928
+//   option detail    #4D586A
+//   option hover bg  #EDF6FC
+//   border           #CCCCCC
+//   scrollbar thumb  #EFEFEF
+//   bg white         #FFFFFF
+
+:host {
+  display: inline-block;
+  font-family: 'Figtree', sans-serif;
+}
+
+.rais-menu-search {
+  width: 350px;
+  background: #FFFFFF;
+  border: 1px solid #CCCCCC;
+  border-radius: 4px;
+  padding: 16px 12px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  font-family: 'Figtree', sans-serif;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+
+  &__container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__option {
+    padding: 4px;
+    cursor: pointer;
+    border-radius: 2px;
+
+    &:hover { background: #EDF6FC; }
+
+    &--selected { background: #EDF6FC; }
+  }
+
+  &__option-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #101928;
+    height: 20px;
+    display: flex;
+    align-items: center;
+  }
+
+  &__option-detail {
+    font-size: 14px;
+    color: #4D586A;
+    height: 20px;
+    display: flex;
+    align-items: center;
+  }
+
+  &__scrollbar {
+    width: 5px;
+    padding-top: 8px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__scrollbar-thumb {
+    width: 5px;
+    height: 125px;
+    background: #EFEFEF;
+    border-radius: 8px;
+  }
+}

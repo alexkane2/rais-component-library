@@ -1,0 +1,189 @@
+// Main Navigation - External — RAIS Navigation component
+// Tokens (from Figma variables):
+//   --gray-blue-600     #293B52 → sidebar background, expanded panel left border
+//   --gray-blue-500     #38506D → active item background, expanded panel background
+//   --system-blue-300   #98D4F9 → section icon tint
+//   --divider           rgba(99,117,140,0.4) → between sub-items
+//   --neutrals-white    #FFFFFF → text and sub-item icon tints
+
+:host {
+  display: block;
+}
+
+// ── Layout container ──
+.rais-nav {
+  display: flex;
+  align-items: flex-start;
+  height: 1024px;
+  font-family: 'Figtree', sans-serif;
+  overflow: hidden;
+}
+
+// ── Collapsed sidebar (90px) ──
+.rais-nav__bar {
+  width: 90px;
+  height: 1024px;
+  flex-shrink: 0;
+  background: #293B52;
+  box-shadow: 0 4px 1.5px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px 0 48px;
+}
+
+.rais-nav__bar-top {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  align-items: center;
+  width: 100%;
+}
+
+// Brand lockup — uses the full Ren / Member Central SVG at its native 90×74 size
+.rais-nav__brand {
+  display: block;
+  width: 90px;
+  height: 74px;
+
+  img {
+    display: block;
+    width: 90px;
+    height: 74px;
+  }
+}
+
+// Menu items list
+.rais-nav__items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+}
+
+.rais-nav__item {
+  width: 90px;
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  &--active {
+    background: #38506D;
+  }
+}
+
+// Section icons — tinted system-blue-300 via CSS mask (exact color, not filter approximation)
+.rais-nav__icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  background-color: #98D4F9;
+  -webkit-mask: var(--icon) no-repeat center / contain;
+          mask: var(--icon) no-repeat center / contain;
+}
+
+.rais-nav__label {
+  font-family: 'Figtree', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 1.2;
+  letter-spacing: 0.39px;
+  color: #FFFFFF;
+  text-align: center;
+  white-space: pre-line;
+}
+
+// ── Expanded panel (224px) ──
+.rais-nav__panel {
+  width: 224px;
+  flex-shrink: 0;
+  height: 1024px;
+  background: #38506D;
+  border-left: 1px solid #293B52;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 80px;
+  box-sizing: border-box;
+}
+
+.rais-nav__panel-title {
+  padding: 0 24px;
+  font-family: 'Figtree', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 1.4;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #FFFFFF;
+}
+
+.rais-nav__subitems {
+  display: flex;
+  flex-direction: column;
+  padding: 0 12px;
+}
+
+.rais-nav__subitem {
+  height: 49px;
+  padding: 16px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.06);
+  }
+}
+
+// Sub-item icons — tinted white via CSS mask
+.rais-nav__subicon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  background-color: #FFFFFF;
+  -webkit-mask: var(--icon) no-repeat center / contain;
+          mask: var(--icon) no-repeat center / contain;
+}
+
+.rais-nav__subitem-text {
+  flex: 1;
+  font-family: 'Figtree', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.2;
+  letter-spacing: 0.28px;
+  color: #FFFFFF;
+  white-space: nowrap;
+}
+
+.rais-nav__subitem-ext {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  opacity: 0.85;
+  background-color: #FFFFFF;
+  -webkit-mask: url('/assets/boxicons/bx-link-external.svg') no-repeat center / contain;
+          mask: url('/assets/boxicons/bx-link-external.svg') no-repeat center / contain;
+}
+
+.rais-nav__divider {
+  height: 1px;
+  background: rgba(99, 117, 140, 0.4);
+}

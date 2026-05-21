@@ -1,0 +1,9 @@
+<button
+  class="rais-vis-toggle"
+  [class.rais-vis-toggle--hover]="interaction === 'hover'"
+>
+  <span class="rais-vis-toggle__icon">
+    <img [src]="'assets/boxicons/' + iconFile + '.svg'" width="14" height="14" [alt]="iconFile" />
+  </span>
+  <span class="rais-vis-toggle__label">{{ label }}</span>
+</button>

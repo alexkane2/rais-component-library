@@ -1,0 +1,24 @@
+<a
+  class="rais-accordion-link"
+  [class.rais-accordion-link--large]="size === 'large'"
+  [class.rais-accordion-link--medium]="size === 'medium'"
+  [class.rais-accordion-link--small]="size === 'small'"
+  [class.rais-accordion-link--default]="state === 'default'"
+  [class.rais-accordion-link--hover]="state === 'hover'"
+  [class.rais-accordion-link--caret]="style === 'caret'"
+  [class.rais-accordion-link--plus]="style === 'plus'"
+>
+  <span
+    *ngIf="style === 'plus'"
+    class="rais-accordion-link__icon rais-accordion-link__icon--plus"
+  >
+    <img [src]="'assets/boxicons/' + iconFile + '.svg'" [alt]="iconFile" />
+  </span>
+  <span>{{ label }}</span>
+  <span
+    *ngIf="style === 'caret'"
+    class="rais-accordion-link__icon rais-accordion-link__icon--caret"
+  >
+    <img [src]="'assets/boxicons/' + iconFile + '.svg'" [alt]="iconFile" />
+  </span>
+</a>

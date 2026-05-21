@@ -1,0 +1,83 @@
+// Dropdown Menu — RAIS Inputs component
+// Colors:
+//   text                 #4D586A
+//   option hover bg      #EDF6FC
+//   option selected bg   #EDF6FC
+//   option selected text #007CBD
+//   border               #CCCCCC
+//   scrollbar thumb      #EFEFEF
+//   bg white             #FFFFFF
+
+:host {
+  display: inline-block;
+  font-family: 'Figtree', sans-serif;
+}
+
+.rais-menu {
+  width: 350px;
+  background: #FFFFFF;
+  border: 1px solid #CCCCCC;
+  border-radius: 4px;
+  padding: 16px 12px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  font-family: 'Figtree', sans-serif;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+
+  &__container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__options {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__option {
+    height: 20px;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 400;
+    color: #4D586A;
+    padding: 0 4px;
+    border-radius: 2px;
+    cursor: pointer;
+    white-space: nowrap;
+
+    &:hover { background: #EDF6FC; }
+
+    &--selected {
+      background: #EDF6FC;
+      color: #007CBD;
+      font-weight: 500;
+    }
+  }
+
+  &__scrollbar {
+    width: 5px;
+    padding-top: 8px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__scrollbar-thumb {
+    width: 5px;
+    height: 125px;
+    background: #EFEFEF;
+    border-radius: 8px;
+  }
+}

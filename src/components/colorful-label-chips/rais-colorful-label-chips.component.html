@@ -1,0 +1,19 @@
+<span
+  class="rais-chip"
+  [style.background]="bg"
+  [style.color]="text"
+  [style.padding]="padding"
+  [style.gap]="gap"
+  [style.fontSize]="fontSize"
+>
+  <span
+    *ngIf="icon"
+    class="rais-chip__icon"
+    [style.width.px]="iconSize"
+    [style.height.px]="iconSize"
+    [style.filter]="filter"
+  >
+    <img [src]="'assets/boxicons/' + icon + '.svg'" [alt]="icon" />
+  </span>
+  <span>{{ label }}</span>
+</span>

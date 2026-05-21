@@ -1,0 +1,14 @@
+<div class="rais-menu">
+  <div class="rais-menu__container">
+    <div class="rais-menu__options">
+      <div
+        *ngFor="let o of options; let i = index"
+        class="rais-menu__option"
+        [class.rais-menu__option--selected]="i === selectedIndex"
+      >{{ o }}</div>
+    </div>
+    <div *ngIf="showScrollbar" class="rais-menu__scrollbar">
+      <div class="rais-menu__scrollbar-thumb"></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<div
+  class="rais-rc"
+  [class.rais-rc--radio]="type === 'radio'"
+  [class.rais-rc--checkbox]="type === 'checkbox'"
+  [class.rais-rc--circle-checkbox]="type === 'circle-checkbox'"
+  [class.rais-rc--unselected]="state === 'unselected'"
+  [class.rais-rc--selected]="state === 'selected'"
+  [class.rais-rc--hover]="state === 'hover'"
+  [class.rais-rc--indeterminate]="state === 'indeterminate'"
+  [class.rais-rc--disabled]="state === 'disabled'"
+  [class.rais-rc--small]="size === 'small'"
+  [class.rais-rc--medium]="size === 'medium'"
+  [class.rais-rc--large]="size === 'large'"
+  [class.rais-rc--x-large]="size === 'x-large'"
+>
+  <div class="rais-rc__box">
+    <span *ngIf="showDot" class="rais-rc__dot"></span>
+    <span *ngIf="showCheck" class="rais-rc__check">
+      <svg [attr.width]="checkSize" [attr.height]="checkSize" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 8L7 12L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+    <span *ngIf="showDash" class="rais-rc__dash"></span>
+  </div>
+  <span class="rais-rc__label">{{ label }}</span>
+</div>

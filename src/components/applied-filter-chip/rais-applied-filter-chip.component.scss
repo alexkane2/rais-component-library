@@ -1,0 +1,90 @@
+// Applied Filter Chip — RAIS Filters component
+// Color tokens inlined from Figma variables:
+//   surface-hover         #EDF6FC → background
+//   brand-blue-200        #007CBD → border + icon tint
+//   color-text-header     #101928 → category text
+//   color-text-primary    #4D586A → value text
+
+:host {
+  display: inline-block;
+}
+
+.rais-filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 10px 4px 6px;
+  background: #EDF6FC;
+  border: 1px solid #007CBD;
+  border-radius: 4px;
+  font-family: 'Figtree', sans-serif;
+  max-width: 250px;
+  box-sizing: border-box;
+  height: 22px;
+
+  // Must have chips have no dismiss — tighten right padding
+  &--must-have {
+    padding-right: 8px;
+  }
+
+  // Filter icon: 14×14 frame, bxs-filter-alt
+  &__filter-icon {
+    width: 14px;
+    height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    img {
+      filter: invert(35%) sepia(87%) saturate(500%) hue-rotate(170deg);
+    }
+  }
+
+  // Text area: category (bold) + value (medium)
+  &__text {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  &__category {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0.36px;
+    color: #101928;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  &__value {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.36px;
+    color: #4D586A;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  // Dismiss icon: 12×12 to match Figma vector size
+  &__dismiss {
+    width: 12px;
+    height: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    cursor: pointer;
+
+    img {
+      width: 12px;
+      height: 12px;
+      filter: invert(35%) sepia(87%) saturate(500%) hue-rotate(170deg);
+    }
+  }
+}

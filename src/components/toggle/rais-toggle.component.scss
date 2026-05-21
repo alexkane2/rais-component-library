@@ -1,0 +1,70 @@
+// Toggle — RAIS Selectors component
+// Tokens (from Figma variables):
+//   --border-default    #CCCCCC  → unselected switch background
+//   --border-focus      #007CBD  → selected switch background
+//   --surface-primary   #FFFFFF  → knob fill
+//   --text-primary      #4D586A  → label text
+//   --spacing-02        6px      → small size gap
+//   --spacing-03        8px      → large/x-large size gap
+//   --spacing-09        28px     → switch pill radius
+
+:host {
+  display: inline-block;
+}
+
+.rais-toggle {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  font-family: 'Figtree', sans-serif;
+
+  &--small   { gap: 6px; }
+  &--large   { gap: 8px; }
+  &--x-large { gap: 8px; }
+}
+
+.rais-toggle__switch {
+  position: relative;
+  flex-shrink: 0;
+  border-radius: 28px;
+  transition: background 0.2s ease;
+  cursor: pointer;
+
+  .rais-toggle--small   & { width: 20px; height: 12px; }
+  .rais-toggle--large   & { width: 23px; height: 14px; }
+  .rais-toggle--x-large & { width: 26px; height: 16px; }
+
+  .rais-toggle--unselected & { background: #CCCCCC; }
+  .rais-toggle--selected   & { background: #007CBD; }
+}
+
+.rais-toggle__knob {
+  position: absolute;
+  top: 50%;
+  background: #FFFFFF;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  transition: left 0.2s ease;
+
+  .rais-toggle--small   & { width: 11px; height: 11px; }
+  .rais-toggle--large   & { width: 12px; height: 12px; }
+  .rais-toggle--x-large & { width: 14px; height: 14px; }
+
+  // Knob position — left when unselected, right when selected
+  .rais-toggle--small.rais-toggle--unselected   & { left: 0; }
+  .rais-toggle--small.rais-toggle--selected     & { left: 8px; }
+  .rais-toggle--large.rais-toggle--unselected   & { left: 1px; }
+  .rais-toggle--large.rais-toggle--selected     & { left: 10px; }
+  .rais-toggle--x-large.rais-toggle--unselected & { left: 1px; }
+  .rais-toggle--x-large.rais-toggle--selected   & { left: 11px; }
+}
+
+.rais-toggle__label {
+  color: #4D586A;
+  line-height: 1.4;
+  user-select: none;
+
+  .rais-toggle--small   & { font-size: 12px; font-weight: 500; }
+  .rais-toggle--large   & { font-size: 14px; font-weight: 400; }
+  .rais-toggle--x-large & { font-size: 16px; font-weight: 400; }
+}

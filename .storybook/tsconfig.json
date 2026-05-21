@@ -1,0 +1,14 @@
+{
+  "extends": "../tsconfig.app.json",
+  "include": [
+    "../src/components/**/*.ts",
+    "*.ts"
+  ],
+  "exclude": [
+    "../node_modules",
+    "../src/stories",
+    "../src/lib",
+    "../src/services",
+    "../supernova"
+  ]
+}

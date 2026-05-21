@@ -1,0 +1,74 @@
+// PageFilter Dropdown — RAIS Filters component
+// Colors:
+//   label       #4D586A
+//   placeholder #8D9091
+//   text        #4D586A
+//   icon        #454545
+//   border      #CCCCCC
+//   bg white    #FFFFFF
+
+:host {
+  display: inline-block;
+  font-family: 'Figtree', sans-serif;
+}
+
+.rais-pf-dropdown {
+  &--horizontal {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Figtree', sans-serif;
+  }
+
+  &--vertical {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    font-family: 'Figtree', sans-serif;
+  }
+
+  &__label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #4D586A;
+    white-space: nowrap;
+  }
+
+  &__input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 28px;
+    padding: 2px 12px;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 16px;
+    box-sizing: border-box;
+    gap: 10px;
+    cursor: pointer;
+  }
+
+  &__value {
+    font-size: 12px;
+    font-weight: 400;
+    color: #4D586A;
+    white-space: nowrap;
+  }
+
+  &__placeholder {
+    font-size: 12px;
+    font-weight: 400;
+    color: #8D9091;
+    white-space: nowrap;
+  }
+
+  &__caret {
+    width: 9px;
+    height: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+}

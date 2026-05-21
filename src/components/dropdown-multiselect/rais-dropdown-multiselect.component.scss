@@ -1,0 +1,177 @@
+// Dropdown - Multiselect — RAIS Inputs component
+// Colors:
+//   label/text       #4D586A
+//   optional         #8D9091
+//   placeholder      #CCCCCC
+//   cursor           #8D9091
+//   error            #CA222D
+//   divider          #EFEFEF
+//   border default   #CCCCCC
+//   border focus     #007CBD
+//   border error     #CA222D
+//   bg white         #FFFFFF
+//   chip bg          #EDF6FC
+//   chip border/text #007CBD
+//   chip label text  #4D586A
+
+:host {
+  display: block;
+  font-family: 'Figtree', sans-serif;
+}
+
+.rais-multi {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 350px;
+  font-family: 'Figtree', sans-serif;
+
+  &__labels {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  &__label-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #4D586A;
+  }
+
+  &__optional {
+    font-size: 14px;
+    color: #8D9091;
+  }
+
+  &__instructions {
+    font-size: 12px;
+    color: #4D586A;
+  }
+
+  &__field {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 40px;
+    padding: 8px 12px;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    box-sizing: border-box;
+    gap: 8px;
+
+    &--focus { border-color: #007CBD; }
+    &--error { border-color: #CA222D; }
+  }
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  &__input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-family: 'Figtree', sans-serif;
+    font-size: 14px;
+    color: #4D586A;
+    background: transparent;
+    min-width: 0;
+
+    &::placeholder { color: #CCCCCC; }
+  }
+
+  &__cursor {
+    font-size: 14px;
+    color: #8D9091;
+  }
+
+  &__count {
+    font-size: 14px;
+    color: #4D586A;
+  }
+
+  &__icon-divider,
+  &__icons-divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  &__divider {
+    width: 1px;
+    height: 24px;
+    background: #EFEFEF;
+    flex-shrink: 0;
+  }
+
+  &__clear {
+    width: 14px;
+    height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+
+  &__caret {
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    &--up img {
+      filter: invert(35%) sepia(87%) saturate(500%) hue-rotate(170deg);
+    }
+  }
+
+  &__error {
+    font-size: 12px;
+    color: #CA222D;
+  }
+}
+
+// Inlined Selection Label styles (squared variant) for chip rendering
+.rais-sel-label--squared {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 6px 4px 8px;
+  background: #EDF6FC;
+  border: 1px solid #007CBD;
+  border-radius: 4px;
+  font-family: 'Figtree', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #4D586A;
+  white-space: nowrap;
+}
+
+.rais-sel-label__icon {
+  width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+
+  img {
+    filter: invert(35%) sepia(87%) saturate(500%) hue-rotate(170deg);
+  }
+}

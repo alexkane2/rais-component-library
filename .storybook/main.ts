@@ -1,23 +1,19 @@
-import type { StorybookConfig } from '@storybook/html-vite';
-import path from 'path';
+import type { StorybookConfig } from '@storybook/angular';
 
 const config: StorybookConfig = {
+  // PILOT: only Badge while we validate the Angular setup.
+  // After pilot succeeds we will switch back to the broad glob.
   stories: [
-    '../src/**/*.mdx',
-    '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'
+    '../src/components/**/*.stories.ts',
   ],
   addons: [
     '@chromatic-com/storybook',
-    '@storybook/addon-vitest',
     '@storybook/addon-a11y',
     '@storybook/addon-docs'
   ],
-  framework: '@storybook/html-vite',
-  viteFinal: async (config) => {
-    config.css = {
-      preprocessorOptions: {}
-    };
-    return config;
+  framework: {
+    name: '@storybook/angular',
+    options: {}
   },
 };
 

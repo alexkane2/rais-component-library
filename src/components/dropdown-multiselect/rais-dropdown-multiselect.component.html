@@ -1,0 +1,66 @@
+<div class="rais-multi">
+  <div class="rais-multi__labels">
+    <div class="rais-multi__label-row">
+      <span class="rais-multi__label">{{ label }}</span>
+      <span *ngIf="optional" class="rais-multi__optional">(Optional)</span>
+    </div>
+    <span *ngIf="instructions" class="rais-multi__instructions">More instructions here.</span>
+  </div>
+
+  <div
+    class="rais-multi__field"
+    [class.rais-multi__field--focus]="isMouseEnter"
+    [class.rais-multi__field--error]="isError"
+  >
+    <!-- Inner content varies by state -->
+    <ng-container [ngSwitch]="state">
+      <div *ngSwitchCase="'selection'" class="rais-multi__inner">
+        <span *ngFor="let l of chipLabels" class="rais-sel-label--squared">
+          {{ l }}
+          <span class="rais-sel-label__icon">
+            <img src="assets/boxicons/bx-x.svg" width="8" height="8" alt="dismiss" />
+          </span>
+        </span>
+      </div>
+
+      <div *ngSwitchCase="'max-selected'" class="rais-multi__inner">
+        <span class="rais-multi__count">{{ maxSelectedText }}</span>
+      </div>
+
+      <div *ngSwitchCase="'mouse-enter'" class="rais-multi__inner">
+        <span class="rais-multi__cursor">|</span>
+      </div>
+
+      <div *ngSwitchDefault class="rais-multi__inner">
+        <input class="rais-multi__input" type="text" placeholder="Search..." />
+      </div>
+    </ng-container>
+
+    <!-- Right side icons -->
+    <div *ngIf="isSelection; else iconOnly" class="rais-multi__icons-divider">
+      <span class="rais-multi__clear">
+        <img src="assets/boxicons/bx-x.svg" width="14" height="14" alt="clear" />
+      </span>
+      <div class="rais-multi__divider"></div>
+      <span
+        class="rais-multi__caret"
+        [class.rais-multi__caret--up]="isMouseEnter"
+      >
+        <img [src]="'assets/boxicons/' + caretIcon + '.svg'" width="16" height="16" alt="caret" />
+      </span>
+    </div>
+    <ng-template #iconOnly>
+      <div class="rais-multi__icon-divider">
+        <div class="rais-multi__divider"></div>
+        <span
+          class="rais-multi__caret"
+          [class.rais-multi__caret--up]="isMouseEnter"
+        >
+          <img [src]="'assets/boxicons/' + caretIcon + '.svg'" width="16" height="16" alt="caret" />
+        </span>
+      </div>
+    </ng-template>
+  </div>
+
+  <span *ngIf="isError" class="rais-multi__error">{{ errorMessage }}</span>
+</div>

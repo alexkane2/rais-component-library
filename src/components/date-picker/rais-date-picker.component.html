@@ -1,0 +1,30 @@
+<div class="rais-datepicker">
+  <div class="rais-datepicker__labels">
+    <div class="rais-datepicker__label-row">
+      <span class="rais-datepicker__label">{{ label }}</span>
+      <span class="rais-datepicker__optional" *ngIf="optional">(Optional)</span>
+    </div>
+    <span class="rais-datepicker__instructions" *ngIf="instructions">More instructions here.</span>
+  </div>
+
+  <div
+    class="rais-datepicker__box"
+    [class.rais-datepicker__box--focus]="isFocus"
+    [class.rais-datepicker__box--error]="isError"
+  >
+    <div class="rais-datepicker__date-container">
+      <span class="rais-datepicker__placeholder" *ngIf="isEmpty">MM/DD/YYYY</span>
+      <span class="rais-datepicker__date" *ngIf="!isEmpty">{{ value }}</span>
+    </div>
+    <div
+      class="rais-datepicker__icon"
+      [class.rais-datepicker__icon--default]="!isFocus && !isError"
+      [class.rais-datepicker__icon--focus]="isFocus"
+      [class.rais-datepicker__icon--error]="isError"
+    >
+      <img src="assets/boxicons/bxs-calendar.svg" width="16" height="16" alt="calendar" />
+    </div>
+  </div>
+
+  <span class="rais-datepicker__error" *ngIf="isError">{{ errorMessage }}</span>
+</div>

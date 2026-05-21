@@ -1,0 +1,46 @@
+// Selection Label — RAIS Inputs component
+// Color tokens inlined from Figma variables:
+//   chip bg     #EDF6FC
+//   chip border #007CBD
+//   chip text   #4D586A
+//   chip icon   #007CBD
+
+:host {
+  display: inline-block;
+}
+
+.rais-sel-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #EDF6FC;
+  border: 1px solid #007CBD;
+  font-family: 'Figtree', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #4D586A;
+  white-space: nowrap;
+
+  // Squared: padding T4 R6 B4 L8, radius 4px
+  &--squared {
+    padding: 4px 6px 4px 8px;
+    border-radius: 4px;
+  }
+
+  // Rounded: padding T4 R8 B4 L10, radius 16px
+  &--rounded {
+    padding: 4px 8px 4px 10px;
+    border-radius: 16px;
+  }
+
+  // Icon Right: 14×14 frame, 8×8 vector
+  &__icon {
+    width: 14px;
+    height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+}

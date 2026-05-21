@@ -1,0 +1,15 @@
+<span
+  class="rais-filter-chip"
+  [class.rais-filter-chip--must-have]="!dismissible"
+>
+  <span *ngIf="showIcon" class="rais-filter-chip__filter-icon">
+    <img src="assets/boxicons/bxs-filter-alt.svg" width="14" height="14" alt="filter" />
+  </span>
+  <span class="rais-filter-chip__text">
+    <span class="rais-filter-chip__category">{{ category }}</span>
+    <span class="rais-filter-chip__value">{{ value }}</span>
+  </span>
+  <span *ngIf="dismissible" class="rais-filter-chip__dismiss">
+    <img src="assets/boxicons/bx-x.svg" width="12" height="12" alt="dismiss" />
+  </span>
+</span>

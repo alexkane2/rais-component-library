@@ -38,5 +38,18 @@
     "allowUnreachableCode": true,
     "allowUnusedLabels": true
   },
-  "include": ["src", "supernova"]
+  "include": [
+    "src/main.ts",
+    "src/app.component.ts",
+    "src/app.config.ts",
+    "src/components/**/*.ts",
+    "supernova",
+    ".storybook/**/*.ts"
+  ],
+  "exclude": [
+    "src/stories",
+    "src/lib",
+    "src/services",
+    "**/*.spec.ts"
+  ]
 }

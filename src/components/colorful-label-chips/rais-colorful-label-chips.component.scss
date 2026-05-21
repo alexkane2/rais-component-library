@@ -1,0 +1,33 @@
+// Colorful Label Chips — RAIS Labeling component
+// Color tokens inlined per-instance via [style.background] / [style.color] bindings
+// driven by the COLOR_MAP in the component class.
+//
+//   border-radius-xl  16px → pill radius
+//   font-family       Figtree, 600 weight
+
+:host {
+  display: inline-block;
+}
+
+.rais-chip {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 16px;
+  font-family: 'Figtree', sans-serif;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  box-sizing: border-box;
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

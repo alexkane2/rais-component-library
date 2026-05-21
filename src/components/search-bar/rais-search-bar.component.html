@@ -1,0 +1,22 @@
+<div class="rais-searchbar">
+  <div class="rais-searchbar__labels" *ngIf="showLabel || instructions">
+    <span *ngIf="showLabel" class="rais-searchbar__label">{{ label }}</span>
+    <span *ngIf="instructions" class="rais-searchbar__instructions">More instructions here.</span>
+  </div>
+
+  <div class="rais-searchbar__box" [class.rais-searchbar__box--focus]="isFocus">
+    <div class="rais-searchbar__input-container">
+      <span *ngIf="isFocus" class="rais-searchbar__cursor">|</span>
+      <input
+        *ngIf="!isFocus"
+        class="rais-searchbar__input"
+        type="text"
+        [placeholder]="isEntered ? '' : 'Search...'"
+        [(ngModel)]="value"
+      />
+    </div>
+    <div class="rais-searchbar__icon">
+      <img [src]="'assets/boxicons/bx-search.svg'" width="16" height="16" alt="search" />
+    </div>
+  </div>
+</div>

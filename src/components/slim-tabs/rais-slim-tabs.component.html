@@ -1,0 +1,18 @@
+<span
+  class="rais-slim-tab"
+  [class.rais-slim-tab--selected]="state === 'selected'"
+  [class.rais-slim-tab--unselected]="state === 'unselected'"
+  [class.rais-slim-tab--hover]="state === 'hover'"
+  [class.rais-slim-tab--large]="size === 'large'"
+  [class.rais-slim-tab--small]="size === 'small'"
+  [class.rais-slim-tab--ai]="extras === 'ai'"
+  role="tab"
+  [attr.aria-selected]="state === 'selected'"
+>
+  <svg *ngIf="extras === 'ai'" class="rais-slim-tab__sparkle" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M9.5 1.5l0.8 2.2 2.2 0.8 -2.2 0.8 -0.8 2.2 -0.8 -2.2 -2.2 -0.8 2.2 -0.8z" fill="currentColor"/>
+    <path d="M4 7l0.55 1.45 1.45 0.55 -1.45 0.55 -0.55 1.45 -0.55 -1.45 -1.45 -0.55 1.45 -0.55z" fill="currentColor"/>
+  </svg>
+  <span class="rais-slim-tab__label">{{ label }}</span>
+  <span *ngIf="dropdown" class="rais-slim-tab__caret" aria-hidden="true"></span>
+</span>

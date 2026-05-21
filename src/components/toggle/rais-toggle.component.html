@@ -1,0 +1,14 @@
+<div
+  class="rais-toggle"
+  [class.rais-toggle--small]="size === 'small'"
+  [class.rais-toggle--large]="size === 'large'"
+  [class.rais-toggle--x-large]="size === 'x-large'"
+  [class.rais-toggle--selected]="state === 'selected'"
+  [class.rais-toggle--unselected]="state === 'unselected'"
+>
+  <span *ngIf="labelSide === 'left'" class="rais-toggle__label">{{ label }}</span>
+  <div class="rais-toggle__switch">
+    <div class="rais-toggle__knob"></div>
+  </div>
+  <span *ngIf="labelSide === 'right'" class="rais-toggle__label">{{ label }}</span>
+</div>

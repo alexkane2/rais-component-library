@@ -1,0 +1,23 @@
+<button
+  class="rais-btn"
+  [class.rais-btn--primary]="variant === 'primary'"
+  [class.rais-btn--secondary]="variant === 'secondary'"
+  [class.rais-btn--danger]="variant === 'danger'"
+  [class.rais-btn--disabled]="variant === 'disabled'"
+  [class.rais-btn--small]="size === 'small'"
+  [class.rais-btn--normal]="size === 'normal'"
+  [class.rais-btn--large]="size === 'large'"
+  [disabled]="isDisabled"
+>
+  <img
+    *ngIf="icon && iconPos === 'left'"
+    [src]="'assets/boxicons/' + icon + '.svg'"
+    [alt]="icon"
+  />
+  <span>{{ label }}</span>
+  <img
+    *ngIf="icon && iconPos === 'right'"
+    [src]="'assets/boxicons/' + icon + '.svg'"
+    [alt]="icon"
+  />
+</button>

@@ -1,0 +1,25 @@
+<div
+  class="rais-tooltip"
+  [class.rais-tooltip--small]="size === 'small'"
+  [class.rais-tooltip--medium]="size === 'medium'"
+  [class.rais-tooltip--large]="size === 'large'"
+  [class.rais-tooltip--caret-top]="caretPosition === 'top'"
+  [class.rais-tooltip--caret-right]="caretPosition === 'right'"
+  [class.rais-tooltip--caret-bottom]="caretPosition === 'bottom'"
+  [class.rais-tooltip--caret-left]="caretPosition === 'left'"
+>
+  <span *ngIf="caretBefore" class="rais-tooltip__caret"></span>
+
+  <div class="rais-tooltip__box">
+    <ng-container *ngIf="size === 'small'">
+      <span class="rais-tooltip__label">{{ label }}</span>
+    </ng-container>
+
+    <ng-container *ngIf="size === 'medium' || size === 'large'">
+      <span *ngIf="showLabel" class="rais-tooltip__label">{{ label }}:</span>
+      <span class="rais-tooltip__description">{{ description }}</span>
+    </ng-container>
+  </div>
+
+  <span *ngIf="!caretBefore" class="rais-tooltip__caret"></span>
+</div>

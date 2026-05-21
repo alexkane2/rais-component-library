@@ -1,0 +1,32 @@
+<div class="rais-field">
+  <div class="rais-field__label-row">
+    <span class="rais-field__label">{{ label }}</span>
+    <span *ngIf="optional" class="rais-field__optional">(Optional)</span>
+  </div>
+  <span *ngIf="instructions" class="rais-field__instructions">More instructions here.</span>
+
+  <input
+    *ngIf="!isMultiLine"
+    type="text"
+    class="rais-field__input"
+    [class.rais-field__input--error]="isError"
+    [class.rais-field__input--disabled]="isDisabled"
+    [class.rais-field__input--focus]="isFocus"
+    placeholder="Text"
+    [(ngModel)]="value"
+    [disabled]="isDisabled"
+  />
+
+  <textarea
+    *ngIf="isMultiLine"
+    class="rais-field__textarea"
+    [class.rais-field__textarea--error]="isError"
+    [class.rais-field__textarea--disabled]="isDisabled"
+    [class.rais-field__textarea--focus]="isFocus"
+    placeholder="Text"
+    [(ngModel)]="value"
+    [disabled]="isDisabled"
+  ></textarea>
+
+  <span *ngIf="isError" class="rais-field__error">{{ errorMessage }}</span>
+</div>

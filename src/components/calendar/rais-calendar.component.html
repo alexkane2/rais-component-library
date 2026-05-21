@@ -1,0 +1,43 @@
+<div class="rais-calendar">
+  <div class="rais-calendar__nav">
+    <span class="rais-calendar__chevron" role="button" aria-label="previous month">
+      <img src="assets/boxicons/bx-chevron-left.svg" width="20" height="20" alt="previous month" />
+    </span>
+    <div class="rais-calendar__dropdowns">
+      <div class="rais-calendar__dropdown">
+        <span class="rais-calendar__dropdown-label">{{ month }}</span>
+        <span class="rais-calendar__dropdown-caret">
+          <img src="assets/boxicons/bx-caret-down.svg" width="14" height="14" alt="caret" />
+        </span>
+      </div>
+      <div class="rais-calendar__dropdown">
+        <span class="rais-calendar__dropdown-label">{{ year }}</span>
+        <span class="rais-calendar__dropdown-caret">
+          <img src="assets/boxicons/bx-caret-down.svg" width="14" height="14" alt="caret" />
+        </span>
+      </div>
+    </div>
+    <span class="rais-calendar__chevron" role="button" aria-label="next month">
+      <img src="assets/boxicons/bx-chevron-right.svg" width="20" height="20" alt="next month" />
+    </span>
+  </div>
+
+  <div class="rais-calendar__days-header">
+    <span class="rais-calendar__day-label" *ngFor="let d of dayLabels">{{ d }}</span>
+  </div>
+
+  <div class="rais-calendar__dates">
+    <div class="rais-calendar__week" *ngFor="let week of weekRows">
+      <div
+        class="rais-date"
+        *ngFor="let cell of week"
+        [class.rais-date--other-month]="cell.state === 'other-month'"
+        [class.rais-date--unselected]="cell.state === 'unselected'"
+        [class.rais-date--selected]="cell.state === 'selected'"
+        [class.rais-date--hover]="cell.state === 'hover'"
+      >
+        <span class="rais-date__num">{{ cell.num }}</span>
+      </div>
+    </div>
+  </div>
+</div>

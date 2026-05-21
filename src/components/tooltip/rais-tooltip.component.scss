@@ -1,0 +1,121 @@
+// Tooltip — RAIS overlay component
+// Tokens (from Figma variables):
+//   --gray-900       #333333 → tooltip background
+//   --text-inverse   #FFFFFF → tooltip text
+//   --radius-sm      4px     → corner radius
+//   Spacings 4/6/10/12 vary by size.
+
+:host {
+  display: inline-block;
+}
+
+.rais-tooltip {
+  display: inline-flex;
+  align-items: center;
+  filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.2));
+  font-family: 'Figtree', sans-serif;
+
+  &--caret-top,
+  &--caret-bottom { flex-direction: column; }
+
+  &--caret-left,
+  &--caret-right  { flex-direction: row; }
+}
+
+.rais-tooltip__box {
+  background: #333333;
+  color: #FFFFFF;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-shrink: 0;
+
+  .rais-tooltip--small & {
+    padding: 4px 10px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .rais-tooltip--medium & {
+    padding: 6px 12px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    font-size: 13px;
+    line-height: 1.2;
+    letter-spacing: 0.39px;
+    white-space: nowrap;
+  }
+
+  .rais-tooltip--large & {
+    padding: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+}
+
+.rais-tooltip__label {
+  .rais-tooltip--small & {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.2;
+    letter-spacing: 0.36px;
+    text-align: center;
+    white-space: nowrap;
+  }
+  .rais-tooltip--medium & { font-weight: 700; }
+  .rais-tooltip--large & {
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 1.2;
+    letter-spacing: 0.39px;
+    white-space: nowrap;
+  }
+}
+
+.rais-tooltip__description {
+  .rais-tooltip--medium & { font-weight: 500; }
+  .rais-tooltip--large & {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.4;
+    letter-spacing: 0.18px;
+    width: 250px;
+    min-height: 30px;
+  }
+}
+
+// ── Caret (CSS border triangle, no SVG) ──
+// Small caret 8×4, Medium/Large caret 10×5
+.rais-tooltip__caret {
+  width: 0;
+  height: 0;
+  flex-shrink: 0;
+
+  .rais-tooltip--medium &,
+  .rais-tooltip--large  & { --caret-base: 10px; --caret-height: 5px; }
+  .rais-tooltip--small  & { --caret-base: 8px;  --caret-height: 4px; }
+
+  .rais-tooltip--caret-top & {
+    border-left:   calc(var(--caret-base) / 2) solid transparent;
+    border-right:  calc(var(--caret-base) / 2) solid transparent;
+    border-bottom: var(--caret-height) solid #333333;
+  }
+  .rais-tooltip--caret-bottom & {
+    border-left:  calc(var(--caret-base) / 2) solid transparent;
+    border-right: calc(var(--caret-base) / 2) solid transparent;
+    border-top:   var(--caret-height) solid #333333;
+  }
+  .rais-tooltip--caret-left & {
+    border-top:    calc(var(--caret-base) / 2) solid transparent;
+    border-bottom: calc(var(--caret-base) / 2) solid transparent;
+    border-right:  var(--caret-height) solid #333333;
+  }
+  .rais-tooltip--caret-right & {
+    border-top:    calc(var(--caret-base) / 2) solid transparent;
+    border-bottom: calc(var(--caret-base) / 2) solid transparent;
+    border-left:   var(--caret-height) solid #333333;
+  }
+}

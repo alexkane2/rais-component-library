@@ -1,0 +1,121 @@
+// Date Picker — RAIS Inputs component
+// Tokens (inlined from Figma variables):
+//   --color/label             #4D586A
+//   --color/optional          #8D9091
+//   --color/placeholder       #8D9091
+//   --color/text              #4D586A
+//   --color/error             #CA222D
+//   --color/border-default    #CCCCCC
+//   --color/border-focus      #007CBD
+//   --color/border-error      #CA222D
+//   --color/bg-white          #FFFFFF
+//   --border/radius-sm        4px
+//   font-family               'Figtree', sans-serif
+
+:host {
+  display: inline-block;
+  font-family: 'Figtree', sans-serif;
+}
+
+.rais-datepicker {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 350px;
+
+  &__labels {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  &__label-row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  &__label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #4D586A;
+    line-height: 1.2;
+  }
+
+  &__optional {
+    font-size: 14px;
+    color: #8D9091;
+    line-height: 1.2;
+  }
+
+  &__instructions {
+    font-size: 12px;
+    color: #4D586A;
+    line-height: 1.2;
+  }
+
+  // Input box: 350x40, padding T8 R16 B8 L16, gap 16
+  &__box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 40px;
+    padding: 8px 16px;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    box-sizing: border-box;
+    gap: 16px;
+
+    &--focus { border-color: #007CBD; }
+    &--error { border-color: #CA222D; }
+  }
+
+  &__date-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__date {
+    font-size: 14px;
+    color: #4D586A;
+    line-height: 1;
+  }
+
+  &__placeholder {
+    font-size: 14px;
+    color: #8D9091;
+    line-height: 1;
+  }
+
+  // Calendar icon: 16x16 bxs-calendar.svg, tinted via CSS filter
+  &__icon {
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    &--default img {
+      filter: brightness(0) saturate(100%) invert(29%) sepia(5%) saturate(580%) hue-rotate(169deg);
+    }
+    &--focus img {
+      filter: invert(35%) sepia(87%) saturate(500%) hue-rotate(170deg);
+    }
+    &--error img {
+      filter: invert(30%) sepia(10%) saturate(800%) hue-rotate(180deg);
+    }
+  }
+
+  &__error {
+    font-size: 12px;
+    color: #CA222D;
+    line-height: 1.2;
+  }
+}

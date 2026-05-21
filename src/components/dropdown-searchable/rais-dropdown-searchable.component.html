@@ -1,0 +1,39 @@
+<div class="rais-search">
+  <div class="rais-search__labels">
+    <div class="rais-search__label-row">
+      <span class="rais-search__label">{{ label }}</span>
+      <span *ngIf="optional" class="rais-search__optional">(Optional)</span>
+    </div>
+    <span *ngIf="instructions" class="rais-search__instructions">More instructions here.</span>
+  </div>
+
+  <div
+    class="rais-search__box"
+    [class.rais-search__box--active]="isActive"
+    [class.rais-search__box--error]="isError"
+  >
+    <div class="rais-search__input-container">
+      <input
+        class="rais-search__input"
+        type="text"
+        placeholder="Type name..."
+        [value]="inputValue"
+      />
+    </div>
+    <div class="rais-search__icon-divider">
+      <div class="rais-search__divider"></div>
+      <div class="rais-search__icon">
+        <img [src]="'assets/boxicons/' + iconFile + '.svg'" width="16" height="16" [alt]="iconFile" />
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="isActive" class="rais-search__menu">
+    <div *ngFor="let o of options" class="rais-search__option">
+      <div class="rais-search__option-name">{{ o.name }}</div>
+      <div *ngIf="o.detail" class="rais-search__option-detail">{{ o.detail }}</div>
+    </div>
+  </div>
+
+  <span *ngIf="isError" class="rais-search__error">{{ errorMessage }}</span>
+</div>

@@ -1,0 +1,46 @@
+// Visibility Toggle — RAIS Filters component
+// Tokens:
+//   --color-text:        #333333
+//   --color-border:      #CCCCCC
+//   --color-bg-default:  #FFFFFF
+//   --color-bg-hover:    #EDF6FC
+//   --color-icon:        #333333
+
+:host {
+  display: inline-block;
+}
+
+.rais-vis-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  height: 26px;
+  background: #FFFFFF;
+  border: 1px solid #CCCCCC;
+  border-radius: 12px;
+  box-sizing: border-box;
+  cursor: pointer;
+  font-family: 'Figtree', sans-serif;
+
+  &--hover {
+    background: #EDF6FC;
+  }
+}
+
+.rais-vis-toggle__icon {
+  width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.rais-vis-toggle__label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #333333;
+  line-height: 1;
+  white-space: nowrap;
+}

@@ -1,0 +1,85 @@
+// Slim Tabs — RAIS Navigation component
+// Tokens (from Figma variables):
+//   --color/border-focus       #007CBD → selected/hover underline + text
+//   --color/btn-text-secondary #007CBD → selected/hover label
+//   --color/text-header        #101928 → unselected label
+//   --spacing/spacing-01       4px     → gap between label and icons
+//   --spacing/spacing-03       8px     → small bottom padding
+//   --spacing/spacing-06       16px    → large bottom padding
+
+:host {
+  display: inline-block;
+}
+
+.rais-slim-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 0 0 16px 0;
+  font-family: 'Figtree', sans-serif;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  box-sizing: border-box;
+  background: none;
+  user-select: none;
+
+  &--selected,
+  &--hover {
+    border-bottom-color: #007CBD;
+  }
+
+  &--small { padding-bottom: 8px; }
+}
+
+.rais-slim-tab__label {
+  white-space: nowrap;
+  color: #101928;
+
+  .rais-slim-tab--large & {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.2;
+    letter-spacing: 0.42px;
+  }
+  .rais-slim-tab--small & {
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 1.4;
+    letter-spacing: 0.18px;
+  }
+  .rais-slim-tab--selected &,
+  .rais-slim-tab--hover    & {
+    color: #007CBD;
+  }
+}
+
+// Caret icon — tinted via mask for exact color
+.rais-slim-tab__caret {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  background-color: #101928;
+  -webkit-mask: url('/assets/boxicons/bx-caret-down.svg') no-repeat center / contain;
+          mask: url('/assets/boxicons/bx-caret-down.svg') no-repeat center / contain;
+
+  .rais-slim-tab--small & { width: 12px; height: 12px; }
+
+  .rais-slim-tab--selected &,
+  .rais-slim-tab--hover    & {
+    background-color: #007CBD;
+  }
+}
+
+// AI sparkle pair — inline SVG, colored via currentColor
+.rais-slim-tab__sparkle {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  color: #101928;
+
+  .rais-slim-tab--selected &,
+  .rais-slim-tab--hover    & {
+    color: #007CBD;
+  }
+}

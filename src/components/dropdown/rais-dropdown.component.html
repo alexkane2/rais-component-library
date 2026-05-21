@@ -1,0 +1,31 @@
+<div class="rais-dropdown">
+  <div class="rais-dropdown__label-row">
+    <span class="rais-dropdown__label">{{ label }}</span>
+    <span *ngIf="optional" class="rais-dropdown__optional">(Optional)</span>
+  </div>
+  <span *ngIf="instructions" class="rais-dropdown__instructions">More instructions here.</span>
+
+  <div
+    class="rais-dropdown__trigger"
+    [class.rais-dropdown__trigger--focus]="isFocus"
+    [class.rais-dropdown__trigger--error]="isError"
+    [class.rais-dropdown__trigger--open]="isOpen"
+  >
+    <span
+      class="rais-dropdown__value"
+      [class.rais-dropdown__value--filled]="isFilled"
+    >{{ displayValue }}</span>
+    <span
+      class="rais-dropdown__caret"
+      [class.rais-dropdown__caret--open]="isOpen"
+    >
+      <img [src]="'assets/boxicons/' + caretIcon + '.svg'" width="16" height="16" alt="caret" />
+    </span>
+  </div>
+
+  <div *ngIf="isOpen" class="rais-dropdown__menu">
+    <div *ngFor="let o of options" class="rais-dropdown__option">{{ o }}</div>
+  </div>
+
+  <span *ngIf="isError" class="rais-dropdown__error">{{ errorMessage }}</span>
+</div>

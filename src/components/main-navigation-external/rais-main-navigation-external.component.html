@@ -1,0 +1,39 @@
+<div class="rais-nav">
+  <!-- ── Collapsed sidebar (90px) ── -->
+  <div class="rais-nav__bar">
+    <div class="rais-nav__bar-top">
+      <div class="rais-nav__brand">
+        <img src="assets/r-member-central-logo.svg" width="90" height="74" alt="R Member Central" />
+      </div>
+      <div class="rais-nav__items">
+        <button
+          *ngFor="let section of SECTIONS; trackBy: trackByKey"
+          type="button"
+          class="rais-nav__item"
+          [class.rais-nav__item--active]="section.key === activeSection"
+        >
+          <span class="rais-nav__icon" [attr.style]="iconMaskStyle(section.icon)"></span>
+          <span class="rais-nav__label">{{ section.barLabel || section.label }}</span>
+        </button>
+      </div>
+    </div>
+    <div></div>
+  </div>
+
+  <!-- ── Expanded panel (224px) — only when a section is active ── -->
+  <div class="rais-nav__panel" *ngIf="activeSectionObj as section">
+    <div class="rais-nav__panel-title">{{ section.label }}</div>
+    <div class="rais-nav__subitems">
+      <ng-container
+        *ngFor="let item of section.subItems; let last = last; trackBy: trackBySubLabel"
+      >
+        <div class="rais-nav__subitem">
+          <span class="rais-nav__subicon" [attr.style]="iconMaskStyle(item.icon)"></span>
+          <span class="rais-nav__subitem-text">{{ item.label }}</span>
+          <span *ngIf="item.external" class="rais-nav__subitem-ext"></span>
+        </div>
+        <div *ngIf="!last" class="rais-nav__divider"></div>
+      </ng-container>
+    </div>
+  </div>
+</div>

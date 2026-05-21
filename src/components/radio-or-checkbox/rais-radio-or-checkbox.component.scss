@@ -1,0 +1,137 @@
+// Radio or Checkbox — RAIS Selectors component
+// Tokens (inlined from Figma variables):
+//   --surface-primary    #FFFFFF
+//   --surface-disabled   #EFEFEF
+//   --border-dark        #8D9091
+//   --border-default     #CCCCCC
+//   --border-focus       #007CBD
+//   --text-primary       #4D586A
+//   --text-disabled      #8D9091
+//   --spacing-02         6px
+//   --spacing-03         8px
+//   --spacing-05         12px
+
+:host {
+  display: inline-block;
+}
+
+.rais-rc {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  font-family: 'Figtree', sans-serif;
+
+  // Gap per type+size
+  &--checkbox.rais-rc--small,
+  &--checkbox.rais-rc--medium,
+  &--checkbox.rais-rc--large,
+  &--radio.rais-rc--small,
+  &--radio.rais-rc--medium { gap: 6px; }
+
+  &--checkbox.rais-rc--x-large,
+  &--radio.rais-rc--large,
+  &--radio.rais-rc--x-large { gap: 8px; }
+
+  &--circle-checkbox { gap: 12px; }
+
+  &__box {
+    position: relative;
+    flex-shrink: 0;
+    background: #FFFFFF;
+    border: 1px solid #8D9091;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  // Checkbox sizes — radius 2
+  &--checkbox.rais-rc--small   .rais-rc__box { width: 12px; height: 12px; border-radius: 2px; }
+  &--checkbox.rais-rc--medium  .rais-rc__box { width: 13px; height: 13px; border-radius: 2px; }
+  &--checkbox.rais-rc--large   .rais-rc__box { width: 14px; height: 14px; border-radius: 2px; }
+  &--checkbox.rais-rc--x-large .rais-rc__box { width: 16px; height: 16px; border-radius: 2px; }
+
+  // Radio sizes — round
+  &--radio.rais-rc--small   .rais-rc__box { width: 12px; height: 12px; border-radius: 50%; }
+  &--radio.rais-rc--medium  .rais-rc__box { width: 12px; height: 12px; border-radius: 50%; }
+  &--radio.rais-rc--large   .rais-rc__box { width: 16px; height: 16px; border-radius: 50%; }
+  &--radio.rais-rc--x-large .rais-rc__box { width: 16px; height: 16px; border-radius: 50%; }
+
+  // Circle Checkbox — 18×18, round
+  &--circle-checkbox.rais-rc--x-large .rais-rc__box { width: 18px; height: 18px; border-radius: 50%; }
+
+  // Hover
+  &--hover .rais-rc__box { border-color: #007CBD; }
+
+  // Selected (Checkbox) — filled blue with white check
+  &--checkbox.rais-rc--selected .rais-rc__box {
+    background: #007CBD;
+    border-color: #007CBD;
+  }
+
+  // Indeterminate (Checkbox) — filled blue with white dash
+  &--checkbox.rais-rc--indeterminate .rais-rc__box {
+    background: #007CBD;
+    border-color: #007CBD;
+  }
+
+  // Disabled
+  &--disabled .rais-rc__box {
+    background: #EFEFEF;
+    border-color: #CCCCCC;
+    cursor: not-allowed;
+  }
+  &--disabled .rais-rc__label { color: #8D9091; }
+
+  // Selected (Radio) — white circle, blue border, blue dot
+  &--radio.rais-rc--selected .rais-rc__box {
+    border-color: #007CBD;
+  }
+
+  // Selected (Circle Checkbox) — filled blue circle with white check
+  &--circle-checkbox.rais-rc--selected .rais-rc__box {
+    background: #007CBD;
+    border-color: #007CBD;
+  }
+
+  // Radio dot
+  &__dot {
+    background: #007CBD;
+    border-radius: 50%;
+  }
+  &--radio.rais-rc--small   .rais-rc__dot { width: 7px; height: 7px; }
+  &--radio.rais-rc--medium  .rais-rc__dot { width: 7px; height: 7px; }
+  &--radio.rais-rc--large   .rais-rc__dot { width: 9px; height: 9px; }
+  &--radio.rais-rc--x-large .rais-rc__dot { width: 9px; height: 9px; }
+
+  // Checkmark — white (sits on blue filled box)
+  &__check {
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  // Indeterminate dash — white on blue
+  &__dash {
+    background: #FFFFFF;
+    height: 2px;
+    border-radius: 1px;
+  }
+  &--checkbox.rais-rc--small   .rais-rc__dash { width: 7px; }
+  &--checkbox.rais-rc--medium  .rais-rc__dash { width: 8px; }
+  &--checkbox.rais-rc--large   .rais-rc__dash { width: 8px; }
+  &--checkbox.rais-rc--x-large .rais-rc__dash { width: 10px; }
+
+  // Label
+  &__label {
+    color: #4D586A;
+    line-height: 1.4;
+    user-select: none;
+  }
+  &--small   .rais-rc__label { font-size: 12px; font-weight: 500; }
+  &--medium  .rais-rc__label { font-size: 13px; font-weight: 500; }
+  &--large   .rais-rc__label { font-size: 14px; font-weight: 400; }
+  &--x-large .rais-rc__label { font-size: 16px; font-weight: 400; }
+}

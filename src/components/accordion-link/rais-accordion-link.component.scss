@@ -1,0 +1,56 @@
+// Accordion Link — RAIS Actions component
+// Color tokens inlined from Figma variables:
+//   accordion default #007CBD
+//   accordion hover   #178FCF
+
+:host {
+  display: inline-block;
+}
+
+.rais-accordion-link {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: 'Figtree', sans-serif;
+
+  // Sizes
+  &--large  { gap: 8px; font-size: 16px; font-weight: 700; }
+  &--medium { gap: 8px; font-size: 14px; font-weight: 700; }
+  &--small  { gap: 6px; font-size: 13px; font-weight: 600; }
+
+  // States
+  &--default { color: #007CBD; }
+  &--hover   { color: #178FCF; }
+
+  // Icon container
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  // Icon sizes per component size — Caret style
+  &--large  .rais-accordion-link__icon--caret { width: 20px; height: 20px; }
+  &--medium .rais-accordion-link__icon--caret { width: 18px; height: 18px; }
+  &--small  .rais-accordion-link__icon--caret { width: 16px; height: 16px; }
+
+  // Icon sizes per component size — Plus style
+  &--large  .rais-accordion-link__icon--plus  { width: 18px; height: 18px; }
+  &--medium .rais-accordion-link__icon--plus  { width: 16px; height: 16px; }
+  &--small  .rais-accordion-link__icon--plus  { width: 14px; height: 14px; }
+
+  // Tint icon to match text color
+  &--default .rais-accordion-link__icon img {
+    filter: invert(35%) sepia(87%) saturate(500%) hue-rotate(170deg);
+  }
+  &--hover .rais-accordion-link__icon img {
+    filter: invert(52%) sepia(60%) saturate(400%) hue-rotate(170deg);
+  }
+}
