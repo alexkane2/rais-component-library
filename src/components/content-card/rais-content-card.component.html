@@ -1,0 +1,57 @@
+<div
+  class="rais-content-card"
+  [class.rais-content-card--type-standard]="type === 'standard'"
+  [class.rais-content-card--type-with-link]="type === 'with-link'"
+  [class.rais-content-card--type-list]="type === 'list'"
+  [class.rais-content-card--type-standard-link]="type === 'standard-link'"
+  [class.rais-content-card--type-small-link]="type === 'small-link'"
+  [class.rais-content-card--type-standard-no-cta]="type === 'standard-no-cta'"
+  [class.rais-content-card--type-small-no-link]="type === 'small-no-link'"
+  [class.rais-content-card--align-left]="alignment === 'left'"
+  [class.rais-content-card--align-centered]="alignment === 'centered'"
+  [class.rais-content-card--color-white]="color === 'white'"
+  [class.rais-content-card--color-blue]="color === 'blue'"
+>
+  <div class="rais-content-card__content">
+    <h3 class="rais-content-card__header">{{ header }}</h3>
+
+    <div class="rais-content-card__body">
+      <!-- List rows (List type only) -->
+      <ng-container *ngIf="isList">
+        <div *ngFor="let item of listItems" class="rais-content-card__list-row">
+          <span class="rais-content-card__list-label">{{ item.label }}:</span>
+          <span class="rais-content-card__list-value">{{ item.value }}</span>
+        </div>
+      </ng-container>
+
+      <p class="rais-content-card__paragraph">{{ paragraph }}</p>
+
+      <!-- Inline small link CTA (Small Link type) -->
+      <button *ngIf="isSmallLink" type="button" class="rais-content-card__link rais-content-card__link--inline">
+        {{ ctaLabel }}
+      </button>
+    </div>
+
+    <!-- Filled CTA button (List always, Standard when showCta) -->
+    <button
+      *ngIf="hasInlineButton"
+      type="button"
+      class="rais-content-card__button"
+      [class.rais-content-card__button--full-width]="isFullWidthButton"
+      [class.rais-content-card__button--small]="isSmallButton"
+    >
+      {{ ctaLabel }}
+    </button>
+  </div>
+
+  <!-- Bordered CTA section (Standard Link / With Link) -->
+  <div
+    *ngIf="hasBorderedCta"
+    class="rais-content-card__cta-section"
+    [class.rais-content-card__cta-section--centered]="type === 'standard-link'"
+  >
+    <button type="button" class="rais-content-card__link rais-content-card__link--large">
+      {{ ctaLabel }}
+    </button>
+  </div>
+</div>

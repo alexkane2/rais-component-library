@@ -1,0 +1,236 @@
+// Content Card — RAIS Content component
+//
+// Tokens (from Figma variables — names listed for traceability):
+//   --color/surface-primary    #FFFFFF → card background (white variant)
+//   --color/surface-hover      #EDF6FC → card background (blue/list variant)
+//   --color/border-default     #CCCCCC → outer border (most types)
+//   --colors/neutrals/...      #DCDCDC → outer border (list type)
+//   --color/text-header        #101928 → header text (most types)
+//   --color/btn-text-secondary #007CBD → header text (list type)
+//   --color/text-primary       #4D586A → paragraph/list value text
+//   --color/link-primary       #007CBD → link CTA text
+//   --color/btn-bg-primary     #007CBD → filled button background
+//   --color/btn-text-primary   #FFFFFF → filled button label
+//   --border/radius-sm         4px     → card + button radius
+//   --spacing/spacing-08       24px    → content padding
+//   --spacing/spacing-07       20px    → button horizontal padding
+//   --spacing/spacing-04       10px    → button vertical padding (normal)
+//   --spacing/spacing-03       8px     → button vertical padding (small)
+
+:host {
+  display: inline-block;
+}
+
+.rais-content-card {
+  width: 358px;
+  background: #FFFFFF;
+  border: 1px solid #CCCCCC;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Figtree', sans-serif;
+  box-sizing: border-box;
+
+  // ─── Type: LIST — blue header, optional light-blue bg ──────────
+  &--type-list {
+    border-color: #DCDCDC;
+
+    .rais-content-card__header { color: #007CBD; }
+    .rais-content-card__content {
+      padding: 16px;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    &.rais-content-card--color-blue { background: #EDF6FC; }
+  }
+
+  // ─── Types with 24px content padding ────────────────────────────
+  &--type-standard,
+  &--type-standard-no-cta,
+  &--type-small-link,
+  &--type-small-no-link {
+    .rais-content-card__content { padding: 24px; }
+  }
+
+  // Standard: gap + alignment by alignment prop
+  &--type-standard {
+    &.rais-content-card--align-left .rais-content-card__content {
+      gap: 16px; align-items: flex-start;
+    }
+    &.rais-content-card--align-centered .rais-content-card__content {
+      gap: 24px; align-items: center;
+    }
+  }
+
+  // Standard No CTA: compact 12px gap
+  &--type-standard-no-cta .rais-content-card__content {
+    gap: 12px;
+    &.rais-content-card--align-centered { align-items: center; }
+  }
+  &--type-standard-no-cta.rais-content-card--align-centered .rais-content-card__content {
+    align-items: center;
+  }
+
+  // Small types: 16px gap; centered alignment hugs center
+  &--type-small-link,
+  &--type-small-no-link {
+    .rais-content-card__content { gap: 16px; }
+    &.rais-content-card--align-centered .rais-content-card__content {
+      align-items: center;
+    }
+  }
+
+  // ─── Types with bordered CTA section ────────────────────────────
+  // Content section padded top/sides only; bordered CTA flush to bottom
+  &--type-standard-link,
+  &--type-with-link {
+    .rais-content-card__content {
+      padding: 24px 24px 0;
+      gap: 8px;
+      align-items: center;
+    }
+  }
+
+  // ─── Content wrapper ──────────────────────────────────────────
+  &__content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  // ─── Header ───────────────────────────────────────────────────
+  &__header {
+    font-weight: 600;
+    color: #101928;
+    line-height: 1;
+    letter-spacing: 0.4px;
+    font-size: 20px;
+    margin: 0;
+    width: 100%;
+  }
+  // Small types: 16px header
+  &--type-small-link &__header,
+  &--type-small-no-link &__header {
+    font-size: 16px;
+    letter-spacing: 0.32px;
+    line-height: 1.2;
+  }
+  &--align-centered &__header { text-align: center; }
+
+  // ─── Body (paragraph + list rows + inline link) ───────────────
+  &__body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  &--type-list &__body { gap: 4px; }
+  &--type-small-link &__body,
+  &--type-small-no-link &__body { gap: 8px; }
+  &--type-small-link.rais-content-card--align-centered &__body,
+  &--type-small-no-link.rais-content-card--align-centered &__body {
+    align-items: center;
+  }
+
+  // ─── Paragraph ────────────────────────────────────────────────
+  &__paragraph {
+    font-size: 14px;
+    color: #4D586A;
+    line-height: 1.4;
+    letter-spacing: 0.14px;
+    margin: 0;
+    width: 100%;
+  }
+  &--align-centered &__paragraph { text-align: center; }
+  // In List type, paragraph follows the last list-row with extra space
+  &--type-list .rais-content-card__list-row + &__paragraph {
+    margin-top: 12px;
+  }
+
+  // ─── List rows ────────────────────────────────────────────────
+  &__list-row {
+    display: flex;
+    gap: 3px;
+    align-items: center;
+    font-size: 14px;
+  }
+  &__list-label {
+    font-weight: 700;
+    color: #101928;
+    letter-spacing: 0.28px;
+    line-height: 1.2;
+  }
+  &__list-value {
+    font-weight: 400;
+    color: #4D586A;
+    letter-spacing: 0.14px;
+    line-height: 1.4;
+  }
+
+  // ─── Filled primary CTA button ────────────────────────────────
+  &__button {
+    background: #007CBD;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1.2;
+    letter-spacing: 0.32px;
+    cursor: pointer;
+    text-align: center;
+
+    &--full-width { width: 100%; }
+    // Standard + Left: smaller padding, auto-width, left-anchored
+    &--small {
+      padding: 8px 20px;
+      font-size: 14px;
+      letter-spacing: 0.42px;
+      align-self: flex-start;
+    }
+  }
+
+  // ─── Link CTA (button styled as link) ─────────────────────────
+  &__link {
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: inherit;
+    color: #007CBD;
+    cursor: pointer;
+    font-weight: 700;
+    // Inline (small) — used in Small Link variants
+    &--inline {
+      font-size: 14px;
+      line-height: 1.2;
+      letter-spacing: 0.28px;
+      align-self: flex-start;
+    }
+    // Large (16px) — used in bordered CTA sections
+    &--large {
+      font-size: 16px;
+      line-height: 1.2;
+      letter-spacing: 0.32px;
+    }
+  }
+  &--align-centered &__link--inline { align-self: center; }
+
+  // ─── Bordered CTA section ─────────────────────────────────────
+  &__cta-section {
+    border-top: 1px solid #CCCCCC;
+    width: 100%;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    justify-content: flex-start;
+
+    // Standard Link: link is centered, full-width section
+    &--centered {
+      justify-content: center;
+      padding: 12px 0;
+    }
+  }
+}
