@@ -117,7 +117,7 @@ function renderAccordionLink({ label, style, size, state, open }: any) {
 }
 
 const meta: Meta = {
-  title: 'RAIS/Actions/Accordion Link',
+  title: 'RAIS/Buttons/Accordion Link',
   tags: ['autodocs'],
   argTypes: {
     label: {

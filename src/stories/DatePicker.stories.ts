@@ -103,7 +103,7 @@ function renderDatePicker({ label, optional, instructions, state, value, errorMe
 }
 
 const meta: Meta = {
-  title: 'RAIS/Inputs/Fields/Date Picker',
+  title: 'RAIS/Inputs/Date Picker',
   tags: ['autodocs'],
   argTypes: {
     label:        { control: 'text' },

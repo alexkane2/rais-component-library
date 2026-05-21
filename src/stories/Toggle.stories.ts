@@ -147,7 +147,7 @@ function renderToggle({ label, state, size, labelSide }: any) {
 }
 
 const meta: Meta = {
-  title: 'RAIS/Selectors/Toggle',
+  title: 'RAIS/Selector Controls/Toggle',
   tags: ['autodocs'],
   argTypes: {
     label: {

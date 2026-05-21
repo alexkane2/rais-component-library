@@ -130,7 +130,7 @@ function renderCalendar({ month, year, weeks }: any) {
 }
 
 const meta: Meta = {
-  title: 'RAIS/Inputs/Fields/Calendar',
+  title: 'RAIS/Inputs/Calendar',
   tags: ['autodocs'],
   argTypes: {
     month: { control: 'text' },

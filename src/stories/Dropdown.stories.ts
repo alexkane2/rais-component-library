@@ -107,7 +107,7 @@ function renderDropdown({ label, optional, instructions, value, state, errorMess
 }
 
 const meta: Meta = {
-  title: 'RAIS/Inputs/Dropdowns/Dropdown',
+  title: 'RAIS/Inputs/Dropdown',
   tags: ['autodocs'],
   argTypes: {
     label:        { control: 'text' },

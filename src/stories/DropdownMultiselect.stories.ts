@@ -128,7 +128,7 @@ function renderMulti({ label, optional, instructions, state }: any) {
 }
 
 const meta: Meta = {
-  title: 'RAIS/Inputs/Dropdowns/Dropdown - Multiselect',
+  title: 'RAIS/Inputs/Dropdown - Multiselect',
   tags: ['autodocs'],
   argTypes: {
     label:        { control: 'text' },

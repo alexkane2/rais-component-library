@@ -139,7 +139,7 @@ function renderDropdownMenu({ options, selectedIndex, showScrollbar }: any) {
 }
 
 const meta: Meta = {
-  title: 'RAIS/Inputs/Dropdowns/Dropdown Menu',
+  title: 'RAIS/Inputs/Dropdown Menu',
   tags: ['autodocs'],
   argTypes: {
     selectedIndex: {

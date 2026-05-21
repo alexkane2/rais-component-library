@@ -174,7 +174,7 @@ function renderField({ label, optional, instructions, value, state, size, errorM
 }
 
 const meta: Meta = {
-title: 'RAIS/Inputs/Fields/Text Field',  tags: ['autodocs'],
+title: 'RAIS/Inputs/Text Field',  tags: ['autodocs'],
   argTypes: {
     label:        { control: 'text' },
     optional:     { control: 'boolean' },

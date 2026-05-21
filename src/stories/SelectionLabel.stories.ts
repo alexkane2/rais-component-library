@@ -79,7 +79,7 @@ function renderSelectionLabel({ label, style }: { label?: string; style?: 'squar
 }
 
 const meta: Meta = {
-  title: 'RAIS/Inputs/Fields/Selection Label',
+  title: 'RAIS/Inputs/Selection Label',
   tags: ['autodocs'],
   argTypes: {
     label: { control: 'text', description: 'Chip label text' },

@@ -74,7 +74,7 @@ function renderDropdownMenuSearchable({ options, selectedIndex, showScrollbar }:
 }
 
 const meta: Meta = {
-  title: 'RAIS/Inputs/Dropdowns/Dropdown Menu - Searchable',
+  title: 'RAIS/Inputs/Dropdown Menu - Searchable',
   tags: ['autodocs'],
   argTypes: {
     selectedIndex: { control: 'number' },

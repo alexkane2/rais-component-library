@@ -91,7 +91,7 @@ function renderLink({ label, size, color, state, iconLeft, iconRight, href, icon
 }
 
 const meta: Meta = {
-  title: 'RAIS/Actions/Link',
+  title: 'RAIS/Buttons/Link',
   tags: ['autodocs'],
   argTypes: {
     label: { control: 'text' },

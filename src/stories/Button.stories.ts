@@ -146,7 +146,7 @@ function renderBtn({ label, variant, size, icon, iconPos }: any) {
 }
 
 const meta: Meta = {
-  title: 'RAIS/Actions/Button',
+  title: 'RAIS/Buttons/Button',
   tags: ['autodocs'],
   argTypes: {
     label:   { control: 'text', description: 'Button label text' },

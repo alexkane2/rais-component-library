@@ -73,7 +73,7 @@ function renderSearchBar({ label, instructions, state }: any) {
 }
 
 const meta: Meta = {
-  title: 'RAIS/Inputs/Fields/Search Bar',
+  title: 'RAIS/Inputs/Search Bar',
   tags: ['autodocs'],
   argTypes: {
     label:        { control: 'text' },

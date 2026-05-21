@@ -233,7 +233,7 @@ function renderRadioOrCheckbox({ label, type, state, size }: any) {
 }
 
 const meta: Meta = {
-  title: 'RAIS/Selectors/Radio or Checkbox',
+  title: 'RAIS/Selector Controls/Radio or Checkbox',
   tags: ['autodocs'],
   argTypes: {
     label: {

@@ -198,7 +198,7 @@ function renderTooltip({ size, caretPosition, showLabel, label, description }: T
 }
 
 const meta: Meta<TooltipArgs> = {
-  title: 'RAIS/Overlays/Tooltip',
+  title: 'RAIS/Content/Tooltip',
   tags: ['autodocs'],
   argTypes: {
     size: {
