@@ -1,0 +1,81 @@
+<div
+  class="rais-system-card"
+  [class.rais-system-card--banner]="isBanner"
+  [class.rais-system-card--toast]="isToast"
+  [class.rais-system-card--long-banner]="isLongBanner"
+  [class.rais-system-card--info]="messageType === 'info'"
+  [class.rais-system-card--error]="messageType === 'error'"
+  [class.rais-system-card--warning]="messageType === 'warning'"
+  [class.rais-system-card--success]="messageType === 'success'"
+  [class.rais-system-card--bg-white]="background === 'white'"
+  [class.rais-system-card--bg-color]="background === 'color'"
+  [class.rais-system-card--bg-gray]="background === 'gray'"
+>
+  <!-- ─── Main body (icon + content + optional inline close for banners) ─── -->
+  <div class="rais-system-card__body">
+    <!-- Status icon -->
+    <span
+      class="rais-system-card__icon"
+      [class.rais-system-card__icon--info]="messageType === 'info' && !useOutlineIcon"
+      [class.rais-system-card__icon--info-outline]="useOutlineIcon"
+      [class.rais-system-card__icon--error]="messageType === 'error'"
+      [class.rais-system-card__icon--warning]="messageType === 'warning'"
+      [class.rais-system-card__icon--success]="messageType === 'success'"
+      aria-hidden="true"
+    ></span>
+
+    <!-- Content: header + message + (banner) buttons -->
+    <div class="rais-system-card__content">
+      <h4 *ngIf="showHeader" class="rais-system-card__header">{{ header }}</h4>
+      <p class="rais-system-card__message">{{ message }}</p>
+
+      <!-- Banner CTA buttons row -->
+      <div *ngIf="hasButtons" class="rais-system-card__buttons">
+        <button
+          *ngIf="showButton"
+          type="button"
+          class="rais-system-card__btn rais-system-card__btn--primary"
+        >{{ primaryCtaLabel }}</button>
+        <button
+          *ngIf="show2ndButton"
+          type="button"
+          class="rais-system-card__btn rais-system-card__btn--secondary"
+        >{{ secondaryCtaLabel }}</button>
+      </div>
+    </div>
+
+    <!-- Long-banner inline CTA (outline) -->
+    <button
+      *ngIf="isLongBanner"
+      type="button"
+      class="rais-system-card__btn rais-system-card__btn--outline"
+    >{{ ctaLabel }}</button>
+
+    <!-- Banner inline close -->
+    <button
+      *ngIf="isBanner && showCloseIcon"
+      type="button"
+      class="rais-system-card__close"
+      aria-label="Close"
+    >
+      <span class="rais-system-card__close-icon"></span>
+    </button>
+  </div>
+
+  <!-- Toast close container (separate section, with left divider) -->
+  <div *ngIf="isToast && showCloseIcon" class="rais-system-card__close-container">
+    <button type="button" class="rais-system-card__close" aria-label="Close">
+      <span class="rais-system-card__close-icon"></span>
+    </button>
+  </div>
+
+  <!-- Long-banner far-right close -->
+  <button
+    *ngIf="isLongBanner && showCloseIcon"
+    type="button"
+    class="rais-system-card__close rais-system-card__close--long"
+    aria-label="Close"
+  >
+    <span class="rais-system-card__close-icon"></span>
+  </button>
+</div>

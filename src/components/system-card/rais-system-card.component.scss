@@ -1,0 +1,313 @@
+// System Card — RAIS Empty States component
+//
+// Tokens (from Figma variables — names listed for traceability):
+//   --color/surface-primary          #FFFFFF → white bg
+//   --color/surface-hover            #EDF6FC → info color bg
+//   --colors/system-colors/red-100   #FFF4F4 → error color bg
+//   --colors/system-colors/gold-100  #FFF9E6 → warning color bg
+//   --colors/system-colors/green-100 #F0FAEC → success color bg
+//   --colors/neutrals/gray/gray-100  #FBFBFB → long-banner gray bg
+//   --color/surface-secondary        #F0F2F5 → long-banner gray border
+//   --color/border-default           #CCCCCC → outer border (most)
+//   --color/border-focus             #007CBD → info left border
+//   --color/surface-error            #CA222D → error left border
+//   --colors/system-colors/gold-400  #EEBE1C → warning left border (banner)
+//   --colors/system-colors/gold-500  #D69A00 → warning left border (toast)
+//   --colors/system-colors/green-600 #117C1A → success left border
+//   --colors/system-colors/blue-600  #016CA5 → info left border (toast)
+//   --color/text-header              #101928 → header text
+//   --color/text-primary             #4D586A → message text
+//   --color/btn-bg-primary           #007CBD → info primary CTA
+//   --color/btn-bg-error             #CA222D → error primary CTA
+//   --colors/neutrals/gray/gray-600  #8D9091 → secondary CTA border
+//   --color/display-primary          #333333 → secondary CTA text
+
+:host {
+  display: inline-block;
+}
+
+.rais-system-card {
+  display: flex;
+  font-family: 'Figtree', sans-serif;
+  background: #FFFFFF;
+  border: 1px solid #CCCCCC;
+  border-radius: 4px;
+  box-sizing: border-box;
+
+  // ─── FORMAT: Banner (742px wide, left border 5px) ────────────────
+  &--banner {
+    width: 742px;
+
+    .rais-system-card__body {
+      flex: 1 0 0;
+      display: flex;
+      gap: 12px;
+      padding: 16px;
+      border-left: 5px solid #007CBD;
+      border-radius: 4px 0 0 4px;
+      align-items: flex-start;
+    }
+    &.rais-system-card--info    .rais-system-card__body { border-left-color: #007CBD; }
+    &.rais-system-card--error   .rais-system-card__body { border-left-color: #CA222D; }
+    &.rais-system-card--warning .rais-system-card__body { border-left-color: #EEBE1C; }
+    &.rais-system-card--success .rais-system-card__body { border-left-color: #117C1A; }
+
+    // Color bg by message type
+    &.rais-system-card--bg-color {
+      border: none;
+      &.rais-system-card--info    { background: #EDF6FC; }
+      &.rais-system-card--error   { background: #FFF4F4; }
+      &.rais-system-card--warning { background: #FFF9E6; }
+      &.rais-system-card--success { background: #F0FAEC; }
+      .rais-system-card__body { padding-right: 20px; }
+    }
+  }
+
+  // ─── FORMAT: Toast (390px wide, left border 5px, shadow) ─────────
+  &--toast {
+    width: 390px;
+    filter: drop-shadow(0 2px 5px rgba(141, 144, 145, 0.2));
+    align-items: stretch;
+
+    .rais-system-card__body {
+      flex: 1 0 0;
+      display: flex;
+      gap: 12px;
+      padding: 16px;
+      border-left: 5px solid #016CA5;
+      border-radius: 4px 0 0 4px;
+      align-items: flex-start;
+    }
+    &.rais-system-card--info    .rais-system-card__body { border-left-color: #016CA5; }
+    &.rais-system-card--error   .rais-system-card__body { border-left-color: #CA222D; }
+    &.rais-system-card--warning .rais-system-card__body { border-left-color: #D69A00; }
+    &.rais-system-card--success .rais-system-card__body { border-left-color: #117C1A; }
+
+    // Color bg by message type
+    &.rais-system-card--bg-color {
+      &.rais-system-card--info    { background: #EDF6FC; }
+      &.rais-system-card--error   { background: #FFF4F4; }
+      &.rais-system-card--warning { background: #FFF9E6; }
+      &.rais-system-card--success { background: #F0FAEC; }
+    }
+
+    .rais-system-card__content {
+      width: 286px;
+      gap: 4px;
+    }
+  }
+
+  // ─── FORMAT: Long Banner (1500px wide, no left border) ───────────
+  &--long-banner {
+    width: 1500px;
+    align-items: center;
+    border-color: #CCCCCC;
+
+    .rais-system-card__body {
+      flex: 1 0 0;
+      display: flex;
+      gap: 12px;
+      padding: 16px 36px;
+      align-items: center;
+    }
+
+    // Gray bg uses a different border
+    &.rais-system-card--bg-gray   { background: #FBFBFB; border-color: #F0F2F5; }
+    &.rais-system-card--bg-color  { background: #EDF6FC; }
+    &.rais-system-card--bg-white  { background: #FFFFFF; border-color: #FFFFFF; }
+  }
+
+  // ─── Icon (CSS-masked SVG for exact tinting) ─────────────────────
+  &__icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+            mask-position: center;
+    -webkit-mask-size: contain;
+            mask-size: contain;
+
+    &--info {
+      background-color: #007CBD;
+      -webkit-mask-image: url('/assets/boxicons/bxs-info-circle.svg');
+              mask-image: url('/assets/boxicons/bxs-info-circle.svg');
+    }
+    &--info-outline {
+      background-color: #101928;
+      -webkit-mask-image: url('/assets/boxicons/bx-info-circle.svg');
+              mask-image: url('/assets/boxicons/bx-info-circle.svg');
+    }
+    &--error {
+      background-color: #CA222D;
+      -webkit-mask-image: url('/assets/boxicons/bxs-error-alt.svg');
+              mask-image: url('/assets/boxicons/bxs-error-alt.svg');
+    }
+    &--warning {
+      background-color: #EEBE1C;
+      -webkit-mask-image: url('/assets/boxicons/bxs-error.svg');
+              mask-image: url('/assets/boxicons/bxs-error.svg');
+    }
+    &--success {
+      background-color: #117C1A;
+      -webkit-mask-image: url('/assets/boxicons/bxs-check-circle.svg');
+              mask-image: url('/assets/boxicons/bxs-check-circle.svg');
+    }
+  }
+  // Long-banner sits the icon container vertically centered already (body has align-items: center)
+
+  // ─── Content stack (header + message + buttons) ──────────────────
+  &__content {
+    flex: 1 0 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  // Long-banner content lays out horizontally: text + CTA button
+  &--long-banner &__content {
+    flex-direction: row;
+    align-items: center;
+    gap: 36px;
+  }
+
+  // ─── Header ──────────────────────────────────────────────────────
+  &__header {
+    margin: 0;
+    color: #101928;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.28px;
+    width: 100%;
+  }
+  &--long-banner &__header {
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.32px;
+    white-space: nowrap;
+    width: auto;
+  }
+
+  // ─── Message ─────────────────────────────────────────────────────
+  &__message {
+    margin: 0;
+    color: #4D586A;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: 0.14px;
+    width: 100%;
+  }
+  &--long-banner &__message {
+    white-space: nowrap;
+    width: auto;
+  }
+
+  // ─── Banner buttons row ──────────────────────────────────────────
+  &__buttons {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding-top: 8px;
+  }
+
+  // ─── CTA Buttons (shared base) ───────────────────────────────────
+  &__btn {
+    font-family: inherit;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    line-height: 1.2;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  // Primary CTA (banner): color matches message type
+  &__btn--primary {
+    color: #FFFFFF;
+    padding: 6px 12px;
+    font-size: 13px;
+    letter-spacing: 0.39px;
+    background: #007CBD;
+  }
+  .rais-system-card--info    &__btn--primary { background: #007CBD; color: #FFFFFF; }
+  .rais-system-card--error   &__btn--primary { background: #CA222D; color: #FFFFFF; }
+  .rais-system-card--warning &__btn--primary { background: #EEBE1C; color: #333333; }
+  .rais-system-card--success &__btn--primary { background: #117C1A; color: #FFFFFF; }
+
+  // Secondary CTA (banner): white with gray border
+  &__btn--secondary {
+    color: #333333;
+    background: #FFFFFF;
+    border-color: #8D9091;
+    padding: 6px 12px;
+    font-size: 13px;
+    letter-spacing: 0.39px;
+  }
+
+  // Outline CTA (long-banner): white with gray border, larger
+  &__btn--outline {
+    color: #333333;
+    background: #FFFFFF;
+    border-color: #8D9091;
+    padding: 10px 20px;
+    font-size: 16px;
+    letter-spacing: 0.32px;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  // ─── Close button + icon ─────────────────────────────────────────
+  &__close {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  &__close-icon {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background-color: #4D586A;
+    -webkit-mask: url('/assets/boxicons/bx-x.svg') no-repeat center / contain;
+            mask: url('/assets/boxicons/bx-x.svg') no-repeat center / contain;
+  }
+  // Banner inline close (small, top-right of body)
+  &--banner &__close {
+    width: 10px;
+    height: 10px;
+    align-self: flex-start;
+  }
+  &--banner &__close-icon { width: 12px; height: 12px; }
+
+  // Toast close lives in its own container with a left divider
+  &__close-container {
+    border-left: 1px solid #CCCCCC;
+    padding-left: 12px;
+    padding-right: 16px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  &--toast &__close-icon {
+    width: 12px;
+    height: 12px;
+  }
+
+  // Long-banner close at far right (gets 16px right padding via gap)
+  &--long-banner &__close {
+    margin-right: 16px;
+    width: 10px;
+    height: 10px;
+  }
+  &--long-banner &__close-icon { width: 12px; height: 12px; }
+}
