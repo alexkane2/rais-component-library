@@ -1,0 +1,209 @@
+// Member Central Header — RAIS Header and Footer component
+//
+// Tokens (from Figma variables):
+//   --color/surface-card     #FFFFFF → bar/subheader/tabs background
+//   --color/border-medium    #D0D5DD → bottom border on header bar + divider
+//   --color/text-header      #101928 → page title color
+//   --color/text-primary     #293542 → description/user-name text
+//   --color/icons-primary    #354557 → bell/user icons
+//   --color/border-focus     #007CBD → selected tab underline + tab text
+//   --colors/system-green-2  #479E34 → bell green badge dot
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.rais-mch {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  font-family: 'Figtree', sans-serif;
+  background: #FFFFFF;
+
+  // ─── HEADER BAR ────────────────────────────────────────────────
+  &__bar {
+    height: 56px;
+    background: #FFFFFF;
+    border-bottom: 1px solid #D0D5DD;
+    padding-left: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+  }
+
+  // Agency display slot (left side)
+  &__agency {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    min-width: 388px;
+  }
+  &__agency-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #293542;
+    letter-spacing: 0.14px;
+    line-height: 1.4;
+  }
+
+  // Search variant (replaces the agency name)
+  &__search {
+    position: relative;
+    width: 388px;
+    height: 38px;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+  }
+  &__search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-family: inherit;
+    font-size: 14px;
+    color: #293542;
+    background: transparent;
+    padding: 0 36px 0 12px;
+    letter-spacing: 0.14px;
+    &::placeholder { color: #8D9091; }
+  }
+  &__search-caret {
+    position: absolute;
+    right: 12px;
+    width: 14px;
+    height: 14px;
+    background-color: #4D586A;
+    -webkit-mask: url('/assets/boxicons/bx-caret-down.svg') no-repeat center / contain;
+            mask: url('/assets/boxicons/bx-caret-down.svg') no-repeat center / contain;
+    pointer-events: none;
+  }
+
+  // Right cluster
+  &__bar-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-right: 36px;
+    height: 100%;
+  }
+
+  // Notification bell with green badge
+  &__notification {
+    position: relative;
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+  }
+  &__notification-icon {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    background-color: #354557;
+    -webkit-mask: url('/assets/boxicons/bx-bell.svg') no-repeat center / contain;
+            mask: url('/assets/boxicons/bx-bell.svg') no-repeat center / contain;
+  }
+  &__notification-badge {
+    position: absolute;
+    top: 1px;
+    right: -2px;
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    background: #479E34;
+  }
+
+  &__divider {
+    display: inline-block;
+    width: 2px;
+    height: 22px;
+    background: #D0D5DD;
+  }
+
+  &__user {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  &__user-icon {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    background-color: #354557;
+    -webkit-mask: url('/assets/boxicons/bx-user-circle.svg') no-repeat center / contain;
+            mask: url('/assets/boxicons/bx-user-circle.svg') no-repeat center / contain;
+  }
+  &__user-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: #293542;
+    letter-spacing: 0.36px;
+    line-height: 1.2;
+  }
+
+  // ─── SUBHEADER ─────────────────────────────────────────────────
+  &__subheader {
+    background: #FFFFFF;
+    padding: 32px 36px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  &__copy {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+  }
+  &__title {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 600;
+    color: #101928;
+    line-height: 1;
+    letter-spacing: 0;
+  }
+  &__description {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 400;
+    color: #293542;
+    line-height: 1.4;
+    letter-spacing: 0.14px;
+  }
+
+  // ─── TABS ──────────────────────────────────────────────────────
+  &__tabs {
+    background: #FFFFFF;
+    padding: 0 36px;
+    display: flex;
+    align-items: flex-end;
+  }
+  &__tab-layout {
+    display: flex;
+    align-items: flex-end;
+    gap: 24px;
+    flex: 1;
+  }
+  &__tab {
+    font-size: 14px;
+    font-weight: 600;
+    color: #101928;
+    line-height: 1.2;
+    letter-spacing: 0.42px;
+    padding-bottom: 16px;
+    border-bottom: 3px solid transparent;
+    box-sizing: border-box;
+    cursor: pointer;
+    white-space: nowrap;
+
+    &--selected {
+      color: #007CBD;
+      border-bottom-color: #007CBD;
+    }
+  }
+}

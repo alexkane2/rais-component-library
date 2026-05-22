@@ -1,0 +1,52 @@
+<div class="rais-mch">
+  <!-- ─── HEADER BAR (top) ─── -->
+  <div class="rais-mch__bar">
+    <!-- Agency display: read-only OR searchable -->
+    <div class="rais-mch__agency">
+      <ng-container [ngSwitch]="agencyDisplay">
+        <span *ngSwitchCase="'read-only'" class="rais-mch__agency-name">{{ agencyName }}</span>
+        <div *ngSwitchCase="'searchable'" class="rais-mch__search">
+          <input
+            type="text"
+            class="rais-mch__search-input"
+            [placeholder]="searchPlaceholder"
+            readonly
+          />
+          <span class="rais-mch__search-caret" aria-hidden="true"></span>
+        </div>
+      </ng-container>
+    </div>
+
+    <!-- Right cluster: notifications + divider + user -->
+    <div class="rais-mch__bar-right">
+      <span class="rais-mch__notification" aria-label="Notifications">
+        <span class="rais-mch__notification-icon"></span>
+        <span class="rais-mch__notification-badge"></span>
+      </span>
+      <span class="rais-mch__divider"></span>
+      <span class="rais-mch__user">
+        <span class="rais-mch__user-icon"></span>
+        <span class="rais-mch__user-name">{{ userName }}</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- ─── SUBHEADER (title + optional description) ─── -->
+  <div class="rais-mch__subheader">
+    <div class="rais-mch__copy">
+      <h1 class="rais-mch__title">{{ pageTitle }}</h1>
+      <p *ngIf="showPageDescription" class="rais-mch__description">{{ pageDescription }}</p>
+    </div>
+  </div>
+
+  <!-- ─── TABS (optional) ─── -->
+  <div *ngIf="showTabs" class="rais-mch__tabs">
+    <div class="rais-mch__tab-layout">
+      <span
+        *ngFor="let tab of tabs; let i = index"
+        class="rais-mch__tab"
+        [class.rais-mch__tab--selected]="i === selectedTabIndex"
+      >{{ tab }}</span>
+    </div>
+  </div>
+</div>
