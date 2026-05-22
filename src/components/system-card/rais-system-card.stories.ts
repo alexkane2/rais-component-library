@@ -3,7 +3,7 @@ import { moduleMetadata } from '@storybook/angular';
 import { RaisSystemCardComponent } from './rais-system-card.component';
 
 const meta: Meta<RaisSystemCardComponent> = {
-  title: 'RAIS/Empty States/System Card',
+  title: 'RAIS/Content/System Card',
   component: RaisSystemCardComponent,
   tags: ['autodocs'],
   decorators: [
