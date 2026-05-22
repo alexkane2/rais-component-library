@@ -1,0 +1,55 @@
+// Member Central Footer — RAIS Header and Footer component
+//
+// Tokens (from Figma variables):
+//   --color/surface-primary  #FFFFFF → footer background
+//   --color/border-default   #CCCCCC → top border
+//   --color/text-primary     #4D586A → text + link color
+//   Font: Figtree Medium 14 / line-height 1.2 / letter-spacing 0.28px
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.rais-mcf {
+  width: 100%;
+  height: 40px;
+  background: #FFFFFF;
+  border-top: 1px solid #CCCCCC;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Figtree', sans-serif;
+  overflow: hidden;
+  box-sizing: border-box;
+
+  &__text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: #4D586A;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.28px;
+    white-space: nowrap;
+  }
+
+  &__copyright,
+  &__rights,
+  &__separator {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  &__link {
+    color: #4D586A;
+    text-decoration: underline;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    text-decoration-style: solid;
+
+    &:hover { opacity: 0.8; }
+  }
+}
