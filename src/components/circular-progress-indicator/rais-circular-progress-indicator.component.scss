@@ -1,0 +1,51 @@
+// Circular Progress Indicator — RAIS Loading component
+//
+// Defaults match Figma:
+//   stroke width: 4px
+//   arc color:    #007CBD (--color/border-focus)
+//   linecap:      round
+//   size:         48×48
+
+:host {
+  display: inline-block;
+}
+
+.rais-cpi {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &__svg {
+    display: block;
+  }
+
+  &__arc {
+    // Smooth fill animation when progress updates
+    transition: stroke-dashoffset 0.25s ease;
+  }
+
+  // ─── Indeterminate spinner mode ─────────────────────────────────
+  &--indeterminate &__svg {
+    animation: rais-cpi-spin 1s linear infinite;
+  }
+  &--indeterminate &__arc {
+    transition: none;
+  }
+
+  // Center % label
+  &__label {
+    position: absolute;
+    font-family: 'Figtree', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: #4D586A;
+    line-height: 1;
+    letter-spacing: 0.36px;
+    pointer-events: none;
+  }
+}
+
+@keyframes rais-cpi-spin {
+  to { transform: rotate(360deg); }
+}

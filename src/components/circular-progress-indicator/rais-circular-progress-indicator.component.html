@@ -1,0 +1,48 @@
+<div
+  class="rais-cpi"
+  [class.rais-cpi--indeterminate]="indeterminate"
+  [style.width.px]="size"
+  [style.height.px]="size"
+  role="progressbar"
+  [attr.aria-valuenow]="indeterminate ? null : progress"
+  aria-valuemin="0"
+  aria-valuemax="100"
+>
+  <svg
+    class="rais-cpi__svg"
+    [attr.width]="size"
+    [attr.height]="size"
+    [attr.viewBox]="'0 0 ' + size + ' ' + size"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <!-- Optional background track -->
+    <circle
+      *ngIf="trackColor && trackColor !== 'transparent' && trackColor !== 'none'"
+      class="rais-cpi__track"
+      [attr.cx]="center"
+      [attr.cy]="center"
+      [attr.r]="radius"
+      fill="none"
+      [attr.stroke]="trackColor"
+      [attr.stroke-width]="strokeWidth"
+    />
+
+    <!-- Active arc -->
+    <circle
+      class="rais-cpi__arc"
+      [attr.cx]="center"
+      [attr.cy]="center"
+      [attr.r]="radius"
+      fill="none"
+      [attr.stroke]="color"
+      [attr.stroke-width]="strokeWidth"
+      stroke-linecap="round"
+      [attr.stroke-dasharray]="indeterminate ? spinnerDasharray : circumference"
+      [attr.stroke-dashoffset]="indeterminate ? 0 : dashoffset"
+      [attr.transform]="'rotate(-90 ' + center + ' ' + center + ')'"
+    />
+  </svg>
+
+  <!-- Optional center % label (determinate only) -->
+  <span *ngIf="showLabel && !indeterminate" class="rais-cpi__label">{{ progress }}%</span>
+</div>
