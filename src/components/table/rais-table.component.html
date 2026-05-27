@@ -1,0 +1,39 @@
+<div
+  class="rais-table"
+  [class.rais-table--default]="variant === 'default'"
+  [class.rais-table--loading]="variant === 'loading'"
+  [class.rais-table--pagination-footer]="variant === 'pagination-footer'"
+>
+  <!-- Default & Pagination-footer: use RaisTableColumn for each column -->
+  <div *ngIf="variant !== 'loading'" class="rais-table__columns">
+    <rais-table-column
+      *ngFor="let name of columns"
+      variant="default"
+      [columnName]="name"
+      [cellCount]="rowCount"
+    ></rais-table-column>
+  </div>
+
+  <!-- Loading: skeleton header + skeleton cells stacked per column -->
+  <div *ngIf="variant === 'loading'" class="rais-table__columns">
+    <div *ngFor="let name of columns" class="rais-table__loading-column">
+      <rais-table-header variant="skeleton-loader"></rais-table-header>
+      <rais-table-cell *ngFor="let _ of rows" variant="skeleton-loader"></rais-table-cell>
+    </div>
+  </div>
+
+  <!-- Pagination footer -->
+  <div *ngIf="variant === 'pagination-footer'" class="rais-table__footer">
+    <button type="button" class="rais-table__page-btn" aria-label="Previous page">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M7.5 2 L3.5 6 L7.5 10" stroke="#4D586A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </button>
+    <span class="rais-table__page-label">Page {{ currentPage }} of {{ totalPages }}</span>
+    <button type="button" class="rais-table__page-btn" aria-label="Next page">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M4.5 2 L8.5 6 L4.5 10" stroke="#4D586A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </button>
+  </div>
+</div>

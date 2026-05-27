@@ -1,0 +1,36 @@
+<div
+  class="rais-table-header"
+  [class.rais-table-header--default]="variant === 'default'"
+  [class.rais-table-header--skeleton-loader]="variant === 'skeleton-loader'"
+  [class.rais-table-header--checkbox]="variant === 'checkbox'"
+>
+  <!-- Default: column name + optional sort icon -->
+  <ng-container *ngIf="variant === 'default'">
+    <span class="rais-table-header__label">{{ columnName }}</span>
+    <svg
+      *ngIf="sortable"
+      class="rais-table-header__sort-icon"
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="white"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <path d="M3 0 L0.5 3 L5.5 3 Z" />
+      <path d="M9 12 L11.5 9 L6.5 9 Z" />
+    </svg>
+  </ng-container>
+
+  <!-- Skeleton loader -->
+  <span *ngIf="variant === 'skeleton-loader'" class="rais-table-header__skeleton" aria-hidden="true"></span>
+
+  <!-- Checkbox -->
+  <span
+    *ngIf="variant === 'checkbox'"
+    class="rais-table-header__checkbox"
+    [class.rais-table-header__checkbox--checked]="checked"
+    role="checkbox"
+    [attr.aria-checked]="checked"
+  ></span>
+</div>

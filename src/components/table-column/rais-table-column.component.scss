@@ -1,0 +1,26 @@
+// Table Column — RAIS Tables component
+// A vertical stack: one header on top, N cells below. Borders collapse
+// because each child already paints its own 1px #CCCCCC border.
+
+:host {
+  display: inline-flex;
+  flex-direction: column;
+  vertical-align: top;
+}
+
+.rais-table-column {
+  display: flex;
+  flex-direction: column;
+}
+
+// Force children to stretch to the column's width
+::ng-deep rais-table-header,
+::ng-deep rais-table-cell {
+  display: block;
+  width: 100%;
+}
+
+::ng-deep .rais-table-column rais-table-header > .rais-table-header,
+::ng-deep .rais-table-column rais-table-cell > .rais-table-cell {
+  width: 100%;
+}

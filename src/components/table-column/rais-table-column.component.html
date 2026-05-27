@@ -1,0 +1,13 @@
+<div class="rais-table-column" [style.width]="width">
+  <rais-table-header
+    [variant]="headerVariant"
+    [columnName]="columnName"
+    [sortable]="true"
+  ></rais-table-header>
+
+  <rais-table-cell
+    *ngFor="let cell of cells"
+    [variant]="cellVariant"
+    [content]="cell"
+  ></rais-table-cell>
+</div>

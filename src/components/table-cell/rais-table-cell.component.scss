@@ -1,0 +1,115 @@
+// Table Cell — RAIS Tables component
+// Tokens (inlined from Figma):
+//   --color/surface-white          #FFFFFF
+//   --color/border-default         #CCCCCC
+//   --color/text-secondary         #4D586A
+//   --color/border-focus           #007CBD
+//   --color/border-checkbox        #8D9091
+//   --color/skeleton-start         rgba(228,231,236,0.25)
+//   --color/skeleton-end           #E4E7EC
+
+:host {
+  display: inline-block;
+}
+
+.rais-table-cell {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+  border: 1px solid #CCCCCC;
+  height: 56px;
+  min-width: 134px;
+  padding: 12px;
+  font-family: 'Figtree', sans-serif;
+
+  // Default variant — plain text
+  &__text {
+    font-family: 'Figtree', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.4;
+    letter-spacing: 0.14px;
+    color: #4D586A;
+  }
+
+  // Input-field-selector variant — outer padding adjusted
+  &--input-field-selector {
+    padding: 8px 12px;
+  }
+
+  &__select {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 134px;
+    height: 40px;
+    background: #FFFFFF;
+    border: 1px solid #007CBD;
+    border-radius: 4px;
+    padding: 0 10px;
+    font-family: 'Figtree', sans-serif;
+  }
+
+  &__select-placeholder {
+    font-family: 'Figtree', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #CCCCCC;
+  }
+
+  &__select-caret {
+    flex-shrink: 0;
+    margin-left: 8px;
+  }
+
+  // Skeleton loader variant
+  &--skeleton-loader {
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  &__skeleton {
+    display: block;
+    width: 110px;
+    height: 14px;
+    border-radius: 6px;
+    background: linear-gradient(90deg, rgba(228, 231, 236, 0.25) 0%, #E4E7EC 100%);
+  }
+
+  // Checkbox variant
+  &--checkbox {
+    justify-content: center;
+    padding: 12px;
+  }
+
+  &__checkbox {
+    box-sizing: border-box;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    background: #FFFFFF;
+    border: 1px solid #8D9091;
+    border-radius: 2px;
+
+    &--checked {
+      background: #007CBD;
+      border-color: #007CBD;
+      position: relative;
+    }
+
+    &--checked::after {
+      content: '';
+      position: absolute;
+      left: 3px;
+      top: 0;
+      width: 4px;
+      height: 8px;
+      border: solid #FFFFFF;
+      border-width: 0 1.5px 1.5px 0;
+      transform: rotate(45deg);
+    }
+  }
+}
