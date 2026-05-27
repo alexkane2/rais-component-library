@@ -7,19 +7,7 @@
   <!-- Default: column name + optional sort icon -->
   <ng-container *ngIf="variant === 'default'">
     <span class="rais-table-header__label">{{ columnName }}</span>
-    <svg
-      *ngIf="sortable"
-      class="rais-table-header__sort-icon"
-      width="12"
-      height="12"
-      viewBox="0 0 12 12"
-      fill="white"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-    >
-      <path d="M3 0 L0.5 3 L5.5 3 Z" />
-      <path d="M9 12 L11.5 9 L6.5 9 Z" />
-    </svg>
+    <span *ngIf="sortable" class="rais-table-header__sort-icon" aria-hidden="true"></span>
   </ng-container>
 
   <!-- Skeleton loader -->

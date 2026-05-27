@@ -19,11 +19,11 @@
   background: #FFFFFF;
   border: 1px solid #CCCCCC;
   height: 56px;
+  min-height: 44px;
   min-width: 134px;
   padding: 12px;
   font-family: 'Figtree', sans-serif;
 
-  // Default variant — plain text
   &__text {
     font-family: 'Figtree', sans-serif;
     font-weight: 400;
@@ -31,6 +31,7 @@
     line-height: 1.4;
     letter-spacing: 0.14px;
     color: #4D586A;
+    white-space: nowrap;
   }
 
   // Input-field-selector variant — outer padding adjusted
