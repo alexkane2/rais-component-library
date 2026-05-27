@@ -146,32 +146,4 @@
   }
 }
 
-// Inlined Selection Label styles (squared variant) for chip rendering
-.rais-sel-label--squared {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 4px 6px 4px 8px;
-  background: #EDF6FC;
-  border: 1px solid #007CBD;
-  border-radius: 4px;
-  font-family: 'Figtree', sans-serif;
-  font-size: 12px;
-  font-weight: 500;
-  color: #4D586A;
-  white-space: nowrap;
-}
-
-.rais-sel-label__icon {
-  width: 14px;
-  height: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  cursor: pointer;
-
-  img {
-    filter: invert(35%) sepia(87%) saturate(500%) hue-rotate(170deg);
-  }
-}
+// Chips now use the real RaisSelectionLabelComponent — no inlined styles needed

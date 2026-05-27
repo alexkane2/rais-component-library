@@ -1,11 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RaisSelectionLabelComponent } from '../selection-label/rais-selection-label.component';
 
 /**
  * Dropdown - Multiselect — RAIS Inputs component
  *
  * Multi-select field with chip selections, focus/error states and a
- * "max-selected" summary mode.
+ * "max-selected" summary mode. Chips in the `selection` state render
+ * using the real RaisSelectionLabelComponent (squared variant).
  *
  * Icons:
  *   bx-x.svg          — clear / chip dismiss
@@ -22,7 +24,7 @@ export type MultiselectState =
 @Component({
   selector: 'rais-dropdown-multiselect',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RaisSelectionLabelComponent],
   templateUrl: './rais-dropdown-multiselect.component.html',
   styleUrls: ['./rais-dropdown-multiselect.component.scss'],
 })

@@ -1,13 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 import { RaisDropdownMultiselectComponent } from './rais-dropdown-multiselect.component';
+import { RaisSelectionLabelComponent } from '../selection-label/rais-selection-label.component';
 
 const meta: Meta<RaisDropdownMultiselectComponent> = {
   title: 'RAIS/Inputs/Dropdown - Multiselect',
   component: RaisDropdownMultiselectComponent,
   tags: ['autodocs'],
   decorators: [
-    moduleMetadata({ imports: [RaisDropdownMultiselectComponent] }),
+    moduleMetadata({ imports: [RaisDropdownMultiselectComponent, RaisSelectionLabelComponent] }),
   ],
   argTypes: {
     label:        { control: 'text' },

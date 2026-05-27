@@ -15,12 +15,11 @@
     <!-- Inner content varies by state -->
     <ng-container [ngSwitch]="state">
       <div *ngSwitchCase="'selection'" class="rais-multi__inner">
-        <span *ngFor="let l of chipLabels" class="rais-sel-label--squared">
-          {{ l }}
-          <span class="rais-sel-label__icon">
-            <img src="assets/boxicons/bx-x.svg" width="8" height="8" alt="dismiss" />
-          </span>
-        </span>
+        <rais-selection-label
+          *ngFor="let l of chipLabels"
+          [label]="l"
+          style="squared"
+        ></rais-selection-label>
       </div>
 
       <div *ngSwitchCase="'max-selected'" class="rais-multi__inner">
