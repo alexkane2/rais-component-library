@@ -1,0 +1,256 @@
+// File Upload States — RAIS File Management component
+//
+// Tokens (inlined from Figma):
+//   --color/surface-primary           #FFFFFF → bg
+//   --color/border-default            #CCCCCC → default border + dividers
+//   --color/border-focus              #007CBD → uploading border + progress fill
+//   --colors/system-green-500         #479E34 → success border
+//   --colors/system-red-400           #FC827F → error border
+//   --color/text-primary              #4D586A → body text
+//   --color/text-secondary            #8D9091 → helper / subtitle text
+//   --color/btn-bg-primary            #007CBD → button bg + link color
+//   --color/btn-text-primary          #FFFFFF → button label
+//   --color/btn-text-secondary        #007CBD → "Click to upload" link
+//   --color/surface-secondary         #F0F2F5 → progress bar track
+
+:host {
+  display: inline-block;
+}
+
+.rais-fus {
+  position: relative;
+  box-sizing: border-box;
+  width: 400px;
+  height: 264px;
+  background: #FFFFFF;
+  border: 1.5px dashed #CCCCCC;
+  border-radius: 16px;
+  font-family: 'Figtree', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 28px;
+
+  &--default   { border-color: #CCCCCC; padding: 28px; }
+  &--uploading { border-color: #007CBD; padding: 28px 24px; }
+  &--success   { border-color: #479E34; padding: 28px 24px; }
+  &--error     { border-color: #FC827F; padding: 28px 24px; }
+
+  // ─── Inner content stack ─────────────────────────────────────
+  &__content {
+    flex: 1 0 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  .rais-fus--uploading &__content,
+  .rais-fus--success   &__content { gap: 24px; }
+  .rais-fus--error     &__content { gap: 0; }
+
+  &__stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+  }
+
+  // ─── Status icon ─────────────────────────────────────────────
+  &__icon {
+    width: 56px;
+    height: 56px;
+    flex-shrink: 0;
+    display: block;
+  }
+
+  // ─── Default-state text ──────────────────────────────────────
+  &__text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    width: 100%;
+  }
+  &__title-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    width: 100%;
+    font-size: 16px;
+    line-height: 1.3;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+  }
+  &__upload-link {
+    color: #007CBD;
+    font-weight: 700;
+  }
+  &__upload-suffix {
+    color: #4D586A;
+    font-weight: 400;
+  }
+  &__helper {
+    margin: 0;
+    color: #8D9091;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: 0.18px;
+    text-align: center;
+    width: 100%;
+  }
+
+  // ─── OR divider ──────────────────────────────────────────────
+  &__divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 0;
+    width: 100%;
+  }
+  &__divider-line {
+    flex: 1 0 0;
+    height: 1px;
+    background: #CCCCCC;
+    min-width: 0;
+  }
+  &__divider-label {
+    padding: 0 8px;
+    color: #4D586A;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0.36px;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  // ─── Browse Files button ─────────────────────────────────────
+  &__btn {
+    background: #007CBD;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.32px;
+    line-height: 1.2;
+    cursor: pointer;
+    text-align: center;
+    border: none;
+    flex-shrink: 0;
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  &__file-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+  }
+
+  // ─── Uploading state ────────────────────────────────────────
+  &__progress-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+  }
+  &__progress-pct {
+    margin: 0;
+    color: #4D586A;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0.32px;
+  }
+  &__progress-bar {
+    width: 313px;
+    height: 6px;
+    background: #F0F2F5;
+    border-radius: 13px;
+    overflow: hidden;
+  }
+  &__progress-bar-fill {
+    height: 100%;
+    background: #007CBD;
+    border-radius: 16px;
+    transition: width 0.2s ease;
+  }
+
+  // ─── Caption (title + subtitle for uploading/success/error) ─
+  &__caption {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    width: 100%;
+    text-align: center;
+  }
+  &__caption-title {
+    margin: 0;
+    color: #4D586A;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0.42px;
+  }
+  &__caption-subtitle {
+    margin: 0;
+    color: #8D9091;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: 0.18px;
+  }
+
+  // ─── Action link (Clear / Try Again) ─────────────────────────
+  &__link {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #007CBD;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.32px;
+    margin-top: 24px;
+  }
+  &__link-icon {
+    width: 16px;
+    height: 16px;
+    background-color: #007CBD;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+
+    &--trash {
+      -webkit-mask-image: url('/assets/boxicons/bxs-trash.svg');
+              mask-image: url('/assets/boxicons/bxs-trash.svg');
+    }
+    &--sync {
+      -webkit-mask-image: url('/assets/boxicons/bx-refresh.svg');
+              mask-image: url('/assets/boxicons/bx-refresh.svg');
+    }
+  }
+}

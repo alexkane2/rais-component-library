@@ -1,0 +1,106 @@
+<div
+  class="rais-fus"
+  [class.rais-fus--default]="state === 'default'"
+  [class.rais-fus--uploading]="state === 'uploading'"
+  [class.rais-fus--success]="state === 'success'"
+  [class.rais-fus--error]="state === 'error'"
+>
+  <!-- ─── DEFAULT state ─── -->
+  <div *ngIf="state === 'default'" class="rais-fus__content">
+    <img
+      class="rais-fus__icon"
+      src="/assets/file-upload-states.svg"
+      alt=""
+      aria-hidden="true"
+    />
+
+    <div class="rais-fus__text">
+      <div class="rais-fus__title-row">
+        <span class="rais-fus__upload-link">Click to upload</span>
+        <span class="rais-fus__upload-suffix">or drag and drop</span>
+      </div>
+      <p class="rais-fus__helper">{{ helperText }}</p>
+    </div>
+
+    <div class="rais-fus__divider">
+      <span class="rais-fus__divider-line"></span>
+      <span class="rais-fus__divider-label">OR</span>
+      <span class="rais-fus__divider-line"></span>
+    </div>
+
+    <label class="rais-fus__btn">
+      {{ browseCtaLabel }}
+      <input
+        type="file"
+        class="rais-fus__file-input"
+        [accept]="accept"
+        multiple
+        (change)="onFileInput($event)"
+      />
+    </label>
+  </div>
+
+  <!-- ─── UPLOADING state ─── -->
+  <div *ngIf="state === 'uploading'" class="rais-fus__content">
+    <img
+      class="rais-fus__icon"
+      src="/assets/file-type-icon.svg"
+      alt=""
+      aria-hidden="true"
+    />
+
+    <div class="rais-fus__progress-wrap">
+      <p class="rais-fus__progress-pct">{{ progress }}%</p>
+      <div class="rais-fus__progress-bar" role="progressbar" [attr.aria-valuenow]="progress" aria-valuemin="0" aria-valuemax="100">
+        <div class="rais-fus__progress-bar-fill" [style.width.%]="progress"></div>
+      </div>
+    </div>
+
+    <div class="rais-fus__caption">
+      <p class="rais-fus__caption-title">{{ uploadingTitle }}</p>
+      <p class="rais-fus__caption-subtitle">{{ documentName }}</p>
+    </div>
+  </div>
+
+  <!-- ─── SUCCESS state ─── -->
+  <div *ngIf="state === 'success'" class="rais-fus__content">
+    <div class="rais-fus__stack">
+      <img
+        class="rais-fus__icon"
+        src="/assets/file-upload-states-success.svg"
+        alt=""
+        aria-hidden="true"
+      />
+      <div class="rais-fus__caption">
+        <p class="rais-fus__caption-title">{{ successTitle }}</p>
+        <p class="rais-fus__caption-subtitle">{{ documentName }}</p>
+      </div>
+    </div>
+
+    <button type="button" class="rais-fus__link" (click)="clearClicked.emit()">
+      <span class="rais-fus__link-icon rais-fus__link-icon--trash" aria-hidden="true"></span>
+      <span>{{ clearLabel }}</span>
+    </button>
+  </div>
+
+  <!-- ─── ERROR state ─── -->
+  <div *ngIf="state === 'error'" class="rais-fus__content">
+    <div class="rais-fus__stack">
+      <img
+        class="rais-fus__icon"
+        src="/assets/file-upload-states-failed.svg"
+        alt=""
+        aria-hidden="true"
+      />
+      <div class="rais-fus__caption">
+        <p class="rais-fus__caption-title">{{ errorTitle }}</p>
+        <p class="rais-fus__caption-subtitle">{{ errorMessage }}</p>
+      </div>
+    </div>
+
+    <button type="button" class="rais-fus__link" (click)="tryAgain.emit()">
+      <span class="rais-fus__link-icon rais-fus__link-icon--sync" aria-hidden="true"></span>
+      <span>{{ tryAgainLabel }}</span>
+    </button>
+  </div>
+</div>
