@@ -81,9 +81,14 @@
   }
 
   // ─── Types with bordered CTA section ────────────────────────────
-  // Content section padded top/sides only; bordered CTA flush to bottom
+  // Content section padded top/sides only; bordered CTA flush to bottom.
+  // Per Figma the outer has gap-24 between the content area and the CTA
+  // section — without it, the border-top sits flush against the paragraph.
   &--type-standard-link,
   &--type-with-link {
+    gap: 24px;
+    align-items: center;
+
     .rais-content-card__content {
       padding: 24px 24px 0;
       gap: 8px;
