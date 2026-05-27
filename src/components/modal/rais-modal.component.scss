@@ -1,0 +1,204 @@
+// Modal — RAIS Content component
+//
+// Tokens (inlined from Figma):
+//   --color/surface-primary    #FFFFFF → modal background
+//   --color/border-disabled    #EFEFEF → outer border
+//   --color/text-header        #101928 → headline
+//   --color/text-primary       #4D586A → body / close icon
+//   --color/btn-bg-primary     #007CBD → primary fill / secondary border
+//   --color/btn-text-primary   #FFFFFF → primary label
+//   --color/btn-text-secondary #007CBD → secondary label
+//   --border/radius-md         8px     → modal radius
+//   --border/radius-sm         4px     → button radius
+//
+// Sizes:
+//   default → 500px wide, padding 36px x-axis, 24px y-axis on body
+//   small   → 300px wide, padding 24px x-axis, 24px y-axis on body
+
+:host {
+  display: inline-block;
+}
+
+.rais-modal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: #FFFFFF;
+  border: 1px solid #EFEFEF;
+  border-radius: 8px;
+  font-family: 'Figtree', sans-serif;
+  box-sizing: border-box;
+  filter: drop-shadow(0 0 2.5px rgba(0, 0, 0, 0.05)) drop-shadow(0 15px 12.5px rgba(0, 0, 0, 0.03));
+
+  &--default { width: 500px; }
+  &--small   { width: 300px; }
+
+  // ─── Optional backdrop overlay ─────────────────────────────────
+  &__backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(16, 25, 40, 0.5);
+    z-index: 999;
+  }
+
+  // ─── Top row (X close, always right) ───────────────────────────
+  &__top {
+    display: flex;
+    justify-content: flex-end;
+    padding: 12px 12px 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  &__close {
+    width: 16px;
+    height: 16px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__close-icon {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background-color: #4D586A;
+    -webkit-mask: url('/assets/boxicons/bx-x.svg') no-repeat center / contain;
+            mask: url('/assets/boxicons/bx-x.svg') no-repeat center / contain;
+  }
+
+  // ─── Body container ────────────────────────────────────────────
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding-bottom: 24px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  &--default &__body { padding-left: 36px; padding-right: 36px; align-items: center; }
+  &--default.rais-modal--left-aligned &__body { align-items: flex-start; }
+  &--small &__body   { padding-left: 24px; padding-right: 24px; align-items: center; }
+  &--small.rais-modal--left-aligned &__body { gap: 20px; }
+
+  // ─── Content stack (icon + headline + paragraph) ───────────────
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    align-items: center;
+  }
+  &--left-aligned &__content { align-items: flex-start; }
+  &--small.rais-modal--left-aligned &__content { gap: 12px; }
+
+  // ─── Large info icon (above headline) ──────────────────────────
+  &__icon {
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    background-color: #007CBD;
+    -webkit-mask: url('/assets/boxicons/bxs-info-circle.svg') no-repeat center / contain;
+            mask: url('/assets/boxicons/bxs-info-circle.svg') no-repeat center / contain;
+    flex-shrink: 0;
+  }
+
+  // ─── Headline ──────────────────────────────────────────────────
+  &__headline {
+    margin: 0;
+    color: #101928;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 1.2;
+    letter-spacing: 0.5px;
+    width: 100%;
+  }
+  &--centered &__headline { text-align: center; }
+  &--small.rais-modal--left-aligned &__headline {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 1;
+    letter-spacing: 0.4px;
+  }
+
+  // ─── Paragraph ─────────────────────────────────────────────────
+  &__paragraph {
+    margin: 0;
+    color: #4D586A;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: 0.14px;
+    width: 100%;
+  }
+  &--centered &__paragraph { text-align: center; }
+
+  // ─── Buttons section ───────────────────────────────────────────
+  &__buttons {
+    display: flex;
+    gap: 20px;
+    align-items: stretch;
+    box-sizing: border-box;
+  }
+  // Default + Side by Side: inline auto-sized
+  &--default.rais-modal--side-by-side &__buttons {
+    gap: 20px;
+  }
+  // Small + Stacked: full-width buttons stacked vertically
+  &--small.rais-modal--stacked &__buttons {
+    flex-direction: column;
+    width: 100%;
+    gap: 16px;
+  }
+  // Small + Side by Side: full-width buttons, equally split horizontally
+  &--small.rais-modal--side-by-side &__buttons {
+    width: 100%;
+    gap: 16px;
+  }
+
+  // ─── Buttons ───────────────────────────────────────────────────
+  &__btn {
+    font-family: inherit;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    line-height: 1.2;
+    text-align: center;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    white-space: nowrap;
+  }
+
+  // Primary
+  &__btn--primary {
+    background: #007CBD;
+    color: #FFFFFF;
+    border-color: #007CBD;
+  }
+  // Secondary
+  &__btn--secondary {
+    background: #FFFFFF;
+    color: #007CBD;
+    border-color: #007CBD;
+  }
+
+  // Default size buttons: 16px label, 10px/20px padding
+  &--default &__btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    letter-spacing: 0.32px;
+  }
+  // Small size buttons: 14px label, 8px/20px padding
+  &--small &__btn {
+    padding: 8px 20px;
+    font-size: 14px;
+    letter-spacing: 0.42px;
+  }
+  // Small + Side by Side: each button takes equal width
+  &--small.rais-modal--side-by-side &__btn { flex: 1 0 0; min-width: 0; }
+  // Small + Stacked: each button full width
+  &--small.rais-modal--stacked &__btn { width: 100%; }
+}

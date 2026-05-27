@@ -1,0 +1,53 @@
+<!-- Optional backdrop overlay (for production usage). -->
+<div *ngIf="showBackdrop" class="rais-modal__backdrop" (click)="closed.emit()"></div>
+
+<div
+  class="rais-modal"
+  role="dialog"
+  aria-modal="true"
+  [class.rais-modal--default]="size === 'default'"
+  [class.rais-modal--small]="size === 'small'"
+  [class.rais-modal--centered]="alignment === 'centered'"
+  [class.rais-modal--left-aligned]="alignment === 'left-aligned'"
+  [class.rais-modal--side-by-side]="buttonLayout === 'side-by-side'"
+  [class.rais-modal--stacked]="buttonLayout === 'stacked'"
+>
+  <!-- Top row: close X (always right-aligned) -->
+  <div class="rais-modal__top">
+    <button
+      *ngIf="showCloseButton"
+      type="button"
+      class="rais-modal__close"
+      aria-label="Close"
+      (click)="closed.emit()"
+    >
+      <span class="rais-modal__close-icon"></span>
+    </button>
+  </div>
+
+  <!-- Body: icon (optional) + headline + paragraph + buttons -->
+  <div class="rais-modal__body">
+    <div class="rais-modal__content">
+      <span *ngIf="showIcon" class="rais-modal__icon" aria-hidden="true"></span>
+
+      <h2 class="rais-modal__headline">{{ headline }}</h2>
+
+      <p *ngIf="showParagraph" class="rais-modal__paragraph">{{ body }}</p>
+    </div>
+
+    <!-- Button group -->
+    <div class="rais-modal__buttons">
+      <button
+        type="button"
+        class="rais-modal__btn rais-modal__btn--primary"
+        (click)="confirmed.emit()"
+      >{{ primaryCtaLabel }}</button>
+      <button
+        *ngIf="showSecondary"
+        type="button"
+        class="rais-modal__btn rais-modal__btn--secondary"
+        (click)="cancelled.emit()"
+      >{{ secondaryCtaLabel }}</button>
+    </div>
+  </div>
+</div>
