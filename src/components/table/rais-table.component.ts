@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RaisTableColumnComponent } from '../table-column/rais-table-column.component';
 import { RaisTableHeaderComponent } from '../table-header/rais-table-header.component';
 import { RaisTableCellComponent } from '../table-cell/rais-table-cell.component';
+import { RaisDatatableFooterComponent } from '../datatable-footer/rais-datatable-footer.component';
 
 /**
  * Table — RAIS Tables component
@@ -32,6 +33,7 @@ export type TableVariant = 'default' | 'loading' | 'pagination-footer';
     RaisTableColumnComponent,
     RaisTableHeaderComponent,
     RaisTableCellComponent,
+    RaisDatatableFooterComponent,
   ],
   templateUrl: './rais-table.component.html',
   styleUrls: ['./rais-table.component.scss'],
@@ -46,6 +48,8 @@ export class RaisTableComponent implements OnChanges {
   @Input() currentPage: number = 1;
   /** Total page count, used by `pagination-footer` variant. */
   @Input() totalPages: number = 10;
+  /** Page size (rows-per-page) shown in the footer dropdown. */
+  @Input() pageSize: number = 10;
 
   /** Resolved column header labels used by the template. */
   columns: string[] = [];

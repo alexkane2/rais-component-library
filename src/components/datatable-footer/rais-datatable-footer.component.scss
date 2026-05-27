@@ -1,0 +1,162 @@
+// Datatable Footer — RAIS Tables component
+// Tokens (inlined from Figma):
+//   --color/surface-primary    #FFFFFF → footer + page-size bg
+//   --color/border-default     #CCCCCC → outer border + scrollbar fill
+//   --color/surface-secondary  #F0F2F5 → current page background
+//   --color/text-primary       #4D586A → page number + page-size text
+//   --color/border-dark        #8D9091 → page-size border
+//
+// Layout:
+//   outer  → white, border, padding 2px 8px, vertical flex, gap 12px
+//   row    → horizontal flex, gap 4px, 16px h-padding, items-center
+//   nav    → 35×35, fully rounded
+//   page   → 35×35, fully rounded (32px), current = #F0F2F5 fill
+//   input  → 62.27×33, white bg, 6px radius, #8D9091 border, subtle shadow
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.rais-dt-footer {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 2px 8px;
+  background: #FFFFFF;
+  border: 1px solid #CCCCCC;
+  font-family: 'Figtree', sans-serif;
+
+  // Scrollbar indicator — visual gray bar
+  &__scrollbar {
+    width: 358px;
+    height: 8px;
+    border-radius: 8px;
+    background: #CCCCCC;
+    flex-shrink: 0;
+  }
+
+  // Paginator row
+  &__paginator {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0 16px;
+    background: #FFFFFF;
+    border-radius: 6px;
+    box-sizing: border-box;
+  }
+
+  // Nav arrow button (35×35, circular)
+  &__nav {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    &:hover { background: #F0F2F5; }
+  }
+
+  // Numbered page button
+  &__page {
+    width: 35px;
+    height: 35px;
+    border-radius: 32px;
+    background: none;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 400;
+    color: #4D586A;
+    line-height: 1.4;
+    letter-spacing: 0.14px;
+    box-sizing: border-box;
+
+    &:hover:not(.rais-dt-footer__page--current) {
+      background: rgba(240, 242, 245, 0.5);
+    }
+
+    &--current {
+      background: #F0F2F5;
+    }
+  }
+
+  // Page-size dropdown (read-only display in this component)
+  &__page-size {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    width: 62.27px;
+    height: 33px;
+    background: #FFFFFF;
+    border: 1px solid #8D9091;
+    border-radius: 6px;
+    box-shadow: 0 1px 2px rgba(18, 18, 23, 0.05);
+    box-sizing: border-box;
+    margin-left: 4px;
+    cursor: pointer;
+  }
+  &__page-size-value {
+    position: absolute;
+    left: 10.5px;
+    top: 7px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #4D586A;
+    line-height: 1.4;
+    letter-spacing: 0.14px;
+    white-space: nowrap;
+  }
+
+  // ─── Icons (CSS mask for exact tint) ───
+  &__icon {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    background-color: #4D586A;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+
+    &--double-left {
+      -webkit-mask-image: url('/assets/boxicons/bx-chevrons-left.svg');
+              mask-image: url('/assets/boxicons/bx-chevrons-left.svg');
+    }
+    &--left {
+      -webkit-mask-image: url('/assets/boxicons/bx-chevron-left.svg');
+              mask-image: url('/assets/boxicons/bx-chevron-left.svg');
+    }
+    &--right {
+      -webkit-mask-image: url('/assets/boxicons/bx-chevron-right.svg');
+              mask-image: url('/assets/boxicons/bx-chevron-right.svg');
+    }
+    &--double-right {
+      -webkit-mask-image: url('/assets/boxicons/bx-chevrons-right.svg');
+              mask-image: url('/assets/boxicons/bx-chevrons-right.svg');
+    }
+    &--chevron-down {
+      position: absolute;
+      right: 10.5px;
+      top: 9.5px;
+      -webkit-mask-image: url('/assets/boxicons/bx-chevron-down.svg');
+              mask-image: url('/assets/boxicons/bx-chevron-down.svg');
+    }
+  }
+}

@@ -1,0 +1,42 @@
+<div class="rais-dt-footer">
+  <!-- Scrollbar indicator (visual only) -->
+  <div *ngIf="showScrollbar" class="rais-dt-footer__scrollbar" aria-hidden="true"></div>
+
+  <!-- Paginator row -->
+  <div class="rais-dt-footer__paginator" role="navigation" aria-label="Pagination">
+    <!-- Jump-to-first -->
+    <button type="button" class="rais-dt-footer__nav" aria-label="First page">
+      <span class="rais-dt-footer__icon rais-dt-footer__icon--double-left"></span>
+    </button>
+
+    <!-- Previous page -->
+    <button type="button" class="rais-dt-footer__nav" aria-label="Previous page">
+      <span class="rais-dt-footer__icon rais-dt-footer__icon--left"></span>
+    </button>
+
+    <!-- Page numbers -->
+    <button
+      *ngFor="let p of visiblePages"
+      type="button"
+      class="rais-dt-footer__page"
+      [class.rais-dt-footer__page--current]="p === currentPage"
+      [attr.aria-current]="p === currentPage ? 'page' : null"
+    >{{ p }}</button>
+
+    <!-- Next page -->
+    <button type="button" class="rais-dt-footer__nav" aria-label="Next page">
+      <span class="rais-dt-footer__icon rais-dt-footer__icon--right"></span>
+    </button>
+
+    <!-- Jump-to-last -->
+    <button type="button" class="rais-dt-footer__nav" aria-label="Last page">
+      <span class="rais-dt-footer__icon rais-dt-footer__icon--double-right"></span>
+    </button>
+
+    <!-- Page-size dropdown -->
+    <div class="rais-dt-footer__page-size" aria-label="Rows per page">
+      <span class="rais-dt-footer__page-size-value">{{ pageSize }}</span>
+      <span class="rais-dt-footer__icon rais-dt-footer__icon--chevron-down" aria-hidden="true"></span>
+    </div>
+  </div>
+</div>
