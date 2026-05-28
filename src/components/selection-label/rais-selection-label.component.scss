@@ -2,7 +2,7 @@
 // Color tokens inlined from Figma variables:
 //   chip bg     #EDF6FC
 //   chip border #007CBD
-//   chip text   #4D586A
+//   chip text   #454545
 //   chip icon   #007CBD
 
 :host {
@@ -18,7 +18,7 @@
   font-family: 'Figtree', sans-serif;
   font-size: 12px;
   font-weight: 500;
-  color: #4D586A;
+  color: #454545;
   white-space: nowrap;
 
   // Squared: padding T4 R6 B4 L8, radius 4px

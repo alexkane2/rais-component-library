@@ -3,7 +3,7 @@
 //   --color/surface-primary    #FFFFFF → footer + page-size bg
 //   --color/border-default     #CCCCCC → outer border + scrollbar fill
 //   --color/surface-secondary  #F0F2F5 → current page background
-//   --color/text-primary       #4D586A → page number + page-size text
+//   --color/text-primary       #454545 → page number + page-size text
 //   --color/border-dark        #8D9091 → page-size border
 //
 // Layout:
@@ -81,7 +81,7 @@
     font-family: inherit;
     font-size: 14px;
     font-weight: 400;
-    color: #4D586A;
+    color: #454545;
     line-height: 1.4;
     letter-spacing: 0.14px;
     box-sizing: border-box;
@@ -116,7 +116,7 @@
     top: 7px;
     font-size: 14px;
     font-weight: 400;
-    color: #4D586A;
+    color: #454545;
     line-height: 1.4;
     letter-spacing: 0.14px;
     white-space: nowrap;
@@ -127,7 +127,7 @@
     display: inline-block;
     width: 14px;
     height: 14px;
-    background-color: #4D586A;
+    background-color: #454545;
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
     -webkit-mask-position: center;

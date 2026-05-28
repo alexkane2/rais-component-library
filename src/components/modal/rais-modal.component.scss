@@ -4,7 +4,7 @@
 //   --color/surface-primary    #FFFFFF → modal background
 //   --color/border-disabled    #EFEFEF → outer border
 //   --color/text-header        #101928 → headline
-//   --color/text-primary       #4D586A → body / close icon
+//   --color/text-primary       #454545 → body / close icon
 //   --color/btn-bg-primary     #007CBD → primary fill / secondary border
 //   --color/btn-text-primary   #FFFFFF → primary label
 //   --color/btn-text-secondary #007CBD → secondary label
@@ -65,7 +65,7 @@
     display: inline-block;
     width: 12px;
     height: 12px;
-    background-color: #4D586A;
+    background-color: #454545;
     -webkit-mask: url('/assets/boxicons/bx-x.svg') no-repeat center / contain;
             mask: url('/assets/boxicons/bx-x.svg') no-repeat center / contain;
   }
@@ -127,7 +127,7 @@
   // ─── Paragraph ─────────────────────────────────────────────────
   &__paragraph {
     margin: 0;
-    color: #4D586A;
+    color: #454545;
     font-size: 14px;
     font-weight: 400;
     line-height: 1.4;

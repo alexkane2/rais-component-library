@@ -5,7 +5,7 @@
 //   --link-black-default: #101928
 //   --link-black-hover:   #8D9091
 //   --link-gray-default:  #8D9091
-//   --link-gray-hover:    #4D586A
+//   --link-gray-hover:    #454545
 
 :host {
   display: inline-block;
@@ -28,7 +28,7 @@
 
   &--blue.rais-link--hover  { color: #178FCF; }
   &--black.rais-link--hover { color: #8D9091; }
-  &--gray.rais-link--hover  { color: #4D586A; }
+  &--gray.rais-link--hover  { color: #454545; }
 }
 
 .rais-link__icon {

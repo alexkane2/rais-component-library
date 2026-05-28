@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
  *   --border-default    #CCCCCC  → unselected switch background
  *   --border-focus      #007CBD  → selected switch background
  *   --surface-primary   #FFFFFF  → knob fill
- *   --text-primary      #4D586A  → label text
+ *   --text-primary      #454545  → label text
  */
 export type ToggleState = 'selected' | 'unselected';
 export type ToggleSize = 'small' | 'large' | 'x-large';

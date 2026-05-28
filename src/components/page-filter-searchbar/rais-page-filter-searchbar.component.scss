@@ -1,7 +1,7 @@
 // PageFilter Searchbar — RAIS Filters component
 // Tokens (inlined from Figma variables):
-//   --color-text          #4D586A
-//   --color-placeholder   #4D586A
+//   --color-text          #454545
+//   --color-placeholder   #454545
 //   --color-icon          #454545
 //   --color-border        #CCCCCC
 //   --color-bg-white      #FFFFFF
@@ -33,12 +33,12 @@
     font-family: 'Figtree', sans-serif;
     font-size: 12px;
     font-weight: 400;
-    color: #4D586A;
+    color: #454545;
     background: transparent;
     min-width: 0;
 
     &::placeholder {
-      color: #4D586A;
+      color: #454545;
     }
   }
 

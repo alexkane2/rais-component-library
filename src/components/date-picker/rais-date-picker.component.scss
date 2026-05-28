@@ -1,9 +1,9 @@
 // Date Picker — RAIS Inputs component
 // Tokens (inlined from Figma variables):
-//   --color/label             #4D586A
+//   --color/label             #454545
 //   --color/optional          #8D9091
 //   --color/placeholder       #8D9091
-//   --color/text              #4D586A
+//   --color/text              #454545
 //   --color/error             #CA222D
 //   --color/border-default    #CCCCCC
 //   --color/border-focus      #007CBD
@@ -39,7 +39,7 @@
   &__label {
     font-size: 14px;
     font-weight: 600;
-    color: #4D586A;
+    color: #454545;
     line-height: 1.2;
   }
 
@@ -51,7 +51,7 @@
 
   &__instructions {
     font-size: 12px;
-    color: #4D586A;
+    color: #454545;
     line-height: 1.2;
   }
 
@@ -83,7 +83,7 @@
 
   &__date {
     font-size: 14px;
-    color: #4D586A;
+    color: #454545;
     line-height: 1;
   }
 

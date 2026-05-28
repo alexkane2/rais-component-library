@@ -2,7 +2,7 @@
 // Tokens (inlined from Figma):
 //   --color/surface-white          #FFFFFF
 //   --color/border-default         #CCCCCC
-//   --color/text-secondary         #4D586A
+//   --color/text-secondary         #454545
 //   --border/radius-sm             4px
 
 :host {
@@ -72,7 +72,7 @@
     font-size: 14px;
     line-height: 1.4;
     letter-spacing: 0.14px;
-    color: #4D586A;
+    color: #454545;
   }
 
   &__page-btn {

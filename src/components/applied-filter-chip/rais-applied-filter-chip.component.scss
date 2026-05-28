@@ -3,7 +3,7 @@
 //   surface-hover         #EDF6FC → background
 //   brand-blue-200        #007CBD → border + icon tint
 //   color-text-header     #101928 → category text
-//   color-text-primary    #4D586A → value text
+//   color-text-primary    #454545 → value text
 
 :host {
   display: inline-block;
@@ -65,7 +65,7 @@
     font-weight: 500;
     line-height: 1.2;
     letter-spacing: 0.36px;
-    color: #4D586A;
+    color: #454545;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

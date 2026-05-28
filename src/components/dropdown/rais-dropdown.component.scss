@@ -1,6 +1,6 @@
 // Dropdown — RAIS Inputs component
 // Colors:
-//   label/text     #4D586A
+//   label/text     #454545
 //   optional       #8D9091
 //   placeholder    #CCCCCC
 //   error          #CA222D
@@ -30,7 +30,7 @@
   &__label {
     font-size: 14px;
     font-weight: 600;
-    color: #4D586A;
+    color: #454545;
   }
 
   &__optional {
@@ -40,7 +40,7 @@
 
   &__instructions {
     font-size: 12px;
-    color: #4D586A;
+    color: #454545;
   }
 
   &__trigger {
@@ -64,7 +64,7 @@
     font-size: 14px;
     color: #CCCCCC;
 
-    &--filled { color: #4D586A; }
+    &--filled { color: #454545; }
   }
 
   &__caret {
@@ -94,7 +94,7 @@
   &__option {
     padding: 10px 12px;
     font-size: 14px;
-    color: #4D586A;
+    color: #454545;
     cursor: pointer;
 
     &:hover { background: #EDF6FC; }

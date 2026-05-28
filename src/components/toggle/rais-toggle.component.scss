@@ -3,7 +3,7 @@
 //   --border-default    #CCCCCC  → unselected switch background
 //   --border-focus      #007CBD  → selected switch background
 //   --surface-primary   #FFFFFF  → knob fill
-//   --text-primary      #4D586A  → label text
+//   --text-primary      #454545  → label text
 //   --spacing-02        6px      → small size gap
 //   --spacing-03        8px      → large/x-large size gap
 //   --spacing-09        28px     → switch pill radius
@@ -60,7 +60,7 @@
 }
 
 .rais-toggle__label {
-  color: #4D586A;
+  color: #454545;
   line-height: 1.4;
   user-select: none;
 

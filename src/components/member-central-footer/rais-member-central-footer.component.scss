@@ -3,7 +3,7 @@
 // Tokens (from Figma variables):
 //   --color/surface-primary  #FFFFFF → footer background
 //   --color/border-default   #CCCCCC → top border
-//   --color/text-primary     #4D586A → text + link color
+//   --color/text-primary     #454545 → text + link color
 //   Font: Figtree Medium 14 / line-height 1.2 / letter-spacing 0.28px
 
 :host {
@@ -28,7 +28,7 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-    color: #4D586A;
+    color: #454545;
     font-size: 14px;
     font-weight: 500;
     line-height: 1.2;
@@ -44,7 +44,7 @@
   }
 
   &__link {
-    color: #4D586A;
+    color: #454545;
     text-decoration: underline;
     text-underline-position: from-font;
     text-decoration-skip-ink: none;

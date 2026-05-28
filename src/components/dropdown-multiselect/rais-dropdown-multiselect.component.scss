@@ -1,6 +1,6 @@
 // Dropdown - Multiselect — RAIS Inputs component
 // Colors:
-//   label/text       #4D586A
+//   label/text       #454545
 //   optional         #8D9091
 //   placeholder      #CCCCCC
 //   cursor           #8D9091
@@ -12,7 +12,7 @@
 //   bg white         #FFFFFF
 //   chip bg          #EDF6FC
 //   chip border/text #007CBD
-//   chip label text  #4D586A
+//   chip label text  #454545
 
 :host {
   display: block;
@@ -41,7 +41,7 @@
   &__label {
     font-size: 14px;
     font-weight: 600;
-    color: #4D586A;
+    color: #454545;
   }
 
   &__optional {
@@ -51,7 +51,7 @@
 
   &__instructions {
     font-size: 12px;
-    color: #4D586A;
+    color: #454545;
   }
 
   &__field {
@@ -85,7 +85,7 @@
     outline: none;
     font-family: 'Figtree', sans-serif;
     font-size: 14px;
-    color: #4D586A;
+    color: #454545;
     background: transparent;
     min-width: 0;
 
@@ -99,7 +99,7 @@
 
   &__count {
     font-size: 14px;
-    color: #4D586A;
+    color: #454545;
   }
 
   &__icon-divider,

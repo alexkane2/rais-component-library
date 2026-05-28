@@ -6,7 +6,7 @@
 //   --color/border-focus              #007CBD → uploading border + progress fill
 //   --colors/system-green-500         #479E34 → success border
 //   --colors/system-red-400           #FC827F → error border
-//   --color/text-primary              #4D586A → body text
+//   --color/text-primary              #454545 → body text
 //   --color/text-secondary            #8D9091 → helper / subtitle text
 //   --color/btn-bg-primary            #007CBD → button bg + link color
 //   --color/btn-text-primary          #FFFFFF → button label
@@ -90,7 +90,7 @@
     font-weight: 700;
   }
   &__upload-suffix {
-    color: #4D586A;
+    color: #454545;
     font-weight: 400;
   }
   &__helper {
@@ -120,7 +120,7 @@
   }
   &__divider-label {
     padding: 0 8px;
-    color: #4D586A;
+    color: #454545;
     font-size: 12px;
     font-weight: 600;
     line-height: 1.2;
@@ -170,7 +170,7 @@
   }
   &__progress-pct {
     margin: 0;
-    color: #4D586A;
+    color: #454545;
     font-size: 16px;
     font-weight: 600;
     line-height: 1.2;
@@ -201,7 +201,7 @@
   }
   &__caption-title {
     margin: 0;
-    color: #4D586A;
+    color: #454545;
     font-size: 14px;
     font-weight: 600;
     line-height: 1.2;

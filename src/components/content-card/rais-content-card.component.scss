@@ -7,7 +7,7 @@
 //   --colors/neutrals/...      #DCDCDC → outer border (list type)
 //   --color/text-header        #101928 → header text (most types)
 //   --color/btn-text-secondary #007CBD → header text (list type)
-//   --color/text-primary       #4D586A → paragraph/list value text
+//   --color/text-primary       #454545 → paragraph/list value text
 //   --color/link-primary       #007CBD → link CTA text
 //   --color/btn-bg-primary     #007CBD → filled button background
 //   --color/btn-text-primary   #FFFFFF → filled button label
@@ -140,7 +140,7 @@
   // ─── Paragraph ────────────────────────────────────────────────
   &__paragraph {
     font-size: 14px;
-    color: #4D586A;
+    color: #454545;
     line-height: 1.4;
     letter-spacing: 0.14px;
     margin: 0;
@@ -167,7 +167,7 @@
   }
   &__list-value {
     font-weight: 400;
-    color: #4D586A;
+    color: #454545;
     letter-spacing: 0.14px;
     line-height: 1.4;
   }
