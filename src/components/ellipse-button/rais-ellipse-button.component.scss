@@ -1,0 +1,81 @@
+// Ellipse Button — RAIS Buttons component
+//
+// Tokens (inlined from Figma):
+//   --color/btn-bg-primary    #007CBD → primary fill
+//   --color/btn-bg-secondary  #FFFFFF → secondary/tertiary fill
+//   --color/border-focus      #007CBD → secondary border + icon color
+//   --color/border-dark       #8D9091 → tertiary border + icon color
+//   --border/radius-sm        4px     → corner radius
+//
+// Sizes:
+//   large  → 39×39, 24×24 icon
+//   medium → 33×33, 24×24 icon
+//   small  → 28×28, 20×20 icon
+
+:host {
+  display: inline-block;
+}
+
+.rais-eb {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s ease, border-color 0.15s ease;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  // ─── Type: Primary (filled blue) ─────────────────────────────────
+  &--primary {
+    background: #007CBD;
+    border-color: #007CBD;
+
+    .rais-eb__icon { background-color: #FFFFFF; }
+
+    &:hover:not(:disabled) { background: #006AA3; border-color: #006AA3; }
+  }
+
+  // ─── Type: Secondary (white fill, blue border) ───────────────────
+  &--secondary {
+    background: #FFFFFF;
+    border-color: #007CBD;
+
+    .rais-eb__icon { background-color: #007CBD; }
+
+    &:hover:not(:disabled) { background: #EDF6FC; }
+  }
+
+  // ─── Type: Tertiary (white fill, gray border) ────────────────────
+  &--tertiary {
+    background: #FFFFFF;
+    border-color: #8D9091;
+
+    .rais-eb__icon { background-color: #8D9091; }
+
+    &:hover:not(:disabled) { background: #F0F2F5; }
+  }
+
+  // ─── Sizes ───────────────────────────────────────────────────────
+  &--large  { width: 39px; height: 39px; }
+  &--medium { width: 33px; height: 33px; }
+  &--small  { width: 28px; height: 28px; }
+
+  // ─── Icon (CSS-masked SVG for exact tinting) ─────────────────────
+  &__icon {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    -webkit-mask: url('/assets/boxicons/bx-dots-horizontal-rounded.svg') no-repeat center / contain;
+            mask: url('/assets/boxicons/bx-dots-horizontal-rounded.svg') no-repeat center / contain;
+  }
+  // Small size uses a 20×20 icon
+  &--small &__icon { width: 20px; height: 20px; }
+}

@@ -1,0 +1,15 @@
+<button
+  type="button"
+  class="rais-eb"
+  [class.rais-eb--primary]="type === 'primary'"
+  [class.rais-eb--secondary]="type === 'secondary'"
+  [class.rais-eb--tertiary]="type === 'tertiary'"
+  [class.rais-eb--small]="size === 'small'"
+  [class.rais-eb--medium]="size === 'medium'"
+  [class.rais-eb--large]="size === 'large'"
+  [attr.aria-label]="ariaLabel"
+  [disabled]="disabled"
+  (click)="clicked.emit($event)"
+>
+  <span class="rais-eb__icon" aria-hidden="true"></span>
+</button>
