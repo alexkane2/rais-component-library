@@ -38,52 +38,52 @@ type Story = StoryObj<RaisAccordionLinkComponent>;
 // ── Caret Style ──
 export const CaretClosedDefault: Story = {
   name: 'Caret — Closed',
-  args: { label: 'Label', style: 'caret', size: 'medium', state: 'default', open: false },
+  args: { label: 'yahoo', style: 'caret', size: 'medium', state: 'default', open: false },
 };
 
 export const CaretOpenDefault: Story = {
   name: 'Caret — Open',
-  args: { label: 'Label', style: 'caret', size: 'medium', state: 'default', open: true },
+  args: { label: 'yahoo', style: 'caret', size: 'medium', state: 'default', open: true },
 };
 
 export const CaretClosedHover: Story = {
   name: 'Caret — Closed Hover',
-  args: { label: 'Label', style: 'caret', size: 'medium', state: 'hover', open: false },
+  args: { label: 'yahoo', style: 'caret', size: 'medium', state: 'hover', open: false },
 };
 
 export const CaretOpenHover: Story = {
   name: 'Caret — Open Hover',
-  args: { label: 'Label', style: 'caret', size: 'medium', state: 'hover', open: true },
+  args: { label: 'yahoo', style: 'caret', size: 'medium', state: 'hover', open: true },
 };
 
 // ── Plus Style ──
 export const PlusClosedDefault: Story = {
   name: 'Plus — Closed',
-  args: { label: 'Label', style: 'plus', size: 'medium', state: 'default', open: false },
+  args: { label: 'yahoo', style: 'plus', size: 'medium', state: 'default', open: false },
 };
 
 export const PlusOpenDefault: Story = {
   name: 'Plus — Open',
-  args: { label: 'Label', style: 'plus', size: 'medium', state: 'default', open: true },
+  args: { label: 'yahoo', style: 'plus', size: 'medium', state: 'default', open: true },
 };
 
 export const PlusClosedHover: Story = {
   name: 'Plus — Closed Hover',
-  args: { label: 'Label', style: 'plus', size: 'medium', state: 'hover', open: false },
+  args: { label: 'yahoo', style: 'plus', size: 'medium', state: 'hover', open: false },
 };
 
 export const PlusOpenHover: Story = {
   name: 'Plus — Open Hover',
-  args: { label: 'Label', style: 'plus', size: 'medium', state: 'hover', open: true },
+  args: { label: 'yahoo', style: 'plus', size: 'medium', state: 'hover', open: true },
 };
 
 // ── Sizes ──
 export const Large: Story = {
-  args: { label: 'Label', style: 'caret', size: 'large', state: 'default', open: false },
+  args: { label: 'yahoo', style: 'caret', size: 'large', state: 'default', open: false },
 };
 
 export const Small: Story = {
-  args: { label: 'Label', style: 'caret', size: 'small', state: 'default', open: false },
+  args: { label: 'yahoo', style: 'caret', size: 'small', state: 'default', open: false },
 };
 
 // ── All Variants ──
@@ -96,40 +96,40 @@ export const AllVariants: Story = {
         <div style="display:flex;flex-direction:column;gap:12px;">
           <span style="font-size:11px;color:#8D9091;">CARET STYLE — Closed</span>
           <div style="display:flex;gap:24px;align-items:center;">
-            <rais-accordion-link label="Large"  style="caret" size="large"  state="default" [open]="false"></rais-accordion-link>
-            <rais-accordion-link label="Medium" style="caret" size="medium" state="default" [open]="false"></rais-accordion-link>
-            <rais-accordion-link label="Small"  style="caret" size="small"  state="default" [open]="false"></rais-accordion-link>
+            <rais-accordion-link label="yahoo"  style="caret" size="large"  state="default" [open]="false"></rais-accordion-link>
+            <rais-accordion-link label="yahoo" style="caret" size="medium" state="default" [open]="false"></rais-accordion-link>
+            <rais-accordion-link label="yahoo"  style="caret" size="small"  state="default" [open]="false"></rais-accordion-link>
           </div>
           <span style="font-size:11px;color:#8D9091;">CARET STYLE — Open</span>
           <div style="display:flex;gap:24px;align-items:center;">
-            <rais-accordion-link label="Large"  style="caret" size="large"  state="default" [open]="true"></rais-accordion-link>
-            <rais-accordion-link label="Medium" style="caret" size="medium" state="default" [open]="true"></rais-accordion-link>
-            <rais-accordion-link label="Small"  style="caret" size="small"  state="default" [open]="true"></rais-accordion-link>
+            <rais-accordion-link label="yahoo"  style="caret" size="large"  state="default" [open]="true"></rais-accordion-link>
+            <rais-accordion-link label="yahoo" style="caret" size="medium" state="default" [open]="true"></rais-accordion-link>
+            <rais-accordion-link label="yahoo"  style="caret" size="small"  state="default" [open]="true"></rais-accordion-link>
           </div>
           <span style="font-size:11px;color:#8D9091;">CARET STYLE — Hover</span>
           <div style="display:flex;gap:24px;align-items:center;">
-            <rais-accordion-link label="Closed" style="caret" size="medium" state="hover" [open]="false"></rais-accordion-link>
-            <rais-accordion-link label="Open"   style="caret" size="medium" state="hover" [open]="true"></rais-accordion-link>
+            <rais-accordion-link label="yahoo" style="caret" size="medium" state="hover" [open]="false"></rais-accordion-link>
+            <rais-accordion-link label="yahoo"   style="caret" size="medium" state="hover" [open]="true"></rais-accordion-link>
           </div>
         </div>
 
         <div style="display:flex;flex-direction:column;gap:12px;">
           <span style="font-size:11px;color:#8D9091;">PLUS STYLE — Closed</span>
           <div style="display:flex;gap:24px;align-items:center;">
-            <rais-accordion-link label="Large"  style="plus" size="large"  state="default" [open]="false"></rais-accordion-link>
-            <rais-accordion-link label="Medium" style="plus" size="medium" state="default" [open]="false"></rais-accordion-link>
-            <rais-accordion-link label="Small"  style="plus" size="small"  state="default" [open]="false"></rais-accordion-link>
+            <rais-accordion-link label="yahoo"  style="plus" size="large"  state="default" [open]="false"></rais-accordion-link>
+            <rais-accordion-link label="yahoo" style="plus" size="medium" state="default" [open]="false"></rais-accordion-link>
+            <rais-accordion-link label="yahoo"  style="plus" size="small"  state="default" [open]="false"></rais-accordion-link>
           </div>
           <span style="font-size:11px;color:#8D9091;">PLUS STYLE — Open</span>
           <div style="display:flex;gap:24px;align-items:center;">
-            <rais-accordion-link label="Large"  style="plus" size="large"  state="default" [open]="true"></rais-accordion-link>
-            <rais-accordion-link label="Medium" style="plus" size="medium" state="default" [open]="true"></rais-accordion-link>
-            <rais-accordion-link label="Small"  style="plus" size="small"  state="default" [open]="true"></rais-accordion-link>
+            <rais-accordion-link label="yahoo"  style="plus" size="large"  state="default" [open]="true"></rais-accordion-link>
+            <rais-accordion-link label="yahoo" style="plus" size="medium" state="default" [open]="true"></rais-accordion-link>
+            <rais-accordion-link label="yahoo"  style="plus" size="small"  state="default" [open]="true"></rais-accordion-link>
           </div>
           <span style="font-size:11px;color:#8D9091;">PLUS STYLE — Hover</span>
           <div style="display:flex;gap:24px;align-items:center;">
-            <rais-accordion-link label="Closed" style="plus" size="medium" state="hover" [open]="false"></rais-accordion-link>
-            <rais-accordion-link label="Open"   style="plus" size="medium" state="hover" [open]="true"></rais-accordion-link>
+            <rais-accordion-link label="yahoo" style="plus" size="medium" state="hover" [open]="false"></rais-accordion-link>
+            <rais-accordion-link label="yahoo"   style="plus" size="medium" state="hover" [open]="true"></rais-accordion-link>
           </div>
         </div>
 
