@@ -1,0 +1,63 @@
+// Field Display — RAIS Content component
+// Tokens (from Figma variables):
+//   --color/display-primary       #333333 → label text
+//   --color/text-primary          #454545 → value text
+//   --label/s-semibold            Figtree 600, 12px, line-height 1.2, letter-spacing 0.36px
+//   --paragraph/default-reg       Figtree 400, 14px, line-height 1.4, letter-spacing 0.14px
+//   --spacing/spacing-01          4px  → stacked gap
+//   --spacing/spacing-06          16px → inline gap
+
+:host {
+  display: block;
+}
+
+.rais-field-display {
+  // dl reset
+  margin: 0;
+  display: flex;
+  font-family: 'Figtree', sans-serif;
+
+  &__label {
+    margin: 0;
+    flex-shrink: 0;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 1.2;
+    letter-spacing: 0.36px;
+    color: #333333;
+  }
+
+  &__value {
+    margin: 0;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.4;
+    letter-spacing: 0.14px;
+    color: #454545;
+    // Wrap long content (addresses, names)
+    overflow-wrap: anywhere;
+  }
+
+  // Stacked: label above value, 4px gap
+  &--stacked {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+
+    .rais-field-display__value {
+      width: 100%;
+    }
+  }
+
+  // Inline: label left / value right, 16px gap
+  &--inline {
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+
+    .rais-field-display__value {
+      flex: 1;
+      text-align: right;
+    }
+  }
+}

@@ -1,0 +1,58 @@
+// Button Tab Sets (SelectButton) — RAIS Selector Controls component
+// Tokens (from Figma variables):
+//   --color/surface-secondary      #F0F2F5 → track + unselected segment bg
+//   --color/surface-primary        #FFFFFF → selected pill bg
+//   --color/text-primary           #454545 → unselected label
+//   --color/text-header            #101928 → selected label
+//   --selectbutton/border/radius   6px     → track radius
+//   --togglebutton/border/radius   6px     → selected pill radius
+//   --togglebutton/figma/padding   5px (x/y; 4px left on non-first segments)
+//   --togglebutton/figma/content/padding  12px x / 4px y
+//   Label/L Medium: Figtree 500, 14px, line-height 1.2, letter-spacing 0.28px
+
+:host {
+  display: inline-block;
+}
+
+.rais-bts {
+  display: inline-flex;
+  align-items: center;
+  background: #F0F2F5;
+  border-radius: 6px;
+
+  &__segment {
+    background: transparent;
+    border: none;
+    margin: 0;
+    padding: 5px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    // Figma: non-first segments tuck 1px closer (pl 4 / pr 5)
+    &:not(:first-child) {
+      padding-left: 4px;
+    }
+  }
+
+  &__pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-family: 'Figtree', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.2;
+    letter-spacing: 0.28px;
+    color: #454545;
+    white-space: nowrap;
+  }
+
+  &__segment--selected &__pill {
+    background: #FFFFFF;
+    color: #101928;
+  }
+}

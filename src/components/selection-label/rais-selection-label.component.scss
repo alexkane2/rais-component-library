@@ -33,14 +33,17 @@
     border-radius: 16px;
   }
 
-  // Icon Right: 14×14 frame, 8×8 vector
+  // Close icon: ALWAYS bx-x-large-spacing.svg (the design-system close glyph,
+  // 16×16 canvas with a 12px X). Figma spec here is an 8px X in a 14px frame,
+  // so the tile scales to 10.67px (16 × 8/12) → visible X = 8px.
   &__icon {
     width: 14px;
     height: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: inline-block;
     flex-shrink: 0;
     cursor: pointer;
+    background-color: #007CBD;
+    -webkit-mask: url('/assets/boxicons/bx-x-large-spacing.svg') no-repeat center / 10.67px 10.67px;
+            mask: url('/assets/boxicons/bx-x-large-spacing.svg') no-repeat center / 10.67px 10.67px;
   }
 }

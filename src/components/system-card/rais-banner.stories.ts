@@ -8,7 +8,7 @@ import { RaisSystemCardComponent } from './rais-system-card.component';
  * and Toast (RaisSystemCardComponent) with `format` locked to `'banner'`.
  */
 const meta: Meta<RaisSystemCardComponent> = {
-  title: 'RAIS/Banners/Banner',
+  title: 'RAIS/Content/System Cards/Banner',
   component: RaisSystemCardComponent,
   tags: ['autodocs'],
   decorators: [

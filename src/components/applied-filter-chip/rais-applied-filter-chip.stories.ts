@@ -20,7 +20,7 @@ const meta: Meta<RaisAppliedFilterChipComponent> = {
     },
     dismissible: {
       control: 'boolean',
-      description: 'Show dismiss X (bx-x.svg) on the right — false for "must have" filters',
+      description: 'Show dismiss X (bx-x-large-spacing.svg) on the right — false for "must have" filters',
     },
   },
 };

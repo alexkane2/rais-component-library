@@ -60,13 +60,13 @@
     >
       <span class="rais-system-card__close-icon"></span>
     </button>
-  </div>
 
-  <!-- Toast close container (separate section, with left divider) -->
-  <div *ngIf="isToast && showCloseIcon" class="rais-system-card__close-container">
-    <button type="button" class="rais-system-card__close" aria-label="Close">
-      <span class="rais-system-card__close-icon"></span>
-    </button>
+    <!-- Toast close (inside the card padding — divider spans content height only) -->
+    <div *ngIf="isToast && showCloseIcon" class="rais-system-card__close-container">
+      <button type="button" class="rais-system-card__close" aria-label="Close">
+        <span class="rais-system-card__close-icon"></span>
+      </button>
+    </div>
   </div>
 
   <!-- Long-banner far-right close -->

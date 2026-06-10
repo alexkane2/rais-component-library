@@ -7,7 +7,9 @@
     <span *ngIf="hasValue" class="rais-pf-dropdown__value">{{ value }}</span>
     <span *ngIf="!hasValue" class="rais-pf-dropdown__placeholder">{{ placeholder }}</span>
     <span class="rais-pf-dropdown__caret">
-      <img src="assets/boxicons/bx-caret-down.svg" width="9" height="5" alt="caret" />
+      <!-- Tight-box caret (triangle fills the canvas) — the boxicons bx-caret-down
+           has built-in padding and renders ~5px wide at this size -->
+      <img src="assets/boxicons/bx-caret-down-tight.svg" width="9" height="5" alt="caret" />
     </span>
   </div>
 </div>

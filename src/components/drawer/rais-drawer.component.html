@@ -1,0 +1,27 @@
+<aside class="rais-drawer" role="dialog" [attr.aria-label]="heading">
+  <header class="rais-drawer__header">
+    <div class="rais-drawer__titles">
+      <h2 class="rais-drawer__heading">{{ heading }}</h2>
+      <p *ngIf="subheading" class="rais-drawer__subheading">{{ subheading }}</p>
+    </div>
+    <button
+      *ngIf="showCloseButton"
+      type="button"
+      class="rais-drawer__close"
+      aria-label="Close drawer"
+      (click)="closed.emit()"
+    ></button>
+  </header>
+
+  <div class="rais-drawer__divider"></div>
+
+  <div class="rais-drawer__body">
+    <ng-content></ng-content>
+  </div>
+
+  <footer *ngIf="showCta" class="rais-drawer__footer">
+    <button type="button" class="rais-drawer__cta" (click)="ctaClicked.emit()">
+      {{ ctaLabel }}
+    </button>
+  </footer>
+</aside>

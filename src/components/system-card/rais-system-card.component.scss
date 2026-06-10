@@ -91,10 +91,8 @@
       &.rais-system-card--success { background: #F0FAEC; }
     }
 
-    .rais-system-card__content {
-      width: 286px;
-      gap: 4px;
-    }
+    // Content flexes to fill (Figma's fixed 286px width would force the body
+    // to overflow the 390px card and swallow the right-side spacing)
   }
 
   // ─── FORMAT: Long Banner (1500px wide, no left border) ───────────
@@ -273,41 +271,45 @@
     justify-content: center;
     flex-shrink: 0;
   }
+  // Close icon: ALWAYS bx-x-large-spacing.svg (the design-system close glyph,
+  // 16×16 canvas with a 12px X). Rendered at its native 16px frame so the
+  // visible X measures exactly 12px, matching every Figma format.
   &__close-icon {
     display: inline-block;
-    width: 12px;
-    height: 12px;
+    width: 16px;
+    height: 16px;
     background-color: #454545;
-    -webkit-mask: url('/assets/boxicons/bx-x.svg') no-repeat center / contain;
-            mask: url('/assets/boxicons/bx-x.svg') no-repeat center / contain;
+    -webkit-mask: url('/assets/boxicons/bx-x-large-spacing.svg') no-repeat center / contain;
+            mask: url('/assets/boxicons/bx-x-large-spacing.svg') no-repeat center / contain;
   }
-  // Banner inline close (small, top-right of body)
+  // Banner inline close (top-right of body)
   &--banner &__close {
-    width: 10px;
-    height: 10px;
     align-self: flex-start;
   }
-  &--banner &__close-icon { width: 12px; height: 12px; }
 
-  // Toast close lives in its own container with a left divider
+  // Toast close: sits inside the card padding with a left divider that
+  // spans the content height only (align-self: stretch within the body row),
+  // NOT the full toast height. Per Figma node 221:7695.
+  // The 12px X glyph is spaced EVENLY: 16px from the divider and 16px from
+  // the card edge (the card's own right padding provides the 16px).
   &__close-container {
     border-left: 1px solid #CCCCCC;
-    padding-left: 12px;
-    padding-right: 16px;
+    padding-left: 16px;
     display: flex;
     align-items: center;
+    align-self: stretch;
     flex-shrink: 0;
   }
+  // Collapse the icon box to the bare 12px glyph (mask tile stays 16px so the
+  // X still renders at 12px) so the spacing math above is exact.
   &--toast &__close-icon {
     width: 12px;
     height: 12px;
+    -webkit-mask-size: 16px 16px;
+            mask-size: 16px 16px;
   }
-
   // Long-banner close at far right (gets 16px right padding via gap)
   &--long-banner &__close {
     margin-right: 16px;
-    width: 10px;
-    height: 10px;
   }
-  &--long-banner &__close-icon { width: 12px; height: 12px; }
 }

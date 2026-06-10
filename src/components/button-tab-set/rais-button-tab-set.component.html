@@ -1,0 +1,12 @@
+<div class="rais-bts" role="group" aria-label="Button tab set">
+  <button
+    *ngFor="let opt of options; let i = index"
+    type="button"
+    class="rais-bts__segment"
+    [class.rais-bts__segment--selected]="isSelected(i)"
+    [attr.aria-pressed]="isSelected(i)"
+    (click)="select(i)"
+  >
+    <span class="rais-bts__pill">{{ opt }}</span>
+  </button>
+</div>

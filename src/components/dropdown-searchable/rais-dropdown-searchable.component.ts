@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
  * Type-ahead search field with optional results panel.
  *
  * Icons:
- *   bx-x.svg          — clear/dismiss
+ *   bx-x-large-spacing.svg — clear/dismiss (the design-system close glyph)
  *   bx-caret-down.svg — closed caret
  */
 export type SearchableState = 'default' | 'selection' | 'active' | 'error';
@@ -56,6 +56,6 @@ export class RaisDropdownSearchableComponent {
   }
 
   get iconFile(): string {
-    return (this.isSelection || this.isActive) ? 'bx-x' : 'bx-caret-down';
+    return (this.isSelection || this.isActive) ? 'bx-x-large-spacing' : 'bx-caret-down';
   }
 }

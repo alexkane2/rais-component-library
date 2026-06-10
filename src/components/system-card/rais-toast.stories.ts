@@ -9,13 +9,14 @@ import { RaisSystemCardComponent } from './rais-system-card.component';
  * `format` locked to `'toast'`.
  */
 const meta: Meta<RaisSystemCardComponent> = {
-  title: 'RAIS/Toasts/Toast',
+  title: 'RAIS/Content/System Cards/Toast',
   component: RaisSystemCardComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({ imports: [RaisSystemCardComponent] }),
   ],
-  args: { format: 'toast' },
+  // Figma toast copy (node 221:7677) — short single-line message
+  args: { format: 'toast', message: 'Lorem ipsum dolor sit amet consectetur.' },
   argTypes: {
     messageType: {
       control: 'select',
@@ -53,16 +54,17 @@ export const SuccessColor: Story = { name: 'Success / Color', args: { messageTyp
 
 export const AllVariants: Story = {
   render: () => ({
+    props: { msg: 'Lorem ipsum dolor sit amet consectetur.' },
     template: `
       <div style="display:grid;grid-template-columns:repeat(2,390px);gap:16px;padding:32px;background:#F0F2F5;font-family:'Figtree',sans-serif;">
-        <rais-system-card format="toast" messageType="info"    background="white"></rais-system-card>
-        <rais-system-card format="toast" messageType="info"    background="color"></rais-system-card>
-        <rais-system-card format="toast" messageType="error"   background="white"></rais-system-card>
-        <rais-system-card format="toast" messageType="error"   background="color"></rais-system-card>
-        <rais-system-card format="toast" messageType="warning" background="white"></rais-system-card>
-        <rais-system-card format="toast" messageType="warning" background="color"></rais-system-card>
-        <rais-system-card format="toast" messageType="success" background="white"></rais-system-card>
-        <rais-system-card format="toast" messageType="success" background="color"></rais-system-card>
+        <rais-system-card format="toast" messageType="info"    background="white" [message]="msg"></rais-system-card>
+        <rais-system-card format="toast" messageType="info"    background="color" [message]="msg"></rais-system-card>
+        <rais-system-card format="toast" messageType="error"   background="white" [message]="msg"></rais-system-card>
+        <rais-system-card format="toast" messageType="error"   background="color" [message]="msg"></rais-system-card>
+        <rais-system-card format="toast" messageType="warning" background="white" [message]="msg"></rais-system-card>
+        <rais-system-card format="toast" messageType="warning" background="color" [message]="msg"></rais-system-card>
+        <rais-system-card format="toast" messageType="success" background="white" [message]="msg"></rais-system-card>
+        <rais-system-card format="toast" messageType="success" background="color" [message]="msg"></rais-system-card>
       </div>
     `,
   }),

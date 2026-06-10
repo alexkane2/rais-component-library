@@ -1,0 +1,118 @@
+// Drawer — RAIS Content component
+// Tokens (from Figma variables):
+//   --color/surface-primary    #FFFFFF → panel background
+//   --color/border-default     #CCCCCC → left border
+//   --color/text-header        #101928 → heading
+//   --color/text-secondary     #8D9091 → subheading
+//   --color/divider            #EFEFEF → header divider
+//   --color/btn-bg-primary     #007CBD → CTA background, close icon
+//   --color/btn-text-primary   #FFFFFF → CTA label
+//   --border/radius-sm         4px     → CTA radius
+//   --spacing/spacing-08       24px    → header/footer padding
+//   --spacing/spacing-06       16px    → header bottom padding
+//   Heading/H5: Figtree 600, 20px, line-height 1.2, letter-spacing 0.4px
+//   Paragraph/Default Reg: Figtree 400, 14px, line-height 1.4, letter-spacing 0.14px
+//   Label/XL SemiBold: Figtree 600, 16px, line-height 1.2, letter-spacing 0.32px
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+.rais-drawer {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 556px;
+  max-width: 100%;
+  height: 100%;
+  background: #FFFFFF;
+  border-left: 1px solid #CCCCCC;
+  box-shadow: -4px 0 24px 0 rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  font-family: 'Figtree', sans-serif;
+
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 24px 24px 16px;
+    flex-shrink: 0;
+  }
+
+  &__titles {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  &__heading {
+    margin: 0;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 1.2;
+    letter-spacing: 0.4px;
+    color: #101928;
+  }
+
+  &__subheading {
+    margin: 0;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.4;
+    letter-spacing: 0.14px;
+    color: #8D9091;
+  }
+
+  // Close icon: ALWAYS bx-x-large-spacing.svg (the design-system close glyph,
+  // 16×16 canvas with a 12px X). Figma puts it in a 24px frame here, so the
+  // 16px tile is centered in the 24px hit area → visible X = 12px.
+  &__close {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    background-color: #007CBD;
+    -webkit-mask: url('/assets/boxicons/bx-x-large-spacing.svg') no-repeat center / 16px 16px;
+            mask: url('/assets/boxicons/bx-x-large-spacing.svg') no-repeat center / 16px 16px;
+  }
+
+  &__divider {
+    height: 1px;
+    background: #EFEFEF;
+    flex-shrink: 0;
+  }
+
+  &__body {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+  }
+
+  &__footer {
+    padding: 24px;
+    flex-shrink: 0;
+  }
+
+  &__cta {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 10px 20px;
+    background: #007CBD;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Figtree', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1.2;
+    letter-spacing: 0.32px;
+    color: #FFFFFF;
+  }
+}

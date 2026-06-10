@@ -61,9 +61,16 @@
     color: #CCCCCC;
   }
 
+  // Caret: bx-chevron-down boxicon, masked so it can be tinted #454545
   &__select-caret {
     flex-shrink: 0;
     margin-left: 8px;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    background-color: #454545;
+    -webkit-mask: url('/assets/boxicons/bx-chevron-down.svg') no-repeat center / contain;
+            mask: url('/assets/boxicons/bx-chevron-down.svg') no-repeat center / contain;
   }
 
   // Skeleton loader variant

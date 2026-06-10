@@ -10,7 +10,7 @@ import { RaisSelectionLabelComponent } from '../selection-label/rais-selection-l
  * using the real RaisSelectionLabelComponent (squared variant).
  *
  * Icons:
- *   bx-x.svg          — clear / chip dismiss
+ *   bx-x-large-spacing.svg — clear / chip dismiss (the design-system close glyph)
  *   bx-caret-down.svg — closed
  *   bx-caret-up.svg   — open/focus
  */

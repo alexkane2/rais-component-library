@@ -9,7 +9,7 @@ import { RaisSystemCardComponent } from './rais-system-card.component';
  * Only `info` message type is defined in Figma for this format.
  */
 const meta: Meta<RaisSystemCardComponent> = {
-  title: 'RAIS/Long Banners/Long Banner',
+  title: 'RAIS/Content/System Cards/Long Banner',
   component: RaisSystemCardComponent,
   tags: ['autodocs'],
   decorators: [

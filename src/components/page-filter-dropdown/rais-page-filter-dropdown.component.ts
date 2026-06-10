@@ -7,7 +7,8 @@ import { CommonModule } from '@angular/common';
  * Compact pill-shaped dropdown for page-level filter bars. Supports
  * horizontal (label left) and vertical (label above) placements.
  *
- * Icons: assets/boxicons/bx-caret-down.svg (9x5)
+ * Icons: assets/boxicons/bx-caret-down-tight.svg (9x5 — tight bounding box,
+ * the triangle fills the canvas; matches the Figma vector at 8.5x4.857)
  */
 export type LabelPlacement = 'horizontal' | 'vertical';
 
