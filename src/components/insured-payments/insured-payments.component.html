@@ -1,6 +1,6 @@
 <div class="page-layout">
   <!-- ── Left sidebar ── -->
-  <rais-main-navigation-external activeSection="servicing"></rais-main-navigation-external>
+  <rais-main-navigation-external [activeSection]="null"></rais-main-navigation-external>
 
   <!-- ── Main content area ── -->
   <div class="page-main">
@@ -44,19 +44,19 @@
             <div class="cascading-grid">
               <div class="cascading-field">
                 <span class="cascading-number">1.</span>
-                <rais-dropdown label="Agency" value="" state="default"></rais-dropdown>
+                <rais-page-filter-dropdown label="Agency" placeholder="-- Select --" labelPlacement="vertical" [width]="180"></rais-page-filter-dropdown>
               </div>
               <div class="cascading-field">
                 <span class="cascading-number">2.</span>
-                <rais-dropdown label="Division" value="" state="default"></rais-dropdown>
+                <rais-page-filter-dropdown label="Division" placeholder="-- Select --" labelPlacement="vertical" [width]="180"></rais-page-filter-dropdown>
               </div>
               <div class="cascading-field">
                 <span class="cascading-number">3.</span>
-                <rais-dropdown label="Insured Name" value="" state="default"></rais-dropdown>
+                <rais-page-filter-dropdown label="Insured Name" placeholder="-- Select --" labelPlacement="vertical" [width]="180"></rais-page-filter-dropdown>
               </div>
               <div class="cascading-field">
                 <span class="cascading-number">4.</span>
-                <rais-dropdown label="Description" value="" state="default"></rais-dropdown>
+                <rais-page-filter-dropdown label="Description" placeholder="-- Select --" labelPlacement="vertical" [width]="180"></rais-page-filter-dropdown>
               </div>
             </div>
           </div>
@@ -70,7 +70,7 @@
               </div>
             </div>
             <div class="independent-grid">
-              <rais-dropdown label="Month Received or Posted" value="" state="default"></rais-dropdown>
+              <rais-page-filter-dropdown label="Month Received or Posted" placeholder="-- Select --" labelPlacement="vertical" [width]="180"></rais-page-filter-dropdown>
             </div>
           </div>
         </div>

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RaisMainNavigationExternalComponent } from '../main-navigation-external/rais-main-navigation-external.component';
 import { RaisMemberCentralHeaderComponent } from '../member-central-header/rais-member-central-header.component';
 import { RaisButtonComponent } from '../button/rais-button.component';
-import { RaisDropdownComponent } from '../dropdown/rais-dropdown.component';
+import { RaisPageFilterDropdownComponent } from '../page-filter-dropdown/rais-page-filter-dropdown.component';
 import { RaisSearchBarComponent } from '../search-bar/rais-search-bar.component';
 import { RaisTableColumnComponent } from '../table-column/rais-table-column.component';
 
@@ -15,7 +15,7 @@ import { RaisTableColumnComponent } from '../table-column/rais-table-column.comp
     RaisMainNavigationExternalComponent,
     RaisMemberCentralHeaderComponent,
     RaisButtonComponent,
-    RaisDropdownComponent,
+    RaisPageFilterDropdownComponent,
     RaisSearchBarComponent,
     RaisTableColumnComponent,
   ],
