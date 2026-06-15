@@ -43,7 +43,6 @@
     "src/app.component.ts",
     "src/app.config.ts",
     "src/components/**/*.ts",
-    "supernova",
     ".storybook/**/*.ts"
   ],
   "exclude": [
