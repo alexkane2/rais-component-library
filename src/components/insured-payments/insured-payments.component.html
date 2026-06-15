@@ -1,0 +1,140 @@
+<div class="page-layout">
+  <!-- ── Left sidebar ── -->
+  <rais-main-navigation-external [activeSection]="null"></rais-main-navigation-external>
+
+  <!-- ── Main content area ── -->
+  <div class="page-main">
+    <!-- Header -->
+    <rais-member-central-header
+      agencyDisplay="searchable"
+      searchPlaceholder="Type name..."
+      userName="Ryan Nichols"
+      pageTitle="Insured Payments"
+      [showPageDescription]="false"
+      [showTabs]="false"
+    ></rais-member-central-header>
+
+    <!-- Page body -->
+    <div class="page-body">
+
+      <!-- Filter toggle button -->
+      <div class="filter-toggle-row">
+        <rais-button
+          [label]="showFilters ? 'Hide Filters' : 'Add Filters'"
+          variant="secondary"
+          size="small"
+          icon="bx-filter"
+          iconPos="left"
+          (click)="toggleFilters()"
+        ></rais-button>
+      </div>
+
+      <!-- Filter panel -->
+      @if (showFilters) {
+        <div class="filter-panel">
+          <!-- Cascading Filters -->
+          <div class="filter-section">
+            <div class="filter-section-header">
+              <div class="filter-section-title">
+                <span class="filter-section-label">CASCADING FILTERS</span>
+                <img src="assets/boxicons/bx-info-circle.svg" width="14" height="14" alt="info" class="filter-info-icon" />
+              </div>
+              <a href="#" class="filter-reset-link" (click)="$event.preventDefault()">Reset Filters</a>
+            </div>
+            <div class="cascading-grid">
+              <div class="cascading-field">
+                <span class="cascading-number">1.</span>
+                <rais-page-filter-dropdown label="Agency" placeholder="-- Select --" labelPlacement="vertical" [width]="180"></rais-page-filter-dropdown>
+              </div>
+              <div class="cascading-field">
+                <span class="cascading-number">2.</span>
+                <rais-page-filter-dropdown label="Division" placeholder="-- Select --" labelPlacement="vertical" [width]="180"></rais-page-filter-dropdown>
+              </div>
+              <div class="cascading-field">
+                <span class="cascading-number">3.</span>
+                <rais-page-filter-dropdown label="Insured Name" placeholder="-- Select --" labelPlacement="vertical" [width]="180"></rais-page-filter-dropdown>
+              </div>
+              <div class="cascading-field">
+                <span class="cascading-number">4.</span>
+                <rais-page-filter-dropdown label="Description" placeholder="-- Select --" labelPlacement="vertical" [width]="180"></rais-page-filter-dropdown>
+              </div>
+            </div>
+          </div>
+
+          <!-- Independent Filters -->
+          <div class="filter-section filter-section--independent">
+            <div class="filter-section-header">
+              <div class="filter-section-title">
+                <span class="filter-section-label">INDEPENDENT FILTERS</span>
+                <img src="assets/boxicons/bx-info-circle.svg" width="14" height="14" alt="info" class="filter-info-icon" />
+              </div>
+            </div>
+            <div class="independent-grid">
+              <rais-page-filter-dropdown label="Month Received or Posted" placeholder="-- Select --" labelPlacement="vertical" [width]="180"></rais-page-filter-dropdown>
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- ── Unapplied Payments ── -->
+      <div class="table-section">
+        <div class="table-toolbar">
+          <rais-search-bar label="" [instructions]="false" state="empty"></rais-search-bar>
+          <rais-button label="Export Table to Excel" variant="secondary" size="small" icon="bx-table" iconPos="left"></rais-button>
+        </div>
+        <div class="section-banner">
+          <div class="section-banner__title">Unapplied Payments</div>
+          <div class="section-banner__subtitle">A payment has been received from your insured. The policy is in the process of being invoiced.</div>
+        </div>
+        <div class="data-table">
+          <rais-table-column columnName="Received Date" [cellValues]="unappliedReceivedDates" width="130px"></rais-table-column>
+          <rais-table-column columnName="Description" [cellValues]="unappliedDescriptions" width="240px"></rais-table-column>
+          <rais-table-column columnName="Amount" [cellValues]="unappliedAmounts" width="90px"></rais-table-column>
+          <rais-table-column columnName="Insured Name" [cellValues]="unappliedInsuredNames" width="200px"></rais-table-column>
+          <rais-table-column columnName="Policy#" [cellValues]="unappliedPolicies" width="80px"></rais-table-column>
+          <rais-table-column columnName="Agency" [cellValues]="unappliedAgencies" width="130px"></rais-table-column>
+        </div>
+      </div>
+
+      <!-- ── Applied Payments ── -->
+      <div class="table-section">
+        <div class="table-toolbar">
+          <rais-search-bar label="" [instructions]="false" state="empty"></rais-search-bar>
+          <rais-button label="Export Table to Excel" variant="secondary" size="small" icon="bx-table" iconPos="left"></rais-button>
+        </div>
+        <div class="section-banner">
+          <div class="section-banner__title">Applied Payments</div>
+          <div class="section-banner__subtitle">RAIS received your payment and has applied it to the policy. Payment will be sent to the broker per payment terms.</div>
+        </div>
+        <div class="data-table">
+          <rais-table-column columnName="Payment Posted Date" [cellValues]="appliedPostedDates" width="160px"></rais-table-column>
+          <rais-table-column columnName="Description" [cellValues]="appliedDescriptions" width="340px"></rais-table-column>
+          <rais-table-column columnName="Amount" [cellValues]="appliedAmounts" width="90px"></rais-table-column>
+          <rais-table-column columnName="Insured Name" [cellValues]="appliedInsuredNames" width="280px"></rais-table-column>
+        </div>
+      </div>
+
+      <!-- ── Open Balances ── -->
+      <div class="table-section">
+        <div class="table-toolbar">
+          <rais-search-bar label="" [instructions]="false" state="empty"></rais-search-bar>
+          <rais-button label="Export Table to Excel" variant="secondary" size="small" icon="bx-table" iconPos="left"></rais-button>
+        </div>
+        <div class="section-banner">
+          <div class="section-banner__title">Open Balances</div>
+          <div class="section-banner__subtitle">Gross premium is due within 10 days of the date of RAIS invoice or the effective date of the policy (including policies with shorter carrier payment terms).</div>
+        </div>
+        <div class="data-table">
+          <rais-table-column variant="checkboxes" [cellCount]="openInvoices.length" width="50px"></rais-table-column>
+          <rais-table-column columnName="Invoice" [cellValues]="openInvoices" width="90px"></rais-table-column>
+          <rais-table-column columnName="Policy Effective Date" [cellValues]="openPolicyEffectiveDates" width="150px"></rais-table-column>
+          <rais-table-column columnName="Effective Date" [cellValues]="openEffectiveDates" width="120px"></rais-table-column>
+          <rais-table-column columnName="Invoiced Aged" [cellValues]="openInvoicedAged" width="120px"></rais-table-column>
+          <rais-table-column columnName="Total Amount Due" [cellValues]="openTotalAmountDue" width="140px"></rais-table-column>
+          <rais-table-column columnName="Current Balance" [cellValues]="openCurrentBalance" width="220px"></rais-table-column>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

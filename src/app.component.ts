@@ -1,12 +1,11 @@
-// This is where AI-generated code will be placed.
-// Keep this file empty when uploading your template - Supernova will generate the app content here.
 import { Component } from "@angular/core";
 import { SnPrototypeComponent } from "../supernova/helpers/sn-prototype.component";
+import { InsuredPaymentsComponent } from "./components/insured-payments/insured-payments.component";
 
 @Component({
   selector: "app-root",
   standalone: true,
-  imports: [SnPrototypeComponent],
-  template: `<sn-prototype></sn-prototype>`,
+  imports: [SnPrototypeComponent, InsuredPaymentsComponent],
+  template: `<sn-prototype><insured-payments></insured-payments></sn-prototype>`,
 })
 export class AppComponent {}
