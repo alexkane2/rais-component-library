@@ -100,10 +100,13 @@
     background: #007CBD;
     border-radius: 50%;
   }
-  &--radio.rais-rc--small   .rais-rc__dot { width: 7px; height: 7px; }
-  &--radio.rais-rc--medium  .rais-rc__dot { width: 7px; height: 7px; }
-  &--radio.rais-rc--large   .rais-rc__dot { width: 9px; height: 9px; }
-  &--radio.rais-rc--x-large .rais-rc__dot { width: 9px; height: 9px; }
+  // Dot sizes are kept EVEN so they center on whole pixels inside the box's
+  // even internal space (box width − 2×1px border). An odd dot (e.g. 9px in a
+  // 14px space) lands on a half-pixel margin that browsers round off-center.
+  &--radio.rais-rc--small   .rais-rc__dot { width: 6px; height: 6px; }
+  &--radio.rais-rc--medium  .rais-rc__dot { width: 6px; height: 6px; }
+  &--radio.rais-rc--large   .rais-rc__dot { width: 8px; height: 8px; }
+  &--radio.rais-rc--x-large .rais-rc__dot { width: 8px; height: 8px; }
 
   // Checkmark — white (sits on blue filled box)
   &__check {
