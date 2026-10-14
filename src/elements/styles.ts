@@ -51,9 +51,9 @@ export function componentStylesheet(components: readonly Type<unknown>[], appId:
 /**
  * Separates rules scoped to the component (their selectors carry the
  * `%COMP%` encapsulation attribute) from page-global ones, which a top-level
- * `::ng-deep` produces (e.g. `rais-table-cell { width: 100% }` in
- * rais-table-column). Angular only adds a component's styles while it is on
- * the page, so global rules must not live in the always-loaded stylesheet.
+ * `::ng-deep` produces (`::ng-deep rais-table-cell { … }` compiles to
+ * `rais-table-cell { … }`). Angular only adds a component's styles while it is
+ * on the page, so global rules must not live in the always-loaded stylesheet.
  */
 export function splitGlobalRules(css: string): { scoped: string; global: string } {
   let scoped = '';
