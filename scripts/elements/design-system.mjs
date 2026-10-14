@@ -1,4 +1,4 @@
-// npm run build:design-system   (after npm run build:elements)
+// npm run build:design-system [-- --tokens <tokens.css>]   (after npm run build:elements)
 //
 // Builds dist/design-system/project/components/: the components of the RAIS
 // Design System in Claude Design (claude.ai), in that design system's file
@@ -9,9 +9,11 @@
 //   bundle.js    one classic script: every asset as a data: URI (RAIS_ASSETS),
 //                dist/elements/rais-elements.js and the React components
 //                (window.RAISDesignSystem_13240a)
-//   bundle.css   Figtree, the PrimeNG Aura theme, src/index.css (its tokens as
-//                defaults that the design system's own tokens.css overrides)
-//                and the component styles
+//   bundle.css   Figtree, the PrimeNG Aura theme, src/index.css and the
+//                component styles. With --tokens (the design system's
+//                tokens.css, as its page writes it), the src/index.css tokens
+//                that file declares are left out, so the design system's
+//                token values are the only ones.
 //   index.d.ts   every component's props (the design system's API cards)
 //   <Name>/      <Name>.d.ts, README.md and a live preview.html made from the
 //                component's Storybook stories
@@ -33,6 +35,7 @@ const outDir = join(root, 'dist/design-system');
 const componentsDir = join(outDir, 'project/components');
 const version = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8')).version;
 const source = sourceRevision();
+const tokensFile = option('--tokens');
 
 /** React names that differ from the tag (`rais-colorful-label-chips` renders one chip). */
 const NAMES = { 'rais-colorful-label-chips': 'ColorfulLabelChip' };
@@ -241,14 +244,17 @@ function checkBundle(js) {
 async function bundleCss() {
   const { imports, indexCss, aura } = await globalStyles(root);
   const { css: componentCss, fingerprint } = readComponentStyles(readFileSync(join(elementsDir, 'rais-elements.css'), 'utf8'));
-  const { tokens, primeng, rules } = splitIndexCss(indexCss);
+  const { tokens: allTokens, primeng, rules } = splitIndexCss(indexCss);
+  const tokens = tokensFile ? withoutPageTokens(allTokens, readFileSync(tokensFile, 'utf8')) : allTokens;
   const css = [
     `/*! RAIS Design System components: rais-elements ${version} (${source}) | build ${fingerprint} */`,
     ...imports,
     '/* PrimeNG Aura theme */',
     aura,
-    "/* RAIS tokens from src/index.css as defaults: the design system's tokens.css (its tokens.json) overrides them */",
-    `:where(:root){${tokens}}`,
+    tokensFile
+      ? "/* The src/index.css tokens that the design system's tokens.css does not declare (it declares the rest) */"
+      : "/* RAIS tokens from src/index.css, as defaults that a design system's tokens.css overrides */",
+    `:where(:root){${tokens.join(';')}}`,
     '/* PRIMENG OVERRIDES from src/index.css (after the Aura theme) */',
     `:root{${primeng}}`,
     '/* Base styles from src/index.css */',
@@ -281,7 +287,32 @@ function splitIndexCss(css) {
     }
   }
   if (!tokens.length || !primeng.length) fail('src/index.css: expected design tokens and PRIMENG OVERRIDES under :root');
-  return { tokens: tokens.join(';'), primeng: primeng.join(';'), rules };
+  return { tokens, primeng: primeng.join(';'), rules };
+}
+
+/**
+ * The declarations of `tokens` whose custom property the design system's
+ * tokens.css does not declare: values it holds come only from there, so an
+ * edit on its page wins.
+ */
+function withoutPageTokens(tokens, pageCss) {
+  const declared = new Map();
+  for (const [, name, value] of pageCss.replace(/\/\*[\s\S]*?\*\//g, '').matchAll(/(--[\w-]+(?:\\.[\w-]+)*)\s*:\s*([^;}]*)/g)) {
+    declared.set(name, value.trim());
+  }
+  if (!declared.size) fail(`${tokensFile} declares no custom properties`);
+  const normalize = (value) => value.replace(/\s+/g, '').replace(/(^|[^\d.])0(\.\d)/g, '$1$2').toLowerCase();
+  const kept = [];
+  const differing = [];
+  for (const declaration of tokens) {
+    const [name, ...rest] = declaration.split(':');
+    const value = rest.join(':').trim();
+    if (!declared.has(name.trim())) kept.push(declaration);
+    else if (normalize(declared.get(name.trim())) !== normalize(value)) differing.push(`${name.trim()}: ${value} → ${declared.get(name.trim())}`);
+  }
+  console.log(`  ${tokens.length - kept.length} src/index.css tokens are left to the design system's tokens.css; ${kept.length} stay in bundle.css`);
+  for (const line of differing) console.log(`  note: the design system's value differs: ${line}`);
+  return kept;
 }
 
 function topLevelRules(css) {
@@ -625,6 +656,14 @@ function sourceRevision() {
   } catch {
     return 'unknown revision';
   }
+}
+
+function option(name) {
+  const index = process.argv.indexOf(name);
+  if (index < 0) return undefined;
+  const value = process.argv[index + 1];
+  if (!value || !existsSync(value)) fail(`${name} needs an existing file`);
+  return value;
 }
 
 function pascalCase(text) {
