@@ -8,6 +8,7 @@
     "vite": "vite",
     "build": "vite build",
     "build:elements": "node scripts/elements/build.mjs",
+    "build:design-system": "node scripts/elements/design-system.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
     "storybook": "ng run rais-component-library:storybook",

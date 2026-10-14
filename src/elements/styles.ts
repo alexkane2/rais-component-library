@@ -1,5 +1,5 @@
 import { Type } from '@angular/core';
-import { cssAssetPaths, replaceCssAssetUrls } from './assets';
+import { AssetResolver, cssAssetPaths, cssUrl, replaceCssAssetUrls } from './assets';
 
 /**
  * Component styles ship in rais-elements.css. The stylesheet sets this custom
@@ -143,9 +143,9 @@ export function stylesheetStatus(expected: string): 'loaded' | 'missing' | 'mism
   return value === expected ? 'loaded' : 'mismatch';
 }
 
-/** Points the `--rais-asset-*` variables at files under `base`. */
-export function defineAssetVariables(paths: readonly string[], base: string): void {
-  const rule = `:root{${paths.map((path) => `${assetVariable(path)}:url("${base}${path}")`).join(';')}}`;
+/** Points the `--rais-asset-*` variables at the URL each asset loads from. */
+export function defineAssetVariables(paths: readonly string[], resolve: AssetResolver): void {
+  const rule = `:root{${paths.map((path) => `${assetVariable(path)}:${cssUrl(resolve(path))}`).join(';')}}`;
   if ('adoptedStyleSheets' in Document.prototype && 'replaceSync' in CSSStyleSheet.prototype) {
     const sheet = new CSSStyleSheet();
     sheet.replaceSync(rule);

@@ -46,8 +46,9 @@ column.cellValues = ['06/09/2026', '06/10/2026'];
 
 **`style` inputs.** `rais-accordion-link` and `rais-selection-label` have an input named `style`, which is also the
 native inline-style attribute/property. On these elements the native `el.style` keeps working; set the input with the
-`style-variant` attribute or the `styleVariant` property. `style="plus"` (a valid keyword) also works as in the Angular
-templates; any other `style` value is treated as inline CSS.
+`style-variant` attribute or the `styleVariant` property. A `style` attribute whose value is one of the keywords
+(`style="plus"`) also sets it; any other `style` value is treated as inline CSS. (In Angular templates a static
+`style="plus"` never reaches the input — bind it as `[style]="'plus'"` there.)
 
 ## Events
 
@@ -74,6 +75,13 @@ resolved against the page URL). It applies both to `<img>` icons and to icons dr
 
 If the assets are on another origin, serve them with an `Access-Control-Allow-Origin` header: browsers fetch
 CSS mask images (close buttons, sort arrows, navigation icons) in CORS mode, so without it those icons stay blank.
+
+To load particular files from elsewhere, list them in `window.RAIS_ASSETS`, keyed by their path inside `assets/`;
+listed files win over `RAIS_ASSET_BASE` (the Claude Design bundle embeds every icon this way, as `data:` URIs):
+
+```html
+<script>window.RAIS_ASSETS = { 'boxicons/bx-save.svg': 'https://cdn.example.com/icons/save.svg' };</script>
+```
 
 ## Runtime
 

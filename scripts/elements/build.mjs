@@ -15,7 +15,7 @@ import { gzipSync } from 'node:zlib';
 import * as esbuild from 'esbuild';
 import { NOT_LITERAL, readComponentMetadata } from './component-metadata.mjs';
 import { elementsMarkdown } from './docs.mjs';
-import { primengAuraCss } from './primeng-theme.mjs';
+import { COMPONENT_STYLES_HEADING, globalStyles, relativeUrls, stylesheetMarker } from './stylesheet.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '../..');
 const require = createRequire(join(root, 'package.json'));
@@ -164,25 +164,21 @@ function checkAssets(paths) {
 }
 
 async function stylesheet({ css: componentCss, fingerprint }) {
-  const indexCss = readFileSync(join(root, 'src/index.css'), 'utf8');
-  // @import must precede every other rule. (The Google Fonts URL itself contains semicolons.)
-  const importRule = /@import\s+(?:url\([^)]*\)|"[^"]*"|'[^']*')[^;]*;/g;
-  const imports = indexCss.match(importRule) ?? [];
-  const tokens = await esbuild.transform(indexCss.replace(importRule, ''), { loader: 'css', minify: true });
+  const { imports, indexCss, aura } = await globalStyles(root);
   const css = [
     `/*! rais-elements ${version} | build ${fingerprint} */`,
     ...imports,
     '/* PrimeNG Aura theme (before the RAIS tokens so the PRIMENG OVERRIDES in src/index.css apply) */',
-    await primengAuraCss(root),
+    aura,
     '/* RAIS design tokens and base styles: src/index.css */',
-    tokens.code.trim(),
-    '/* Component styles (Angular emulated encapsulation; asset URLs come from RAIS_ASSET_BASE) */',
+    indexCss,
+    COMPONENT_STYLES_HEADING,
     componentCss,
-    `:root{--rais-elements-css:"${fingerprint}"}`,
+    stylesheetMarker(fingerprint),
     '',
   ].join('\n');
 
-  const stray = [...css.matchAll(/url\(([^)]*)\)/g)].map((m) => m[1]).filter((url) => !/^['"]?https:/.test(url));
+  const stray = relativeUrls(css);
   if (stray.length) fail(`rais-elements.css has relative url()s that would bypass RAIS_ASSET_BASE: ${stray.join(', ')}`);
   return css;
 }

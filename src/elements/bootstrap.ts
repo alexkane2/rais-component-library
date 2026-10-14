@@ -1,6 +1,6 @@
 import { APP_ID, Renderer2, RendererFactory2, RendererType2, Type, reflectComponentType } from '@angular/core';
 import { createApplication } from '@angular/platform-browser';
-import { replaceCssAssetUrls, resolveAssetBase, rewriteAssetPath } from './assets';
+import { AssetResolver, createAssetResolver, cssUrl, replaceCssAssetUrls, resolveAssetBase, rewriteAssetPath } from './assets';
 import { createRaisElement, markAngularOwned } from './element';
 import { ELEMENTS_VERSION, ELEMENT_INPUTS } from './metadata.generated';
 import {
@@ -79,11 +79,12 @@ async function start(registry: ElementRegistry, stylesheet: ComponentStylesheet,
     console.warn('[rais-elements] rais-elements.css comes from a different build than rais-elements.js; injecting component styles.');
   }
   const injectStyles = status !== 'loaded';
-  defineAssetVariables(stylesheet.assetPaths, assetBase);
+  const resolveAsset = createAssetResolver(assetBase);
+  defineAssetVariables(stylesheet.assetPaths, resolveAsset);
   api.assetBase = assetBase;
   api.styles = injectStyles ? 'injected' : 'stylesheet';
 
-  patchRendering(app.injector.get(RendererFactory2), assetBase, injectStyles, new Set(api.tags));
+  patchRendering(app.injector.get(RendererFactory2), resolveAsset, injectStyles, new Set(api.tags));
 
   for (const [tag, component] of registry) {
     if (customElements.get(tag)) {
@@ -101,10 +102,11 @@ async function start(registry: ElementRegistry, stylesheet: ComponentStylesheet,
  *   - component styles: when rais-elements.css provides them, Angular only adds
  *     a component's page-global rules (and removes them with the component, as
  *     usual); otherwise it injects all of them. Asset URLs become variables.
- *   - `src` / inline-style asset paths in templates are re-pointed at the asset base;
+ *   - `src` / inline-style asset paths in templates are re-pointed at where each
+ *     asset loads from (RAIS_ASSETS, else the asset base);
  *   - nested RAIS tags created from templates are marked as Angular-owned.
  */
-function patchRendering(factory: RendererFactory2, assetBase: string, injectStyles: boolean, tags: ReadonlySet<string>): void {
+function patchRendering(factory: RendererFactory2, resolveAsset: AssetResolver, injectStyles: boolean, tags: ReadonlySet<string>): void {
   const createRenderer = factory.createRenderer.bind(factory);
   const preparedTypes = new Map<string, RendererType2>();
   const patched = new WeakSet<Renderer2>();
@@ -121,16 +123,16 @@ function patchRendering(factory: RendererFactory2, assetBase: string, injectStyl
     }
     const renderer = createRenderer(host, type);
     if (!patched.has(renderer)) {
-      patchRenderer(renderer, assetBase, tags);
+      patchRenderer(renderer, resolveAsset, tags);
       patched.add(renderer);
     }
     return renderer;
   };
 }
 
-function patchRenderer(renderer: Renderer2, assetBase: string, tags: ReadonlySet<string>): void {
+function patchRenderer(renderer: Renderer2, resolveAsset: AssetResolver, tags: ReadonlySet<string>): void {
   const { createElement, setAttribute, setProperty, setStyle } = renderer;
-  const assetUrl = (path: string) => `url("${assetBase}${path}")`;
+  const assetUrl = (path: string) => cssUrl(resolveAsset(path));
 
   renderer.createElement = (name: string, namespace?: string | null) => {
     const element = createElement.call(renderer, name, namespace);
@@ -138,12 +140,12 @@ function patchRenderer(renderer: Renderer2, assetBase: string, tags: ReadonlySet
     return element;
   };
   renderer.setAttribute = (el: any, name: string, value: string, namespace?: string | null) => {
-    if (name === 'src') value = rewriteAssetPath(value, assetBase);
+    if (name === 'src') value = rewriteAssetPath(value, resolveAsset);
     else if (name === 'style') value = replaceCssAssetUrls(value, assetUrl);
     return setAttribute.call(renderer, el, name, value, namespace);
   };
   renderer.setProperty = (el: any, name: string, value: any) =>
-    setProperty.call(renderer, el, name, name === 'src' && typeof value === 'string' ? rewriteAssetPath(value, assetBase) : value);
+    setProperty.call(renderer, el, name, name === 'src' && typeof value === 'string' ? rewriteAssetPath(value, resolveAsset) : value);
   renderer.setStyle = (el: any, style: string, value: any, flags?: any) =>
     setStyle.call(renderer, el, style, typeof value === 'string' ? replaceCssAssetUrls(value, assetUrl) : value, flags);
 }

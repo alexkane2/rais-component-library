@@ -32,6 +32,15 @@ npm run dev      # http://localhost:3000
 npm run build    # production build to dist/
 ```
 
+## Web components and Claude Design
+
+```bash
+npm run build:elements       # dist/elements/: every component as a framework-free custom element
+npm run build:design-system  # dist/design-system/: the components for the RAIS Design System in Claude Design
+```
+
+`dist/elements/` (committed) holds one script, one stylesheet and the assets; `dist/elements/ELEMENTS.md` documents every element. `build:design-system` runs after `build:elements`: it wraps each custom element as a React component and writes the design system's `components/` files (bundle, props, a README and a live preview per component, made from the Storybook stories). Summaries, examples and guidelines for it live in `scripts/elements/design-system/components.mjs`.
+
 ## Project structure
 
 ```
