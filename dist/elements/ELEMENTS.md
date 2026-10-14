@@ -92,8 +92,6 @@ CSS mask images (close buttons, sort arrows, navigation icons) in CORS mode, so 
 - `rais-insured-payments` (component selector `insured-payments`) is registered with the `rais-` prefix.
 - `rais-elements.css` contains `src/index.css`, so it includes its page-level base styles (`* { box-sizing: border-box }`
   and `body` font/colour/background) and the Figtree `@import` from Google Fonts.
-- `<rais-table-column>` has page-wide CSS (a top-level `::ng-deep` in its stylesheet). As in the Angular app, it applies to
-  the whole page only while that element is rendered, so it is added by the script rather than kept in `rais-elements.css`.
 
 ## Elements (41)
 

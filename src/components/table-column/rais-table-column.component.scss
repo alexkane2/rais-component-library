@@ -13,14 +13,15 @@
   flex-direction: column;
 }
 
-// Force children to stretch to the column's width
-::ng-deep rais-table-header,
-::ng-deep rais-table-cell {
+// Force children to stretch to the column's width. Scoped with :host so
+// headers and cells elsewhere on the page keep their own width.
+:host ::ng-deep rais-table-header,
+:host ::ng-deep rais-table-cell {
   display: block;
   width: 100%;
 }
 
-::ng-deep .rais-table-column rais-table-header > .rais-table-header,
-::ng-deep .rais-table-column rais-table-cell > .rais-table-cell {
+:host ::ng-deep .rais-table-column rais-table-header > .rais-table-header,
+:host ::ng-deep .rais-table-column rais-table-cell > .rais-table-cell {
   width: 100%;
 }
