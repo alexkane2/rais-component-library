@@ -1,0 +1,243 @@
+// npm run build:elements
+//
+// Builds dist/elements/: the component library as framework-free custom elements.
+//   1. Reads every component's inputs/outputs (TypeScript) → src/elements/metadata.generated.ts
+//   2. Compiles src/elements.ts with the Angular CLI (angular.json target "elements")
+//   3. Bundles polyfills (zone.js) + runtime + components into one IIFE: rais-elements.js
+//   4. Writes rais-elements.css: index.css tokens, PrimeNG Aura theme, all component styles
+//   5. Copies public/assets, the demo page and licenses; writes ELEMENTS.md
+import { spawnSync } from 'node:child_process';
+import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { createRequire } from 'node:module';
+import { dirname, join, relative } from 'node:path';
+import { fileURLToPath, pathToFileURL } from 'node:url';
+import { gzipSync } from 'node:zlib';
+import * as esbuild from 'esbuild';
+import { NOT_LITERAL, readComponentMetadata } from './component-metadata.mjs';
+import { elementsMarkdown } from './docs.mjs';
+import { primengAuraCss } from './primeng-theme.mjs';
+
+const root = join(dirname(fileURLToPath(import.meta.url)), '../..');
+const require = createRequire(join(root, 'package.json'));
+const outDir = join(root, 'dist/elements');
+const ngOutDir = join(root, 'dist/.elements-build');
+const version = readJson('package.json').version;
+const angularVersion = readJson('node_modules/@angular/core/package.json').version;
+
+step('Reading component inputs and outputs');
+const components = readComponentMetadata(root);
+writeIfChanged(join(root, 'src/elements/metadata.generated.ts'), metadataModule(components));
+
+step('Compiling src/elements.ts (ng run rais-component-library:elements)');
+rmSync(ngOutDir, { recursive: true, force: true });
+run(process.execPath, [require.resolve('@angular/cli/bin/ng.js'), 'run', 'rais-component-library:elements']);
+
+step('Checking the compiled elements against src/components');
+const build = await readBuildInfo();
+checkRegistry(components, build.elements);
+checkAssets(build.assetPaths);
+for (const { tag, globalRules } of build.elements.filter((e) => e.globalRules)) {
+  console.log(`  <${tag}> has page-global rules (top-level ::ng-deep), applied only while it is rendered: ${globalRules}`);
+}
+
+step('Writing dist/elements');
+rmSync(outDir, { recursive: true, force: true });
+mkdirSync(outDir, { recursive: true });
+
+await esbuild.build({
+  stdin: { contents: "import './polyfills.js';\nimport './main.js';\n", resolveDir: ngOutDir, sourcefile: 'rais-elements.js' },
+  bundle: true,
+  format: 'iife',
+  splitting: false,
+  minify: true,
+  target: 'es2022',
+  legalComments: 'none',
+  banner: { js: `/*! rais-elements ${version} | Angular ${angularVersion} | third-party licenses: 3rdpartylicenses.txt */` },
+  outfile: join(outDir, 'rais-elements.js'),
+  logLevel: 'warning',
+});
+
+writeFileSync(join(outDir, 'rais-elements.css'), await stylesheet(build));
+cpSync(join(root, 'public/assets'), join(outDir, 'assets'), { recursive: true });
+cpSync(join(root, 'src/elements/demo.html'), join(outDir, 'demo.html'));
+writeFileSync(join(outDir, '3rdpartylicenses.txt'), licenses());
+writeFileSync(
+  join(outDir, 'ELEMENTS.md'),
+  elementsMarkdown({
+    components,
+    version,
+    angularVersion,
+    pageGlobalTags: build.elements.filter((e) => e.globalRules).map((e) => e.tag),
+    files: [
+      ['rais-elements.js', 'zone.js, the Angular runtime and every component in one classic script (no chunks)'],
+      ['rais-elements.css', 'Figtree font import, PrimeNG Aura theme tokens, RAIS design tokens (`src/index.css`) and all component styles'],
+      ['assets/', 'icons and images used by the components (copy of `public/assets`)'],
+      ['demo.html', 'every element with sample data, property and event examples'],
+      ['3rdpartylicenses.txt', 'licenses of the bundled third-party code'],
+    ],
+  }),
+);
+rmSync(ngOutDir, { recursive: true, force: true });
+
+for (const file of ['rais-elements.js', 'rais-elements.css']) {
+  const data = readFileSync(join(outDir, file));
+  console.log(`  ${file.padEnd(18)} ${kb(data.length)}  (gzip ${kb(gzipSync(data).length)})`);
+}
+console.log(`\n${components.length} elements → ${relative(root, outDir)}/`);
+
+// ─────────────────────────────────────────────────────────────────────────────
+
+function metadataModule(list) {
+  const entries = list.map((c) => {
+    const inputs = c.inputs.map((input) => {
+      const spec = { prop: input.classProperty, attr: input.attribute, kind: input.kind };
+      if (input.default !== undefined && input.default !== NOT_LITERAL) spec.default = input.default;
+      if (input.aliasAttribute) {
+        spec.alias = { property: input.property, attribute: input.aliasAttribute, keywords: input.keywords ?? [] };
+      }
+      return `    ${JSON.stringify(spec)},`;
+    });
+    return [`  '${c.tag}': [`, ...inputs, '  ],'].join('\n');
+  });
+  return [
+    '// Generated by `npm run build:elements` (scripts/elements/component-metadata.mjs)',
+    '// from the @Input() declarations in src/components. Do not edit.',
+    "import type { InputSpec } from './element';",
+    '',
+    `export const ELEMENTS_VERSION = '${version}';`,
+    '',
+    'export const ELEMENT_INPUTS: Readonly<Record<string, readonly InputSpec[]>> = {',
+    ...entries,
+    '};',
+    '',
+  ].join('\n');
+}
+
+/**
+ * Evaluates the compiled bundle in Node (it skips defining elements without a
+ * DOM) to get the component CSS exactly as Angular would inject it, plus each
+ * registered element's real inputs and outputs.
+ */
+async function readBuildInfo() {
+  const { outputFiles } = await esbuild.build({
+    entryPoints: [join(ngOutDir, 'main.js')],
+    bundle: true,
+    format: 'esm',
+    write: false,
+    logLevel: 'silent',
+  });
+  const file = join(ngOutDir, 'build-info.mjs');
+  writeFileSync(file, outputFiles[0].text);
+  // @angular/elements extends HTMLElement when its module loads.
+  globalThis.HTMLElement ??= class {};
+  await import(pathToFileURL(file).href);
+  return globalThis.RaisElements.__build();
+}
+
+function checkRegistry(expected, registered) {
+  const problems = [];
+  for (const component of expected) {
+    const matches = registered.filter((r) => r.selector === component.selector);
+    if (matches.length !== 1) {
+      problems.push(`${component.className} (${component.file}) is registered ${matches.length} times in src/elements.ts`);
+      continue;
+    }
+    const [element] = matches;
+    if (element.tag !== component.tag) problems.push(`${component.className} should be registered as <${component.tag}>, not <${element.tag}>`);
+    const same = (a, b) => JSON.stringify([...a].sort()) === JSON.stringify([...b].sort());
+    if (!same(element.inputs.map((i) => `${i.propName}:${i.templateName}`), component.inputs.map((i) => `${i.classProperty}:${i.name}`))) {
+      problems.push(`<${element.tag}> inputs differ between the compiled component and the TypeScript source`);
+    }
+    if (!same(element.outputs.map((o) => o.templateName), component.outputs.map((o) => o.name))) {
+      problems.push(`<${element.tag}> outputs differ between the compiled component and the TypeScript source`);
+    }
+  }
+  for (const element of registered) {
+    if (!expected.some((c) => c.selector === element.selector)) problems.push(`<${element.tag}> is not a component in src/components`);
+  }
+  if (problems.length) fail(`src/elements.ts does not match src/components:\n  - ${problems.join('\n  - ')}`);
+}
+
+function checkAssets(paths) {
+  const missing = paths.filter((path) => !existsSync(join(root, 'public/assets', path)));
+  if (missing.length) fail(`Component styles reference missing assets:\n  - ${missing.join('\n  - ')}`);
+}
+
+async function stylesheet({ css: componentCss, fingerprint }) {
+  const indexCss = readFileSync(join(root, 'src/index.css'), 'utf8');
+  // @import must precede every other rule. (The Google Fonts URL itself contains semicolons.)
+  const importRule = /@import\s+(?:url\([^)]*\)|"[^"]*"|'[^']*')[^;]*;/g;
+  const imports = indexCss.match(importRule) ?? [];
+  const tokens = await esbuild.transform(indexCss.replace(importRule, ''), { loader: 'css', minify: true });
+  const css = [
+    `/*! rais-elements ${version} | build ${fingerprint} */`,
+    ...imports,
+    '/* PrimeNG Aura theme (before the RAIS tokens so the PRIMENG OVERRIDES in src/index.css apply) */',
+    await primengAuraCss(root),
+    '/* RAIS design tokens and base styles: src/index.css */',
+    tokens.code.trim(),
+    '/* Component styles (Angular emulated encapsulation; asset URLs come from RAIS_ASSET_BASE) */',
+    componentCss,
+    `:root{--rais-elements-css:"${fingerprint}"}`,
+    '',
+  ].join('\n');
+
+  const stray = [...css.matchAll(/url\(([^)]*)\)/g)].map((m) => m[1]).filter((url) => !/^['"]?https:/.test(url));
+  if (stray.length) fail(`rais-elements.css has relative url()s that would bypass RAIS_ASSET_BASE: ${stray.join(', ')}`);
+  return css;
+}
+
+function licenses() {
+  const angular = readFileSync(join(ngOutDir, '3rdpartylicenses.txt'), 'utf8').trimEnd();
+  const primeuix = readFileSync(join(packageDir('@primeuix/themes'), 'LICENSE'), 'utf8').trim();
+  return [
+    angular,
+    '',
+    '-'.repeat(80),
+    'Package: @primeuix/themes (Aura theme CSS in rais-elements.css)',
+    'License: "MIT"',
+    '',
+    primeuix,
+    '',
+  ].join('\n');
+}
+
+/** Folder of an installed package whose package.json is not exported. */
+function packageDir(name) {
+  let dir = dirname(require.resolve(name));
+  while (!(existsSync(join(dir, 'package.json')) && JSON.parse(readFileSync(join(dir, 'package.json'), 'utf8')).name === name)) {
+    const parent = dirname(dir);
+    if (parent === dir) fail(`Cannot locate the ${name} package folder`);
+    dir = parent;
+  }
+  return dir;
+}
+
+function writeIfChanged(file, contents) {
+  if (existsSync(file) && readFileSync(file, 'utf8') === contents) return;
+  writeFileSync(file, contents);
+  console.log(`  updated ${relative(root, file)}`);
+}
+
+function run(command, args) {
+  const result = spawnSync(command, args, { cwd: root, stdio: 'inherit', env: { ...process.env, NG_CLI_ANALYTICS: 'false' } });
+  if (result.status !== 0) fail(`${relative(root, args[0])} ${args.slice(1).join(' ')} failed`);
+}
+
+function readJson(path) {
+  return JSON.parse(readFileSync(join(root, path), 'utf8'));
+}
+
+function step(message) {
+  console.log(`\n▸ ${message}`);
+}
+
+function kb(bytes) {
+  return `${(bytes / 1024).toFixed(1)} kB`.padStart(9);
+}
+
+function fail(message) {
+  console.error(`\n✖ ${message}`);
+  process.exit(1);
+}
+

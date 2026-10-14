@@ -8,7 +8,9 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-dist
+# Build output is ignored, except the committed custom elements bundle (npm run build:elements).
+dist/*
+!dist/elements/
 dist-ssr
 *.local
 

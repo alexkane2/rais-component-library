@@ -51,6 +51,27 @@
             ],
             "scripts": []
           }
+        },
+        "elements": {
+          "builder": "@angular/build:application",
+          "options": {
+            "outputPath": {
+              "base": "dist/.elements-build",
+              "browser": ""
+            },
+            "browser": "src/elements.ts",
+            "polyfills": ["zone.js"],
+            "tsConfig": "tsconfig.elements.json",
+            "index": false,
+            "inlineStyleLanguage": "scss",
+            "styles": [],
+            "assets": [],
+            "optimization": true,
+            "outputHashing": "none",
+            "namedChunks": false,
+            "sourceMap": false,
+            "extractLicenses": true
+          }
         }
       }
     }

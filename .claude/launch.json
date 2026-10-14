@@ -12,6 +12,12 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
       "port": 3000
+    },
+    {
+      "name": "elements-demo",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["vite", "preview", "--outDir", "dist/elements", "--port", "4300", "--strictPort"],
+      "port": 4300
     }
   ]
 }

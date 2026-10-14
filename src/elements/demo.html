@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RAIS Elements Demo</title>
+
+    <!-- The two files are all a page needs. Load the CSS first. -->
+    <link rel="stylesheet" href="rais-elements.css" />
+    <script>
+      // Optional: where the icons/images live. './assets/' (next to this page) is the default.
+      window.RAIS_ASSET_BASE = './assets/';
+    </script>
+    <script src="rais-elements.js"></script>
+
+    <!-- Layout for this demo page only. -->
+    <style>
+      body { padding: 0 0 64px; }
+      .demo-header {
+        position: sticky; top: 0; z-index: 20;
+        display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: baseline; justify-content: space-between;
+        padding: 16px 32px; background: #fff; border-bottom: 1px solid #d0d5dd;
+      }
+      .demo-header h1 { margin: 0; font-size: 20px; color: #101928; }
+      .demo-status { font-size: 13px; color: #4d586a; }
+      .demo-status strong[data-ok='true'] { color: #117c1a; }
+      .demo-status strong[data-ok='false'] { color: #ca222d; }
+      main { padding: 8px 32px; }
+      section { margin-top: 32px; }
+      section > h2 { margin: 0 0 12px; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: #667185; }
+      .demo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; align-items: start; }
+      .demo-item { margin: 0; padding: 16px; background: #fff; border: 1px solid #e4e7ec; border-radius: 8px; min-width: 0; }
+      .demo-item.wide { grid-column: 1 / -1; }
+      .demo-item figcaption { margin-bottom: 12px; font-size: 12px; color: #667185; }
+      .demo-item figcaption code { font-size: 13px; color: #004288; background: #edf6fc; padding: 1px 6px; border-radius: 4px; }
+      .demo-item .note { display: block; margin-top: 4px; }
+      .demo-scroll { overflow: auto; border: 1px solid #e4e7ec; border-radius: 4px; }
+      .demo-row { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+      .demo-log {
+        position: fixed; right: 16px; bottom: 16px; z-index: 30; width: 360px; max-height: 220px; overflow: auto;
+        margin: 0; padding: 12px 14px; background: #101928; color: #e4e7ec; border-radius: 8px;
+        font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      }
+      .demo-log b { color: #98d4f9; font-weight: 600; }
+    </style>
+  </head>
+  <body>
+    <header class="demo-header">
+      <h1>RAIS custom elements</h1>
+      <div class="demo-status" id="status">Loading rais-elements.js…</div>
+    </header>
+
+    <main>
+      <section>
+        <h2>Actions</h2>
+        <div class="demo-grid">
+          <figure class="demo-item">
+            <figcaption><code>&lt;rais-button&gt;</code> attributes + native <code>click</code> listener</figcaption>
+            <rais-button id="save-button" label="Save Payment" variant="primary" icon="bx-save"></rais-button>
+          </figure>
+          <figure class="demo-item">
+            <figcaption><code>&lt;rais-ellipse-button&gt;</code> <code>clicked</code> event</figcaption>
+            <rais-ellipse-button id="row-actions" type="secondary" size="medium" aria-label="Payment row actions"></rais-ellipse-button>
+          </figure>
+          <figure class="demo-item">
+            <figcaption><code>&lt;rais-link&gt;</code></figcaption>
+            <rais-link label="View policy details" href="#policies" icon="bx-link-external" icon-left="false"></rais-link>
+          </figure>
+          <figure class="demo-item">
+            <figcaption><code>&lt;rais-accordion-link&gt;</code> <code>style-variant</code> + boolean <code>open</code></figcaption>
+            <rais-accordion-link label="Coverage details" style-variant="plus" size="large" open></rais-accordion-link>
+          </figure>
+        </div>
+      </section>
+
+      <section>
+        <h2>Inputs</h2>
+        <div class="demo-grid">
+          <figure class="demo-item">
+            <figcaption><code>&lt;rais-text-field&gt;</code></figcaption>
+            <rais-text-field label="Insured name" value="Connecticut Valley Orthodontics PC" state="filled" instructions="false"></rais-text-field>
+          </figure>
+          <figure class="demo-item">
+            <figcaption><code>&lt;rais-search-bar&gt;</code></figcaption>
+            <rais-search-bar label="Search payments" value="Royal Tents" state="entered" instructions="false"></rais-search-bar>
+          </figure>
+          <figure class="demo-item">
+            <figcaption><code>&lt;rais-date-picker&gt;</code></figcaption>
+            <rais-date-picker label="Policy effective date" value="07/22/2026" state="filled" instructions="false"></rais-date-picker>
+          </figure>
+          <figure class="demo-item">
+            <figcaption><code>&lt;rais-calendar&gt;</code> <code>weeks</code> set from JS</figcaption>
+            <rais-calendar id="calendar" month="Jul" year="2026"></rais-calendar>
+          </figure>
+          <figure class="demo-item" style="min-height: 420px">
+            <figcaption><code>&lt;rais-dropdown&gt;</code> <code>options</code> set from JS</figcaption>
+            <rais-dropdown id="agency-dropdown" label="Agency" value="Gloucester Insurance Agency Inc." state="open"></rais-dropdown>
+          </figure>
+          <figure class="demo-item" style="min-height: 420px">
+            <figcaption><code>&lt;rais-dropdown-searchable&gt;</code> <code>options</code> as a JSON attribute</figcaption>
+            <rais-dropdown-searchable
+              label="Insured"
+              state="active"
+              instructions="false"
+              options='[
+                {"name": "Royal Tents and Events LLC", "detail": "14 Harbor Rd, Mystic, CT 06355"},
+                {"name": "Royal Oak Landscaping Inc", "detail": "220 Main St, Southbury, CT 06488"},
+                {"name": "Roy Plumbing & Heating", "detail": ""},
+                {"name": "Royce Dental Group PC", "detail": "9 Elm St, New Haven, CT 06510"}
+              ]'
+            ></rais-dropdown-searchable>
+          </figure>
+          <figure class="demo-item">
+            <figcaption><code>&lt;rais-dropdown-multiselect&gt;</code></figcaption>
+            <rais-dropdown-multiselect
+              label="Lines of business"
+              state="selection"
+              instructions="false"
+              chip-labels='["Property", "Auto", "Umbrella"]'
+            ></rais-dropdown-multiselect>
+          </figure>
+          <figure class="demo-item">
+            <figcaption><code>&lt;rais-dropdown-menu&gt;</code></figcaption>
+            <rais-dropdown-menu options='["Received date", "Amount", "Insured name", "Agency", "Policy #"]' selected-index="1" show-scrollbar="false"></rais-dropdown-menu>
+          </figure>
+          <figure class="demo-item">
+            <figcaption><code>&lt;rais-dropdown-menu-searchable&gt;</code> <code>options</code> set from JS</figcaption>
+            <rais-dropdown-menu-searchable id="agency-menu" selected-index="0"></rais-dropdown-menu-searchable>
+          </figure>
+          <figure class="demo-item">
+            <figcaption><code>&lt;rais-page-filter-dropdown&gt;</code></figcaption>
+            <rais-page-filter-dropdown label="Status" value="Unapplied" width="160"></rais-page-filter-dropdown>
+          </figure>
+          <figure class="demo-item">
+            <figcaption><code>&lt;rais-page-filter-searchbar&gt;</code></figcaption>
+            <rais-page-filter-searchbar placeholder="Search insured, policy # or invoice" width="320"></rais-page-filter-searchbar>
+          </figure>
+          <figure class="demo-item">
+            <figcaption><code>&lt;rais-selection-label&gt;</code> keyword <code>style="rounded"</code></figcaption>
+            <rais-selection-label label="Workers Comp" style="rounded"></rais-selection-label>
+          </figure>
+          <figure class="demo-item">
+            <figcaption><code>&lt;rais-applied-filter-chip&gt;</code></figcaption>
+            <rais-applied-filter-chip category="Policy Producer:" value="Spencer, Dana" show-icon></rais-applied-filter-chip>
+          </figure>
+        </div>
+      </section>
+
+      <section>
+        <h2>Selectors</h2>
+        <div class="demo-grid">
+          <figure class="demo-item">
+            <figcaption><code>&lt;rais-radio-or-checkbox&gt;</code></figcaption>
+            <rais-radio-or-checkbox label="Include cancelled policies" type="checkbox" state="selected"></rais-radio-or-checkbox>
+          </figure>
+          <figure class="demo-item">
+            <figcaption><code>&lt;rais-toggle&gt;</code></figcaption>
+            <rais-toggle label="Email me payment receipts" state="selected"></rais-toggle>
+          </figure>
+          <figure class="demo-item">
+            <figcaption><code>&lt;rais-button-tab-set&gt;</code> <code>selectionChange</code> event</figcaption>
+            <rais-button-tab-set id="period-tabs" options='["Day", "Week", "Month"]' selected-index="1"></rais-button-tab-set>
+          </figure>
+          <figure class="demo-item">
+            <figcaption><code>&lt;rais-visibility-toggle&gt;</code></figcaption>
+            <rais-visibility-toggle label="Closed invoices" toggle-state="hide"></rais-visibility-toggle>
+          </figure>
+          <figure class="demo-item">
+            <figcaption><code>&lt;rais-slim-tabs&gt;</code></figcaption>
+            <rais-slim-tabs label="Open Balances" state="selected" dropdown></rais-slim-tabs>
+          </figure>
+        </div>
+      </section>
+
+      <section>
+        <h2>Labeling and feedback</h2>
+        <div class="demo-grid">
+          <figure class="demo-item">
+            <figcaption><code>&lt;rais-badge&gt;</code></figcaption>
+            <span class="demo-row"><rais-badge variant="success"></rais-badge> Policy active</span>
+          </figure>
+          <figure class="demo-item">
+            <figcaption><code>&lt;rais-colorful-label-chips&gt;</code></figcaption>
+            <rais-colorful-label-chips label="Workers Comp" color="teal" size="large" icon="bxs-briefcase"></rais-colorful-label-chips>
+          </figure>
+          <figure class="demo-item">
+            <figcaption><code>&lt;rais-tooltip&gt;</code></figcaption>
+            <rais-tooltip size="large" caret-position="top" label="Unapplied" description="Payment received; the policy is being invoiced."></rais-tooltip>
+          </figure>
+          <figure class="demo-item">
+            <figcaption><code>&lt;rais-circular-progress-indicator&gt;</code></figcaption>
+            <rais-circular-progress-indicator progress="72" size="64" show-label></rais-circular-progress-indicator>
+          </figure>
+          <figure class="demo-item wide">
+            <figcaption><code>&lt;rais-system-card&gt;</code></figcaption>
+            <rais-system-card
+              format="banner"
+              message-type="warning"
+              background="color"
+              header="Payment past due"
+              message="Invoice 07/18/2026 for Kawier, Russell is 4 days past due. Pay now to avoid cancellation."
+              primary-cta-label="Make a Payment"
+              secondary-cta-label="Remind Me Later"
+            ></rais-system-card>
+          </figure>
+        </div>
+      </section>
+
+      <section>
+        <h2>Content</h2>
+        <div class="demo-grid">
+          <figure class="demo-item">
+            <figcaption><code>&lt;rais-content-card&gt;</code> <code>listItems</code> set from JS</figcaption>
+            <rais-content-card
+              id="policy-card"
+              type="list"
+              color="blue"
+              header="Policy Summary"
+              paragraph="Connecticut Valley Orthodontics PC — renews 07/22/2026."
+              cta-label="View Policy"
+            ></rais-content-card>
+          </figure>
+          <figure class="demo-item">
+            <figcaption><code>&lt;rais-field-display&gt;</code></figcaption>
+            <rais-field-display label="Policy effective date" value="07/22/2026" orientation="inline"></rais-field-display>
+          </figure>
+          <figure class="demo-item">
+            <figcaption><code>&lt;rais-modal&gt;</code> <code>confirmed</code> / <code>cancelled</code> / <code>closed</code> events</figcaption>
+            <rais-modal
+              id="apply-modal"
+              size="small"
+              alignment="left-aligned"
+              headline="Apply this payment?"
+              body="$754.16 will be applied to policy N-2026-0418 for AURA DENTISTRY PLLC."
+              primary-cta-label="Apply"
+              secondary-cta-label="Cancel"
+            ></rais-modal>
+          </figure>
+          <figure class="demo-item">
+            <figcaption><code>&lt;rais-drawer&gt;</code> projected content, <code>ctaClicked</code> / <code>closed</code> events</figcaption>
+            <div class="demo-scroll" style="height: 420px">
+              <rais-drawer id="filter-drawer" heading="Filter payments" subheading="Narrow the list by date, agency or status." cta-label="Apply Filters">
+                <ul style="margin: 0; padding-left: 20px; line-height: 2">
+                  <li>Received: last 30 days</li>
+                  <li>Agency: Gloucester Insurance Agency Inc.</li>
+                  <li>Status: Unapplied</li>
+                </ul>
+              </rais-drawer>
+            </div>
+          </figure>
+          <figure class="demo-item">
+            <figcaption><code>&lt;rais-file-upload-states&gt;</code> <code>filesSelected</code> event</figcaption>
+            <rais-file-upload-states
+              id="uploader"
+              helper-text="PDF, PNG or JPG (max. 10 MB)"
+              browse-cta-label="Browse Files"
+              accept="application/pdf,image/png,image/jpeg"
+            ></rais-file-upload-states>
+          </figure>
+        </div>
+      </section>
+
+      <section>
+        <h2>Navigation</h2>
+        <div class="demo-grid">
+          <figure class="demo-item">
+            <figcaption><code>&lt;rais-main-navigation-external&gt;</code></figcaption>
+            <div class="demo-scroll" style="height: 560px; width: fit-content; max-width: 100%">
+              <rais-main-navigation-external active-section="servicing"></rais-main-navigation-external>
+            </div>
+          </figure>
+          <figure class="demo-item wide">
+            <figcaption><code>&lt;rais-member-central-header&gt;</code> <code>tabs</code> set from JS</figcaption>
+            <rais-member-central-header
+              id="page-header"
+              agency-name="Gloucester Insurance Agency Inc."
+              user-name="Ryan Nichols"
+              page-title="Insured Payments"
+              page-description="Track payments received from your insureds."
+              selected-tab-index="0"
+            ></rais-member-central-header>
+          </figure>
+          <figure class="demo-item wide">
+            <figcaption><code>&lt;rais-member-central-footer&gt;</code></figcaption>
+            <rais-member-central-footer legal-notice-url="#legal" privacy-policy-url="#privacy"></rais-member-central-footer>
+          </figure>
+        </div>
+      </section>
+
+      <section>
+        <h2>Tables</h2>
+        <div class="demo-grid">
+          <figure class="demo-item">
+            <figcaption><code>&lt;rais-table-header&gt;</code></figcaption>
+            <rais-table-header column-name="Amount" sortable></rais-table-header>
+          </figure>
+          <figure class="demo-item">
+            <figcaption><code>&lt;rais-table-cell&gt;</code></figcaption>
+            <rais-table-cell content="$1,229.80"></rais-table-cell>
+          </figure>
+          <figure class="demo-item">
+            <figcaption><code>&lt;rais-table-column&gt;</code> <code>cellValues</code> set from JS</figcaption>
+            <rais-table-column id="insured-column" column-name="Insured Name" width="260px"></rais-table-column>
+          </figure>
+          <figure class="demo-item wide">
+            <figcaption><code>&lt;rais-table&gt;</code> <code>columnNames</code> set from JS</figcaption>
+            <rais-table id="payments-table" variant="pagination-footer" row-count="4" current-page="2" total-pages="8" page-size="25"></rais-table>
+          </figure>
+          <figure class="demo-item wide">
+            <figcaption><code>&lt;rais-datatable-footer&gt;</code></figcaption>
+            <rais-datatable-footer current-page="3" total-pages="12" page-size="25"></rais-datatable-footer>
+          </figure>
+        </div>
+      </section>
+
+      <section>
+        <h2>Page template</h2>
+        <figure class="demo-item wide">
+          <figcaption><code>&lt;rais-insured-payments&gt;</code> (component selector <code>insured-payments</code>)</figcaption>
+          <div class="demo-scroll" style="height: 720px">
+            <rais-insured-payments></rais-insured-payments>
+          </div>
+        </figure>
+      </section>
+    </main>
+
+    <pre class="demo-log" id="event-log" aria-live="polite">Events will appear here.</pre>
+
+    <script>
+      // ── Properties set from JS (arrays/objects). These may run before the
+      //    elements are defined; they are applied when each element upgrades.
+      document.getElementById('insured-column').cellValues = [
+        'AURA DENTISTRY PLLC',
+        'Jamestown Locii LLC',
+        'Brian P. Ganley DMD PC',
+        'South Hook Holdings LLC',
+        'Ishrat Rangsala DMD LLC',
+      ];
+      document.getElementById('payments-table').columnNames = ['Received Date', 'Description', 'Amount', 'Insured Name', 'Agency'];
+      document.getElementById('agency-dropdown').options = [
+        'ClickInsurance',
+        'Gloucester Insurance Agency Inc.',
+        'Hanover Street Insurance',
+        'Mystic Harbor Agency LLC',
+        'Southbury Risk Partners',
+      ];
+      document.getElementById('agency-menu').options = [
+        { name: 'Gloucester Insurance Agency Inc.', detail: '41 Main St, Gloucester, MA 01930' },
+        { name: 'Hanover Street Insurance', detail: '500 Hanover St, Boston, MA 02113' },
+        { name: 'Mystic Harbor Agency LLC', detail: '' },
+      ];
+      document.getElementById('policy-card').listItems = [
+        { label: 'Policy #', value: 'N-2026-0418' },
+        { label: 'Premium', value: '$7,400.00' },
+        { label: 'Balance due', value: '$648.26' },
+      ];
+      document.getElementById('page-header').tabs = ['Unapplied Payments', 'Applied Payments', 'Open Balances'];
+
+      // July 2026, Monday-first, with the 22nd selected.
+      const july = [];
+      for (let i = 0; i < 35; i++) {
+        const day = i - 1; // Jul 1, 2026 is a Wednesday
+        const num = day < 1 ? 30 + day : day > 31 ? day - 31 : day;
+        const state = day < 1 || day > 31 ? 'other-month' : day === 22 ? 'selected' : 'unselected';
+        (july[Math.floor(i / 7)] ??= []).push({ num, state });
+      }
+      document.getElementById('calendar').weeks = july;
+
+      // ── Events: outputs are CustomEvents with the value in event.detail.
+      const log = document.getElementById('event-log');
+      const write = (tag, name, detail) => {
+        const time = new Date().toLocaleTimeString();
+        log.innerHTML = `<b>${time}</b> &lt;${tag}&gt; ${name} ${detail}\n` + (log.dataset.used ? log.innerHTML : '');
+        log.dataset.used = 'true';
+      };
+      const describe = (detail) => {
+        if (detail instanceof Event) return `detail: ${detail.constructor.name} at (${detail.clientX}, ${detail.clientY})`;
+        if (detail instanceof FileList) return `detail: [${[...detail].map((f) => f.name).join(', ')}]`;
+        return detail === undefined ? '' : `detail: ${JSON.stringify(detail)}`;
+      };
+      const listen = (id, ...names) => {
+        const el = document.getElementById(id);
+        for (const name of names) el.addEventListener(name, (event) => write(el.localName, name, describe(event.detail)));
+      };
+      listen('period-tabs', 'selectionChange');
+      listen('row-actions', 'clicked');
+      listen('apply-modal', 'confirmed', 'cancelled', 'closed');
+      listen('filter-drawer', 'ctaClicked', 'closed');
+      listen('uploader', 'filesSelected', 'clearClicked', 'tryAgain');
+      document.getElementById('save-button').addEventListener('click', () => write('rais-button', 'click', '(native DOM event)'));
+
+      // ── Status line.
+      const status = document.getElementById('status');
+      const api = window.RaisElements;
+      if (!api) {
+        status.textContent = 'rais-elements.js did not load.';
+      } else {
+        api.ready.then(
+          () => {
+            const rendered = api.tags.filter((tag) => document.querySelector(tag)?.childElementCount > 0);
+            status.innerHTML =
+              `<strong data-ok="${rendered.length === api.tags.length}">${rendered.length}/${api.tags.length} elements rendered</strong>` +
+              ` · v${api.version} · component styles: ${api.styles} · assets: <code>${api.assetBase}</code>`;
+          },
+          (error) => (status.textContent = `rais-elements failed to start: ${error}`),
+        );
+      }
+    </script>
+  </body>
+</html>

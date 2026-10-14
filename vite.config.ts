@@ -1,7 +1,22 @@
 /// <reference types="vitest/config" />
-import { defineConfig } from "vite";
+import { defineConfig, type Plugin } from "vite";
 import angular from "@analogjs/vite-plugin-angular";
 import { resolve } from "path";
+import { existsSync, readdirSync, rmSync } from "node:fs";
+
+// dist/elements is the committed custom elements bundle (npm run build:elements).
+// Vite would empty all of dist/ before building, so clear it here and keep that folder.
+const keepElementsBundle = (): Plugin => ({
+  name: "keep-dist-elements",
+  apply: "build",
+  buildStart() {
+    const outDir = resolve(__dirname, "dist");
+    if (!existsSync(outDir)) return;
+    for (const entry of readdirSync(outDir)) {
+      if (entry !== "elements") rmSync(resolve(outDir, entry), { recursive: true, force: true });
+    }
+  },
+});
 
 // https://vite.dev/config/
 import path from 'node:path';
@@ -13,9 +28,10 @@ const dirname = typeof __dirname !== 'undefined' ? __dirname : path.dirname(file
 // More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
   base: "./",
-  plugins: [angular()],
+  plugins: [angular(), keepElementsBundle()],
   build: {
-    outDir: "dist"
+    outDir: "dist",
+    emptyOutDir: false
   },
   server: {
     port: 3000,
