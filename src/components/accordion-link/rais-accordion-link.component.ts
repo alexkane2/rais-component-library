@@ -9,7 +9,10 @@ import { CommonModule } from '@angular/common';
  *   Plus  — plus/minus icon on the LEFT (bxs-plus-circle / bx-minus)
  *
  * Usage in an Angular template:
- *   <rais-accordion-link label="Label" style="caret" size="medium" state="default" [open]="false"></rais-accordion-link>
+ *   <rais-accordion-link label="Label" [style]="'caret'" size="medium" state="default" [open]="false"></rais-accordion-link>
+ *
+ * Bind `style` as above: Angular treats a static style="plus" attribute as inline CSS,
+ * so it never reaches the input and the link keeps the default caret style.
  */
 export type AccordionLinkStyle = 'caret' | 'plus';
 export type AccordionLinkSize = 'large' | 'medium' | 'small';

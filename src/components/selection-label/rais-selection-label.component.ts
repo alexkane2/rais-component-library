@@ -9,8 +9,11 @@ import { CommonModule } from '@angular/common';
  *   Rounded — 16px radius (used in filter bars)
  *
  * Usage in an Angular template:
- *   <rais-selection-label label="Label" style="squared"></rais-selection-label>
- *   <rais-selection-label label="Label" style="rounded"></rais-selection-label>
+ *   <rais-selection-label label="Label" [style]="'squared'"></rais-selection-label>
+ *   <rais-selection-label label="Label" [style]="'rounded'"></rais-selection-label>
+ *
+ * Bind `style` as above: Angular treats a static style="rounded" attribute as inline CSS,
+ * so it never reaches the input and the chip keeps the default squared shape.
  */
 export type SelectionLabelStyle = 'squared' | 'rounded';
 

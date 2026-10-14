@@ -26,6 +26,7 @@ export const Rounded: Story = {
   args: { label: 'Label', style: 'rounded' },
 };
 
+// `style` must be bound ([style]="'rounded'"): a static style="rounded" attribute is inline CSS and never reaches the input.
 export const AllVariants: Story = {
   render: (args) => ({
     props: args,
@@ -34,17 +35,17 @@ export const AllVariants: Story = {
         <div style="display:flex;flex-direction:column;gap:8px;">
           <span style="font-family:'Figtree',sans-serif;font-size:12px;color:#8D9091;">Squared — used in dropdowns</span>
           <div style="display:flex;gap:8px;flex-wrap:wrap;">
-            <rais-selection-label label="Label"        style="squared"></rais-selection-label>
-            <rais-selection-label label="Longer Label" style="squared"></rais-selection-label>
-            <rais-selection-label label="Label"        style="squared"></rais-selection-label>
+            <rais-selection-label label="Label"        [style]="'squared'"></rais-selection-label>
+            <rais-selection-label label="Longer Label" [style]="'squared'"></rais-selection-label>
+            <rais-selection-label label="Label"        [style]="'squared'"></rais-selection-label>
           </div>
         </div>
         <div style="display:flex;flex-direction:column;gap:8px;">
           <span style="font-family:'Figtree',sans-serif;font-size:12px;color:#8D9091;">Rounded — used in filter bars</span>
           <div style="display:flex;gap:8px;flex-wrap:wrap;">
-            <rais-selection-label label="Label"        style="rounded"></rais-selection-label>
-            <rais-selection-label label="Longer Label" style="rounded"></rais-selection-label>
-            <rais-selection-label label="Label"        style="rounded"></rais-selection-label>
+            <rais-selection-label label="Label"        [style]="'rounded'"></rais-selection-label>
+            <rais-selection-label label="Longer Label" [style]="'rounded'"></rais-selection-label>
+            <rais-selection-label label="Label"        [style]="'rounded'"></rais-selection-label>
           </div>
         </div>
       </div>

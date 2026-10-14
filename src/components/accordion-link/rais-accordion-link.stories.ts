@@ -87,6 +87,7 @@ export const Small: Story = {
 };
 
 // ── All Variants ──
+// `style` must be bound ([style]="'plus'"): a static style="plus" attribute is inline CSS and never reaches the input.
 export const AllVariants: Story = {
   render: (args) => ({
     props: args,
@@ -96,40 +97,40 @@ export const AllVariants: Story = {
         <div style="display:flex;flex-direction:column;gap:12px;">
           <span style="font-size:11px;color:#8D9091;">CARET STYLE — Closed</span>
           <div style="display:flex;gap:24px;align-items:center;">
-            <rais-accordion-link label="Large"  style="caret" size="large"  state="default" [open]="false"></rais-accordion-link>
-            <rais-accordion-link label="Medium" style="caret" size="medium" state="default" [open]="false"></rais-accordion-link>
-            <rais-accordion-link label="Small"  style="caret" size="small"  state="default" [open]="false"></rais-accordion-link>
+            <rais-accordion-link label="Large"  [style]="'caret'" size="large"  state="default" [open]="false"></rais-accordion-link>
+            <rais-accordion-link label="Medium" [style]="'caret'" size="medium" state="default" [open]="false"></rais-accordion-link>
+            <rais-accordion-link label="Small"  [style]="'caret'" size="small"  state="default" [open]="false"></rais-accordion-link>
           </div>
           <span style="font-size:11px;color:#8D9091;">CARET STYLE — Open</span>
           <div style="display:flex;gap:24px;align-items:center;">
-            <rais-accordion-link label="Large"  style="caret" size="large"  state="default" [open]="true"></rais-accordion-link>
-            <rais-accordion-link label="Medium" style="caret" size="medium" state="default" [open]="true"></rais-accordion-link>
-            <rais-accordion-link label="Small"  style="caret" size="small"  state="default" [open]="true"></rais-accordion-link>
+            <rais-accordion-link label="Large"  [style]="'caret'" size="large"  state="default" [open]="true"></rais-accordion-link>
+            <rais-accordion-link label="Medium" [style]="'caret'" size="medium" state="default" [open]="true"></rais-accordion-link>
+            <rais-accordion-link label="Small"  [style]="'caret'" size="small"  state="default" [open]="true"></rais-accordion-link>
           </div>
           <span style="font-size:11px;color:#8D9091;">CARET STYLE — Hover</span>
           <div style="display:flex;gap:24px;align-items:center;">
-            <rais-accordion-link label="Closed" style="caret" size="medium" state="hover" [open]="false"></rais-accordion-link>
-            <rais-accordion-link label="Open"   style="caret" size="medium" state="hover" [open]="true"></rais-accordion-link>
+            <rais-accordion-link label="Closed" [style]="'caret'" size="medium" state="hover" [open]="false"></rais-accordion-link>
+            <rais-accordion-link label="Open"   [style]="'caret'" size="medium" state="hover" [open]="true"></rais-accordion-link>
           </div>
         </div>
 
         <div style="display:flex;flex-direction:column;gap:12px;">
           <span style="font-size:11px;color:#8D9091;">PLUS STYLE — Closed</span>
           <div style="display:flex;gap:24px;align-items:center;">
-            <rais-accordion-link label="Large"  style="plus" size="large"  state="default" [open]="false"></rais-accordion-link>
-            <rais-accordion-link label="Medium" style="plus" size="medium" state="default" [open]="false"></rais-accordion-link>
-            <rais-accordion-link label="Small"  style="plus" size="small"  state="default" [open]="false"></rais-accordion-link>
+            <rais-accordion-link label="Large"  [style]="'plus'" size="large"  state="default" [open]="false"></rais-accordion-link>
+            <rais-accordion-link label="Medium" [style]="'plus'" size="medium" state="default" [open]="false"></rais-accordion-link>
+            <rais-accordion-link label="Small"  [style]="'plus'" size="small"  state="default" [open]="false"></rais-accordion-link>
           </div>
           <span style="font-size:11px;color:#8D9091;">PLUS STYLE — Open</span>
           <div style="display:flex;gap:24px;align-items:center;">
-            <rais-accordion-link label="Large"  style="plus" size="large"  state="default" [open]="true"></rais-accordion-link>
-            <rais-accordion-link label="Medium" style="plus" size="medium" state="default" [open]="true"></rais-accordion-link>
-            <rais-accordion-link label="Small"  style="plus" size="small"  state="default" [open]="true"></rais-accordion-link>
+            <rais-accordion-link label="Large"  [style]="'plus'" size="large"  state="default" [open]="true"></rais-accordion-link>
+            <rais-accordion-link label="Medium" [style]="'plus'" size="medium" state="default" [open]="true"></rais-accordion-link>
+            <rais-accordion-link label="Small"  [style]="'plus'" size="small"  state="default" [open]="true"></rais-accordion-link>
           </div>
           <span style="font-size:11px;color:#8D9091;">PLUS STYLE — Hover</span>
           <div style="display:flex;gap:24px;align-items:center;">
-            <rais-accordion-link label="Closed" style="plus" size="medium" state="hover" [open]="false"></rais-accordion-link>
-            <rais-accordion-link label="Open"   style="plus" size="medium" state="hover" [open]="true"></rais-accordion-link>
+            <rais-accordion-link label="Closed" [style]="'plus'" size="medium" state="hover" [open]="false"></rais-accordion-link>
+            <rais-accordion-link label="Open"   [style]="'plus'" size="medium" state="hover" [open]="true"></rais-accordion-link>
           </div>
         </div>
 
