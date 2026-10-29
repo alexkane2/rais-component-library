@@ -1,4 +1,6 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, Output, SimpleChanges,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 /**
@@ -10,17 +12,18 @@ import { CommonModule } from '@angular/common';
  * Layout (top → bottom):
  *  1. Scrollbar indicator (8px tall, gray rounded bar — visual only)
  *  2. Paginator row:
- *       « ‹ [1] 2 3 4 5 › »   [10 ▾]
+ *       « ‹ [1] 2 3 4 5 › »   [25 ▾]
  *     - Double-arrow nav: jump to first/last page
  *     - Single-arrow nav: prev/next page
  *     - 5 page-number buttons (current page has gray fill)
- *     - Right-side page-size dropdown (10 / 25 / 50 / 100, etc.)
+ *     - Right-side page-size dropdown (10 / 25 / 50 / 100). Clicking it
+ *       opens a menu; picking a size emits `pageSizeChange`.
  *
  * Usage:
  *   <rais-datatable-footer
  *     [currentPage]="1"
  *     [totalPages]="10"
- *     [pageSize]="10"
+ *     [(pageSize)]="rowsPerPage"
  *   ></rais-datatable-footer>
  */
 @Component({
@@ -36,14 +39,47 @@ export class RaisDatatableFooterComponent implements OnChanges {
   /** Total number of pages available. */
   @Input() totalPages: number = 10;
   /** Number of rows-per-page shown in the dropdown selector. */
-  @Input() pageSize: number = 10;
+  @Input() pageSize: number = 25;
+  /** Rows-per-page choices listed in the dropdown menu. */
+  @Input() pageSizeOptions: number[] = [10, 25, 50, 100];
   /** Show the slim scrollbar-indicator bar at the top. */
   @Input() showScrollbar: boolean = true;
   /** Number of page-number buttons to render (typically 5). */
   @Input() visiblePageCount: number = 5;
 
+  /** Emits the new rows-per-page value when one is picked from the dropdown. */
+  @Output() pageSizeChange = new EventEmitter<number>();
+
   /** Calculated page numbers (1-based) visible in the row. */
   visiblePages: number[] = [];
+  /** Whether the page-size menu is open. */
+  pageSizeMenuOpen = false;
+
+  constructor(private host: ElementRef<HTMLElement>) {}
+
+  togglePageSizeMenu(): void {
+    this.pageSizeMenuOpen = !this.pageSizeMenuOpen;
+  }
+
+  selectPageSize(size: number): void {
+    this.pageSizeMenuOpen = false;
+    if (size === this.pageSize) return;
+    this.pageSize = size;
+    this.pageSizeChange.emit(size);
+  }
+
+  /** Close the menu when clicking anywhere outside the component. */
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    if (this.pageSizeMenuOpen && !this.host.nativeElement.contains(event.target as Node)) {
+      this.pageSizeMenuOpen = false;
+    }
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    this.pageSizeMenuOpen = false;
+  }
 
   ngOnChanges(_: SimpleChanges): void {
     this.recomputePages();

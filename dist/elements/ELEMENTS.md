@@ -302,11 +302,14 @@ Source: `src/components/datatable-footer/rais-datatable-footer.component.ts`.
 | --- | --- | --- | --- | --- | --- |
 | currentPage | `current-page` | `currentPage` | `number` | `1` | Index (1-based) of the currently selected page. |
 | totalPages | `total-pages` | `totalPages` | `number` | `10` | Total number of pages available. |
-| pageSize | `page-size` | `pageSize` | `number` | `10` | Number of rows-per-page shown in the dropdown selector. |
+| pageSize | `page-size` | `pageSize` | `number` | `25` | Number of rows-per-page shown in the dropdown selector. |
+| pageSizeOptions | `page-size-options` (JSON) | `pageSizeOptions` (recommended) | `number[]` | `[10,25,50,100]` | Rows-per-page choices listed in the dropdown menu. |
 | showScrollbar | `show-scrollbar` | `showScrollbar` | `boolean` | `true` | Show the slim scrollbar-indicator bar at the top. |
 | visiblePageCount | `visible-page-count` | `visiblePageCount` | `number` | `5` | Number of page-number buttons to render (typically 5). |
 
-No custom events.
+| Event | `event.detail` | Description |
+| --- | --- | --- |
+| `pageSizeChange` | `number` | Emits the new rows-per-page value when one is picked from the dropdown. |
 
 ### `<rais-date-picker>`
 
