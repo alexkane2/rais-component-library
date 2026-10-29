@@ -1,5 +1,5 @@
 import {
-  Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, Output, SimpleChanges,
+  Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, Output, SimpleChanges, ViewChild,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -55,6 +55,8 @@ export class RaisDatatableFooterComponent implements OnChanges {
   /** Whether the page-size menu is open. */
   pageSizeMenuOpen = false;
 
+  @ViewChild('pageSizeTrigger') private pageSizeTrigger?: ElementRef<HTMLButtonElement>;
+
   constructor(private host: ElementRef<HTMLElement>) {}
 
   togglePageSizeMenu(): void {
@@ -62,7 +64,7 @@ export class RaisDatatableFooterComponent implements OnChanges {
   }
 
   selectPageSize(size: number): void {
-    this.pageSizeMenuOpen = false;
+    this.closePageSizeMenu();
     if (size === this.pageSize) return;
     this.pageSize = size;
     this.pageSizeChange.emit(size);
@@ -78,7 +80,13 @@ export class RaisDatatableFooterComponent implements OnChanges {
 
   @HostListener('document:keydown.escape')
   onEscape(): void {
+    if (this.pageSizeMenuOpen) this.closePageSizeMenu();
+  }
+
+  /** Close the menu and return focus to the trigger, so keyboard users keep their place. */
+  private closePageSizeMenu(): void {
     this.pageSizeMenuOpen = false;
+    this.pageSizeTrigger?.nativeElement.focus();
   }
 
   ngOnChanges(_: SimpleChanges): void {
