@@ -68,7 +68,8 @@ export const ELEMENT_INPUTS: Readonly<Record<string, readonly InputSpec[]>> = {
   'rais-datatable-footer': [
     {"prop":"currentPage","attr":"current-page","kind":"number","default":1},
     {"prop":"totalPages","attr":"total-pages","kind":"number","default":10},
-    {"prop":"pageSize","attr":"page-size","kind":"number","default":10},
+    {"prop":"pageSize","attr":"page-size","kind":"number","default":25},
+    {"prop":"pageSizeOptions","attr":"page-size-options","kind":"json","default":[10,25,50,100]},
     {"prop":"showScrollbar","attr":"show-scrollbar","kind":"boolean","default":true},
     {"prop":"visiblePageCount","attr":"visible-page-count","kind":"number","default":5},
   ],
