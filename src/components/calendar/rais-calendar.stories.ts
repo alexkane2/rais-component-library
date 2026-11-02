@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
+import { FormsModule } from '@angular/forms';
 import { RaisCalendarComponent } from './rais-calendar.component';
 
 const meta: Meta<RaisCalendarComponent> = {
@@ -7,51 +8,75 @@ const meta: Meta<RaisCalendarComponent> = {
   component: RaisCalendarComponent,
   tags: ['autodocs'],
   decorators: [
-    moduleMetadata({
-      imports: [RaisCalendarComponent],
-    }),
+    moduleMetadata({ imports: [RaisCalendarComponent, FormsModule] }),
   ],
   argTypes: {
-    month: { control: 'text', description: 'Month label (e.g. "Feb")' },
-    year:  { control: 'text', description: 'Year label (e.g. "2024")' },
+    value: { control: 'date', description: 'Selected date (Date, ISO string, or null)' },
+    minDate: { control: 'date', description: 'Earliest selectable date' },
+    maxDate: { control: 'date', description: 'Latest selectable date' },
+    month: { control: { type: 'number', min: 0, max: 11 }, description: 'Month shown when there is no value (0–11)' },
+    year: { control: 'number', description: 'Year shown when there is no value' },
+    minYear: { control: 'number', description: 'First year in the Year select' },
+    maxYear: { control: 'number', description: 'Last year in the Year select' },
+    firstDayOfWeek: { control: 'radio', options: [1, 0], description: '1 = Monday, 0 = Sunday' },
+    showOtherMonths: { control: 'boolean' },
+    showToday: { control: 'boolean' },
+    disabled: { control: 'boolean' },
+    valueChange: { action: 'valueChange' },
+    viewChange: { action: 'viewChange' },
   },
 };
 
 export default meta;
 type Story = StoryObj<RaisCalendarComponent>;
 
+/** Today's month, nothing selected. Click any day to select it. */
 export const Default: Story = {
-  args: { month: 'Feb', year: '2024' },
+  args: {},
 };
 
-export const DateCellStates: Story = {
-  name: 'DateCellStates',
+/** Matches the design prototype: February 2013 with the 15th selected. */
+export const WithSelectedDate: Story = {
+  args: { value: new Date(2013, 1, 15), showToday: false },
+};
+
+/** Days before `minDate` or after `maxDate` are disabled; chevrons stop at the range. */
+export const WithMinAndMax: Story = {
+  name: 'With Min / Max Dates',
+  args: {
+    value: new Date(2026, 10, 10),
+    minDate: new Date(2026, 10, 3),
+    maxDate: new Date(2026, 11, 20),
+    minYear: 2026,
+    maxYear: 2026,
+  },
+};
+
+/** Week starts on Sunday. */
+export const SundayStart: Story = {
+  args: { firstDayOfWeek: 0, value: new Date(2026, 6, 4) },
+};
+
+/** Adjacent-month days hidden. */
+export const CurrentMonthOnly: Story = {
+  args: { showOtherMonths: false, value: new Date(2026, 2, 18) },
+};
+
+export const Disabled: Story = {
+  args: { disabled: true, value: new Date(2026, 4, 12) },
+};
+
+/** Two-way binding with ngModel; the picked date prints below. */
+export const WithNgModel: Story = {
+  name: 'With ngModel',
   render: (args) => ({
-    props: args,
+    props: { ...args, picked: new Date(2026, 10, 2) },
     template: `
-      <div style="display:flex;flex-direction:column;gap:16px;padding:24px;background:#F0F2F5;border-radius:8px;font-family:'Figtree',sans-serif;">
-        <span style="font-size:12px;color:#8D9091;">Date cell states — .Dates component</span>
-        <div style="display:flex;gap:8px;align-items:center;">
-          <div class="rais-date rais-date--other-month" style="width:37px;height:41px;display:flex;align-items:center;justify-content:center;border-radius:4px;padding:8px;box-sizing:border-box;">
-            <span style="font-family:'Figtree',sans-serif;font-size:16px;font-weight:500;color:#8D9091;line-height:1;">28</span>
-          </div>
-          <div class="rais-date rais-date--unselected" style="width:37px;height:41px;display:flex;align-items:center;justify-content:center;border-radius:4px;padding:8px;box-sizing:border-box;">
-            <span style="font-family:'Figtree',sans-serif;font-size:16px;font-weight:500;color:#333333;line-height:1;">28</span>
-          </div>
-          <div class="rais-date rais-date--selected" style="width:37px;height:41px;display:flex;align-items:center;justify-content:center;border-radius:4px;padding:8px;box-sizing:border-box;background:#EDF6FC;">
-            <span style="font-family:'Figtree',sans-serif;font-size:16px;font-weight:500;color:#007CBD;line-height:1;">28</span>
-          </div>
-          <div class="rais-date rais-date--hover" style="width:37px;height:41px;display:flex;align-items:center;justify-content:center;border-radius:4px;padding:8px;box-sizing:border-box;border:1px solid #DCDCDC;">
-            <span style="font-family:'Figtree',sans-serif;font-size:16px;font-weight:500;color:#007CBD;line-height:1;">28</span>
-          </div>
-        </div>
-        <div style="display:flex;gap:8px;font-family:'Figtree',sans-serif;font-size:11px;color:#8D9091;">
-          <span style="width:37px;text-align:center;">Other month</span>
-          <span style="width:37px;text-align:center;">Unselected</span>
-          <span style="width:37px;text-align:center;">Selected</span>
-          <span style="width:37px;text-align:center;">Hover</span>
-        </div>
+      <div style="display:flex;flex-direction:column;gap:12px;align-items:flex-start;font-family:var(--font-family-text);">
+        <rais-calendar [(ngModel)]="picked" [showToday]="showToday"></rais-calendar>
+        <span style="font-size:14px;color:var(--color-text-secondary);">Picked: {{ picked | date: 'MM/dd/yyyy' }}</span>
       </div>
     `,
   }),
+  args: { showToday: true },
 };
