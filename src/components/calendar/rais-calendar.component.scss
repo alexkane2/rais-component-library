@@ -1,158 +1,223 @@
 // Calendar — RAIS Inputs component
-// Tokens (inlined from Figma variables):
-//   --color/text-default        #454545
-//   --color/border              #DCDCDC
-//   --color/bg-calendar         #F3F3F3
-//   --color/bg-white            #FFFFFF
-//   --color/action              #007CBD  (chevron tint, selected/hover text)
-//   --color/text-other-month    #8D9091
-//   --color/text-unselected     #333333
-//   --color/bg-selected         #EDF6FC
-//   --border/radius-sm          4px
-//   font-family                 'Figtree', sans-serif
+// Mirrors the Figma `Calendar` component set. All colors, spacing and radii
+// come from the RAIS tokens in src/index.css:
+//   panel          --color-surface-primary / --color-border-default
+//   header band    --color-surface-disabled (closest gray surface token)
+//   selects        --color-input-bg / --color-input-border / --color-text-primary
+//   chevrons       --color-link-primary
+//   caret          --color-icon-primary
+//   weekday labels --color-text-secondary
+//   day default    --color-text-primary
+//   day hover      --color-bg-hover
+//   day selected   --color-bg-selected + --color-link-primary
+//   day today      --color-border-focus + --color-link-primary
+//   other month    --color-text-disabled
+//   disabled       --color-text-disabled at reduced opacity
+
+$cell: 34px;
 
 :host {
   display: inline-block;
-  font-family: 'Figtree', sans-serif;
+  font-family: var(--font-family-text);
 }
 
 .rais-calendar {
-  width: 299px;
-  background: #F3F3F3;
-  border: 1px solid #DCDCDC;
-  border-radius: 4px;
-  padding: 12px 0 0 0;
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
-  align-items: center;
+  background: var(--color-surface-primary);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--border-radius-sm);
+  overflow: hidden;
   box-sizing: border-box;
+  user-select: none;
+
+  &--disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  // ── Header band: nav row + weekday row ───────────────────────────
+  &__header {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-surface-disabled);
+  }
 
   &__nav {
     display: flex;
-    flex-direction: row;
     align-items: center;
-    gap: 12px;
-    padding-bottom: 12px;
+    justify-content: space-between;
+    gap: var(--spacing-03);
+    padding: var(--spacing-05) var(--spacing-03);
   }
 
-  &__dropdowns {
-    display: flex;
-    gap: 8px;
-  }
-
-  // Chevron: 24x24, tinted blue via CSS filter (matches #007CBD)
+  // Chevron buttons: 24×24, Boxicons SVG used as a mask so the color is a token.
   &__chevron {
     width: 24px;
     height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
     flex-shrink: 0;
+    padding: 0;
+    border: 0;
+    border-radius: var(--border-radius-sm);
+    background-color: var(--color-link-primary);
+    cursor: pointer;
+    -webkit-mask: center / 24px 24px no-repeat;
+    mask: center / 24px 24px no-repeat;
 
-    img {
-      filter: invert(35%) sepia(87%) saturate(500%) hue-rotate(170deg);
+    &--prev {
+      -webkit-mask-image: url('/assets/boxicons/bx-chevron-left.svg');
+      mask-image: url('/assets/boxicons/bx-chevron-left.svg');
     }
+    &--next {
+      -webkit-mask-image: url('/assets/boxicons/bx-chevron-right.svg');
+      mask-image: url('/assets/boxicons/bx-chevron-right.svg');
+    }
+
+    &:hover { background-color: var(--color-link-primary-hover); }
+    &:focus-visible { outline: 2px solid var(--color-border-focus); outline-offset: 2px; }
+    &:disabled { background-color: var(--color-link-primary-disabled); cursor: default; }
   }
 
-  // Month/Year dropdowns: 90x40
-  &__dropdown {
-    width: 90px;
-    height: 40px;
-    padding: 8px 16px;
-    background: #FFFFFF;
-    border: 1px solid #CCCCCC;
-    border-radius: 4px;
+  &__selects {
     display: flex;
-    flex-direction: row;
+    gap: var(--spacing-03);
+  }
+
+  // Month / Year select. A real <select> sits on top (transparent) so the
+  // native picker works, and the styled value + caret render beneath it.
+  &__select {
+    position: relative;
+    display: inline-flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 8px;
+    gap: var(--spacing-03);
+    padding: var(--spacing-03) var(--spacing-05);
+    background: var(--color-input-bg);
+    border: 1px solid var(--color-input-border);
+    border-radius: var(--border-radius-sm);
     box-sizing: border-box;
+    cursor: pointer;
+
+    &:hover { border-color: var(--color-border-dark); }
+    &:focus-within { border-color: var(--color-input-border-focus); }
   }
 
-  &__dropdown-label {
-    font-size: 14px;
-    color: #454545;
-    flex: 1;
+  &__select-input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    margin: 0;
+    cursor: pointer;
+    font: inherit;
   }
 
-  &__dropdown-caret {
+  &__select-value {
+    font-size: var(--font-size-sm);
+    line-height: 20px;
+    color: var(--color-text-primary);
+    white-space: nowrap;
+  }
+
+  &__caret {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    background-color: var(--color-icon-primary);
+    -webkit-mask: url('/assets/boxicons/bx-caret-down.svg') center / 16px 16px no-repeat;
+    mask: url('/assets/boxicons/bx-caret-down.svg') center / 16px 16px no-repeat;
+  }
+
+  &__weekdays {
     display: flex;
-    align-items: center;
+    gap: var(--spacing-01);
+    padding: var(--spacing-01) var(--spacing-03) var(--spacing-03);
   }
 
-  // Days header row: 299x36
-  &__days-header {
-    width: 299px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 4px;
-    padding: 4px 8px;
-    background: #F3F3F3;
-    box-sizing: border-box;
-  }
-
-  &__day-label {
-    width: 37px;
+  &__weekday {
+    width: $cell;
     height: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 16px;
-    color: #454545;
+    font-size: var(--font-size-md);
+    color: var(--color-text-secondary);
     flex-shrink: 0;
   }
 
-  // Dates grid
-  &__dates {
-    width: 299px;
-    background: #FFFFFF;
-    padding: 12px 8px;
+  // ── Day grid ─────────────────────────────────────────────────────
+  &__grid {
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    box-sizing: border-box;
+    gap: var(--spacing-01);
+    padding: var(--spacing-03);
+    background: var(--color-surface-primary);
   }
 
   &__week {
     display: flex;
-    flex-direction: row;
-    gap: 4px;
+    gap: var(--spacing-01);
+  }
+
+  &__sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
 }
 
-// .Dates sub-component: 37x41 cells with four states
-.rais-date {
-  width: 37px;
-  height: 41px;
+// ── Day cell (Figma: Calendar/Day) ─────────────────────────────────
+.rais-day {
+  width: $cell;
+  height: $cell;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 4px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: var(--border-radius-sm);
+  background: transparent;
   box-sizing: border-box;
-  padding: 8px;
   cursor: pointer;
-  flex-shrink: 0;
+  font: inherit;
 
   &__num {
-    font-family: 'Figtree', sans-serif;
-    font-size: 16px;
-    font-weight: 500;
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-regular);
     line-height: 1;
+    color: var(--color-text-primary);
   }
 
-  &--other-month .rais-date__num { color: #8D9091; }
-  &--unselected  .rais-date__num { color: #333333; }
+  &:hover:not(:disabled):not(.rais-day--disabled) { background: var(--color-bg-hover); }
+  &:focus-visible { outline: 2px solid var(--color-border-focus); outline-offset: 1px; }
 
-  &--selected {
-    background: #EDF6FC;
-    .rais-date__num { color: #007CBD; }
+  &--other-month .rais-day__num { color: var(--color-text-disabled); }
+
+  &--today {
+    border-color: var(--color-border-focus);
+    .rais-day__num { color: var(--color-link-primary); }
   }
 
-  &--hover {
-    border: 1px solid #DCDCDC;
-    .rais-date__num { color: #007CBD; }
+  &--selected,
+  &--selected:hover {
+    background: var(--color-bg-selected);
+    .rais-day__num { color: var(--color-link-primary); }
+  }
+
+  &--disabled {
+    cursor: default;
+    .rais-day__num { color: var(--color-text-disabled); opacity: 0.6; }
+  }
+
+  &--hidden {
+    visibility: hidden;
+    pointer-events: none;
   }
 }

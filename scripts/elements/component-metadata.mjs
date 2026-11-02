@@ -196,7 +196,11 @@ function classifyInputType(type, checker, where) {
   const isFalse = (t) => isBool(t) && checker.typeToString(t) === 'false';
   const isObject = (t) => !!(t.flags & ts.TypeFlags.Object);
 
+  const isDate = (t) => isObject(t) && t.getSymbol()?.getName() === 'Date';
+
   if (parts.length && parts.every(isString)) return 'string';
+  // `Date | string` inputs (the calendar's dates): the attribute is the ISO string, the component parses it.
+  if (has(isString) && parts.every((t) => isString(t) || isDate(t))) return 'string';
   if (parts.length && parts.every(isNumber)) return 'number';
   if (parts.length && parts.every(isBool)) return 'boolean';
   if (parts.length && parts.every(isObject)) return 'json';

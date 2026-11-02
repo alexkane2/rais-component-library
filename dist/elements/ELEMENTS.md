@@ -229,13 +229,22 @@ Source: `src/components/calendar/rais-calendar.component.ts`.
 
 | Input | Attribute | Property | Type | Default | Description |
 | --- | --- | --- | --- | --- | --- |
-| month | `month` | `month` | `string` | `"Feb"` | Month label shown in the month dropdown (e.g. "Feb"). |
-| year | `year` | `year` | `string` | `"2024"` | Year label shown in the year dropdown (e.g. "2024"). |
-| weeks | `weeks` (JSON) | `weeks` (recommended) | `DateCell[][]` | — | Optional week grid override — 6 rows of 7 cells if provided. |
+| value | `value` | `value` | `string \| Date` | `null` | Selected date. Accepts a Date, an ISO string, or null. |
+| minDate | `min-date` | `minDate` | `string \| Date` | `null` | Earliest selectable date (inclusive). |
+| maxDate | `max-date` | `maxDate` | `string \| Date` | `null` | Latest selectable date (inclusive). |
+| month | `month` | `month` | `number` | — | Month shown when there is no value (0–11). Defaults to today's month. |
+| year | `year` | `year` | `number` | — | Year shown when there is no value. Defaults to today's year. |
+| minYear | `min-year` | `minYear` | `number` | — | First year offered in the Year select. Defaults to 10 years before the view year. |
+| maxYear | `max-year` | `maxYear` | `number` | — | Last year offered in the Year select. Defaults to 10 years after the view year. |
+| firstDayOfWeek | `first-day-of-week` | `firstDayOfWeek` | `0 \| 1` | `1` | Which day starts the week: 1 = Monday (default), 0 = Sunday. |
+| showOtherMonths | `show-other-months` | `showOtherMonths` | `boolean` | `true` | Show the days from adjacent months that fill the grid. |
+| showToday | `show-today` | `showToday` | `boolean` | `true` | Highlight today's date. |
+| disabled | `disabled` | `disabled` | `boolean` | `false` | Disables the whole calendar. |
 
-`weeks` items: `DateCell = { num: string | number; state: "hover" | "other-month" | "unselected" | "selected" }`
-
-No custom events.
+| Event | `event.detail` | Description |
+| --- | --- | --- |
+| `valueChange` | `Date` | Emits the newly selected date. |
+| `viewChange` | `CalendarView` | Emits when the displayed month or year changes. |
 
 ### `<rais-circular-progress-indicator>`
 

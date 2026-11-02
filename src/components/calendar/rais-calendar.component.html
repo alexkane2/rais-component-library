@@ -1,43 +1,86 @@
-<div class="rais-calendar">
-  <div class="rais-calendar__nav">
-    <span class="rais-calendar__chevron" role="button" aria-label="previous month">
-      <img src="assets/boxicons/bx-chevron-left.svg" width="20" height="20" alt="previous month" />
-    </span>
-    <div class="rais-calendar__dropdowns">
-      <div class="rais-calendar__dropdown">
-        <span class="rais-calendar__dropdown-label">{{ month }}</span>
-        <span class="rais-calendar__dropdown-caret">
-          <img src="assets/boxicons/bx-caret-down.svg" width="14" height="14" alt="caret" />
-        </span>
+<div
+  class="rais-calendar"
+  [class.rais-calendar--disabled]="disabled"
+  role="group"
+  [attr.aria-label]="'Calendar, ' + viewLabel"
+>
+  <div class="rais-calendar__header">
+    <div class="rais-calendar__nav">
+      <button
+        type="button"
+        class="rais-calendar__chevron rais-calendar__chevron--prev"
+        aria-label="Previous month"
+        [disabled]="disabled || !canGoPrev"
+        (click)="prevMonth()"
+      ></button>
+
+      <div class="rais-calendar__selects">
+        <label class="rais-calendar__select">
+          <span class="rais-calendar__sr-only">Month</span>
+          <select
+            class="rais-calendar__select-input"
+            [value]="viewMonth"
+            [disabled]="disabled"
+            (change)="onMonthSelect($event)"
+          >
+            <option *ngFor="let m of months; let i = index" [value]="i" [selected]="i === viewMonth">{{ m }}</option>
+          </select>
+          <span class="rais-calendar__select-value" aria-hidden="true">{{ months[viewMonth] }}</span>
+          <span class="rais-calendar__caret" aria-hidden="true"></span>
+        </label>
+
+        <label class="rais-calendar__select">
+          <span class="rais-calendar__sr-only">Year</span>
+          <select
+            class="rais-calendar__select-input"
+            [value]="viewYear"
+            [disabled]="disabled"
+            (change)="onYearSelect($event)"
+          >
+            <option *ngFor="let y of years" [value]="y" [selected]="y === viewYear">{{ y }}</option>
+          </select>
+          <span class="rais-calendar__select-value" aria-hidden="true">{{ viewYear }}</span>
+          <span class="rais-calendar__caret" aria-hidden="true"></span>
+        </label>
       </div>
-      <div class="rais-calendar__dropdown">
-        <span class="rais-calendar__dropdown-label">{{ year }}</span>
-        <span class="rais-calendar__dropdown-caret">
-          <img src="assets/boxicons/bx-caret-down.svg" width="14" height="14" alt="caret" />
-        </span>
-      </div>
+
+      <button
+        type="button"
+        class="rais-calendar__chevron rais-calendar__chevron--next"
+        aria-label="Next month"
+        [disabled]="disabled || !canGoNext"
+        (click)="nextMonth()"
+      ></button>
     </div>
-    <span class="rais-calendar__chevron" role="button" aria-label="next month">
-      <img src="assets/boxicons/bx-chevron-right.svg" width="20" height="20" alt="next month" />
-    </span>
+
+    <div class="rais-calendar__weekdays" aria-hidden="true">
+      <span class="rais-calendar__weekday" *ngFor="let d of dayLabels">{{ d }}</span>
+    </div>
   </div>
 
-  <div class="rais-calendar__days-header">
-    <span class="rais-calendar__day-label" *ngFor="let d of dayLabels">{{ d }}</span>
-  </div>
-
-  <div class="rais-calendar__dates">
-    <div class="rais-calendar__week" *ngFor="let week of weekRows">
-      <div
-        class="rais-date"
-        *ngFor="let cell of week"
-        [class.rais-date--other-month]="cell.state === 'other-month'"
-        [class.rais-date--unselected]="cell.state === 'unselected'"
-        [class.rais-date--selected]="cell.state === 'selected'"
-        [class.rais-date--hover]="cell.state === 'hover'"
+  <div class="rais-calendar__grid" role="grid" [attr.aria-label]="viewLabel">
+    <div class="rais-calendar__week" role="row" *ngFor="let week of weeks; trackBy: trackWeek">
+      <button
+        type="button"
+        role="gridcell"
+        class="rais-day"
+        *ngFor="let cell of week; trackBy: trackCell"
+        [class.rais-day--selected]="cell.state === 'selected'"
+        [class.rais-day--today]="cell.state === 'today'"
+        [class.rais-day--other-month]="cell.state === 'other-month'"
+        [class.rais-day--disabled]="cell.state === 'disabled'"
+        [class.rais-day--hidden]="!cell.inMonth && !showOtherMonths"
+        [attr.data-rais-day]="cell.key"
+        [attr.aria-selected]="cell.state === 'selected'"
+        [attr.aria-label]="cell.date | date: 'fullDate'"
+        [attr.aria-disabled]="cell.state === 'disabled' || disabled"
+        [tabindex]="cell.key === focusKey && !disabled ? 0 : -1"
+        [disabled]="disabled"
+        (click)="select(cell)"
+        (keydown)="onKeydown($event, cell)"
       >
-        <span class="rais-date__num">{{ cell.num }}</span>
-      </div>
+        <span class="rais-day__num">{{ cell.num }}</span>
+      </button>
     </div>
   </div>
 </div>
