@@ -34,9 +34,36 @@
     </button>
 
     <!-- Page-size dropdown -->
-    <div class="rais-dt-footer__page-size" aria-label="Rows per page">
-      <span class="rais-dt-footer__page-size-value">{{ pageSize }}</span>
-      <span class="rais-dt-footer__icon rais-dt-footer__icon--chevron-down" aria-hidden="true"></span>
+    <div class="rais-dt-footer__page-size">
+      <button
+        #pageSizeTrigger
+        type="button"
+        class="rais-dt-footer__page-size-trigger"
+        aria-haspopup="listbox"
+        [attr.aria-expanded]="pageSizeMenuOpen"
+        [attr.aria-label]="'Rows per page: ' + pageSize"
+        (click)="togglePageSizeMenu()"
+      >
+        <span class="rais-dt-footer__page-size-value">{{ pageSize }}</span>
+        <span class="rais-dt-footer__icon rais-dt-footer__icon--chevron-down" aria-hidden="true"></span>
+      </button>
+
+      <div
+        *ngIf="pageSizeMenuOpen"
+        class="rais-dt-footer__page-size-menu"
+        role="listbox"
+        aria-label="Rows per page"
+      >
+        <button
+          *ngFor="let size of pageSizeOptions"
+          type="button"
+          role="option"
+          class="rais-dt-footer__page-size-option"
+          [class.rais-dt-footer__page-size-option--selected]="size === pageSize"
+          [attr.aria-selected]="size === pageSize"
+          (click)="selectPageSize(size)"
+        >{{ size }}</button>
+      </div>
     </div>
   </div>
 </div>
