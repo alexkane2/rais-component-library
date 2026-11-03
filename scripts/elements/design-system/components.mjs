@@ -99,13 +99,15 @@ export const COMPONENTS = {
     },
   },
   'rais-calendar': {
-    summary: 'A 299px month view with previous/next chevrons, month and year dropdowns and a seven-column day grid.',
-    example: '<Calendar month="Feb" year="2024" />',
+    summary: 'A working month-view date picker with previous/next chevrons, Month and Year selects and a six-week day grid.',
+    example: '<Calendar value={new Date(2013, 1, 15)} onValueChange={(d) => setDate(d)} />',
     notes: [
-      '`month` and `year` are the labels in the two dropdowns. The day grid comes from `weeks`: 6 rows of 7 `DateCell`s, each a `num` and a `state` (`unselected`, `selected`, `hover`, `other-month`). Without `weeks` it draws its sample month, February 2024.',
+      '`value` is the selected date (Date, ISO string or null); clicking a day emits `valueChange`. The chevrons and the Month / Year selects move the view and emit `viewChange` as `{ month, year }`.',
+      '`minDate` / `maxDate` disable days outside the range; `minYear` / `maxYear` bound the Year select. `firstDayOfWeek` is 1 (Monday, default) or 0 (Sunday); `showOtherMonths` and `showToday` toggle the gray fill-in days and the today ring.',
+      'Day cell states follow the Figma `Calendar/Day` set: default, hover, selected, today, other-month, disabled.',
       'It is the open calendar only; `DatePicker` is the field.',
     ],
-    preview: { layout: 'row', height: 420, stories: ['Default'] },
+    preview: { layout: 'row', height: 420, stories: ['With Selected Date', 'With Min / Max Dates'] },
   },
   'rais-circular-progress-indicator': {
     summary: 'A circular progress ring that fills to a percentage, or spins as an indeterminate loader.',
