@@ -19,7 +19,7 @@ const meta: Meta<RaisDropdownMenuComponent> = {
           '`Dropdown Menu` set and its `Dropdown Menu / Option` row states.\n\n' +
           '**Height.** The panel never grows past `maxVisibleRows` (8). Longer lists scroll inside the panel ' +
           'with a real, token-colored scrollbar, so a long carrier list no longer pushes the page down.\n\n' +
-          '**Row states.** `selectedIndex` is the committed value (blue row, semibold). `activeIndex` is the row ' +
+          '**Row states.** `selectedIndex` is the committed value (blue text on `bg-selected`, same weight as every other state so wrapping never changes on selection). `activeIndex` is the row ' +
           'reached with the arrow keys: a focus ring on a hover background, distinct from both hover and the ' +
           'selection, and not committed until Enter. A row can be both (`Keyboard Active + Selected`).\n\n' +
           '**Keyboard** (when the list itself has focus): Up / Down move the active row, Home / End jump, ' +

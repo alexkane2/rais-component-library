@@ -7,7 +7,7 @@
 //   option text       --font-size-sm, --color-text-primary
 //   hover             --color-bg-hover
 //   keyboard active   --color-bg-hover + 2px inset --color-border-focus ring
-//   selected          --color-bg-selected + --color-link-primary, semibold
+//   selected          --color-bg-selected + --color-link-primary (same weight as the other states)
 //   scrollbar         thumb --color-border-default on --color-divider track
 
 // Figma: 2px between option rows (smaller than the smallest spacing token).
@@ -76,13 +76,14 @@ $row-height: 36px; // 20px line + 2 × --spacing-03 — keep in sync with ROW_HE
       box-shadow: inset 0 0 0 2px var(--color-border-focus);
     }
 
-    // The committed value.
+    // The committed value: background + blue text only. The weight never changes
+    // between states, so a label measures and wraps the same way in every state
+    // and nothing reflows when a row is selected (CRE-3438).
     &--selected,
     &--selected:hover,
     &--selected.rais-menu__option--active {
       background: var(--color-bg-selected);
       color: var(--color-link-primary);
-      font-weight: var(--font-weight-semibold);
     }
   }
 }
