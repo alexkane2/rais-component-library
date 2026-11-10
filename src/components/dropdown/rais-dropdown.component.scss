@@ -83,6 +83,8 @@
     font-size: var(--font-size-sm);
     line-height: 20px;
     color: var(--color-text-placeholder);
+    // The closed field is one line: a long value is cut with an ellipsis and the
+    // full text is in the title tooltip. The open menu wraps it instead.
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

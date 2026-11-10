@@ -90,6 +90,16 @@ export const Interactive: Story = {
   args: { label: 'Carrier', instructions: true, instructionsText: 'Use the arrow keys to move, Enter to choose.', options: CARRIERS, value: 'The Hartford' },
 };
 
+/** A long committed value is cut with an ellipsis in the field (hover for the full name) and wraps in the open menu (CRE-3438). */
+export const LongOptionNames: Story = {
+  args: {
+    label: 'Carrier',
+    state: 'open',
+    value: "Builders & Tradesmen's Insurance Services, Inc.",
+    options: ['Allied Insurance', "Builders & Tradesmen's Insurance Services, Inc.", 'Chubb', 'Nationwide Mutual Insurance Company of America, Commercial Lines', 'Zurich'],
+  },
+};
+
 /** Twelve carriers: the menu stops at 8 rows and scrolls. */
 export const LongListScrolls: Story = {
   args: { label: 'Carrier', state: 'open', options: CARRIERS, value: 'The Hartford' },

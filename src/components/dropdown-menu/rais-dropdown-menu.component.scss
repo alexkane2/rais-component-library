@@ -63,9 +63,10 @@ $row-height: 36px; // 20px line + 2 × --spacing-03 — keep in sync with ROW_HE
     line-height: 20px;
     color: var(--color-text-primary);
     cursor: pointer;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    // Long labels wrap onto further lines (Figma: the option label fills the row and wraps);
+    // the row grows past $row-height, so fewer rows fit in the max height.
+    white-space: normal;
+    overflow-wrap: anywhere;
 
     &:hover { background: var(--color-bg-hover); }
 
