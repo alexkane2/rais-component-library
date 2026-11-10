@@ -6,6 +6,23 @@ const meta: Meta<RaisFileUploadStatesComponent> = {
   title: 'RAIS/File Management/File Upload States',
   component: RaisFileUploadStatesComponent,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Vertical 400 × 264px file-upload dropzone in four states. Mirrors the Figma `File Upload Vertical` set.\n\n' +
+          '- **Default** — the whole dashed area is a real drop target (a dragged file highlights it) and **Browse Files** ' +
+          'opens the native picker; either way `filesSelected` receives the `FileList`. The copy no longer says "Click to upload". ' +
+          "`helperText` and `accept` default to Profit Share's XLSX and CSV (no legacy XLS); other consumers set their own.\n" +
+          '- **Uploading** — file-type-neutral upload icon, progress percentage and bar; `uploadingTitle` and `documentName`.\n' +
+          '- **Success** — solid green border (dashed = drop target, solid = file accepted), check icon, `successTitle` ' +
+          '("File Selected" by default; pages override it, e.g. "Report Uploaded") and a Clear Upload link (`clearClicked`).\n' +
+          '- **Error** — dashed red border, `errorTitle` + `errorMessage`, Try Again link (`tryAgain`).\n\n' +
+          'Switching `state` is up to the page. Styling uses the RAIS tokens; the success and error borders bind the same ' +
+          'primitives Figma binds (`--primitive-system-green-500`, `--primitive-system-red-400`).',
+      },
+    },
+  },
   decorators: [
     moduleMetadata({ imports: [RaisFileUploadStatesComponent] }),
   ],

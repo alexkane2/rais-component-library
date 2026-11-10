@@ -6,24 +6,41 @@ const meta: Meta<RaisDatePickerComponent> = {
   title: 'RAIS/Inputs/Date Picker',
   component: RaisDatePickerComponent,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'The date field: label, optional hint, instructions, a MM/DD/YYYY value or placeholder, a clear X and the ' +
+          'calendar icon. Mirrors the Figma `Date Picker` set (empty, filled, focus, error).\n\n' +
+          '**Clearing.** While a date is present the X (`showClear`) removes it and emits `cleared` and `valueChange("")`:\n\n' +
+          '- optional field → back to the empty state (placeholder, no error);\n' +
+          '- `required` field → the error state with `requiredMessage` until a new date is chosen.\n\n' +
+          'The open **Calendar** offers the same Clear action in its footer. The field does not open a calendar itself: ' +
+          '`calendarClicked` fires from the icon so the page can show one.\n\n' +
+          'Width is fluid: wrap it to size it (these stories use 350px). Icons are Boxicons masks colored with ' +
+          '`--color-icon-secondary` / `--color-icon-focused`; borders use `--color-border-default/-focus/-error`.',
+      },
+    },
+  },
   decorators: [
     moduleMetadata({ imports: [RaisDatePickerComponent] }),
     componentWrapperDecorator((story) => `<div style="width:350px">${story}</div>`),
   ],
   argTypes: {
-    label:            { control: 'text' },
-    optional:         { control: 'boolean' },
-    instructions:     { control: 'boolean' },
-    instructionsText: { control: 'text' },
-    value:            { control: 'text', description: 'MM/DD/YYYY format' },
-    state:            { control: 'select', options: ['empty', 'filled', 'focus', 'error'] },
-    errorMessage:     { control: 'text' },
-    showClear:        { control: 'boolean' },
-    required:         { control: 'boolean' },
-    requiredMessage:  { control: 'text' },
-    valueChange:      { action: 'valueChange' },
-    cleared:          { action: 'cleared' },
-    calendarClicked:  { action: 'calendarClicked' },
+    label:            { control: 'text', description: 'Field label' },
+    optional:         { control: 'boolean', description: 'Show "(Optional)" after the label' },
+    instructions:     { control: 'boolean', description: 'Show the instructions line' },
+    instructionsText: { control: 'text', description: 'Instructions copy; long text wraps above the field' },
+    placeholder:      { control: 'text', description: 'Shown while empty' },
+    value:            { control: 'text', description: 'Date in MM/DD/YYYY format' },
+    state:            { control: 'select', options: ['empty', 'filled', 'focus', 'error'], description: 'Visual state — border and icon tint' },
+    errorMessage:     { control: 'text', description: 'Shown under the field in the error state' },
+    showClear:        { control: 'boolean', description: 'Show the X that clears the date while one is present' },
+    required:         { control: 'boolean', description: 'Clearing a required field shows `requiredMessage` as an error' },
+    requiredMessage:  { control: 'text', description: 'Error shown when a required field is cleared' },
+    valueChange:      { action: 'valueChange', description: 'Emits the value after a change ("" when cleared)' },
+    cleared:          { action: 'cleared', description: 'Emits when the X clears the date' },
+    calendarClicked:  { action: 'calendarClicked', description: 'Emits when the calendar icon is clicked' },
   },
 };
 

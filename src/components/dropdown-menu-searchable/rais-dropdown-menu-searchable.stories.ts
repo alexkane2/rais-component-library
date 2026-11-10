@@ -17,16 +17,42 @@ const meta: Meta<RaisDropdownMenuSearchableComponent> = {
   title: 'RAIS/Inputs/Dropdown Menu - Searchable',
   component: RaisDropdownMenuSearchableComponent,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'The results panel under **Dropdown – Searchable**: two-line options (bold name over a lighter detail ' +
+          'line). Mirrors the Figma `Dropdown Menu - Searchable` set.\n\n' +
+          '**Panels** (`resultsState`):\n\n' +
+          '- `default` — the full list on open; stops at `maxVisibleRows` (5) two-line rows and scrolls inside the panel with a real scrollbar.\n' +
+          '- `filtered` — only the rows matching the typed text; the first match is keyboard-active so Enter commits it.\n' +
+          '- `no-results` — empty-state copy quoting `query`; the panel stays open.\n' +
+          '- `loading` — shown while a remote search runs.\n\n' +
+          '`selectedIndex` is the committed value (blue name); `activeIndex` the row reached with the arrow keys ' +
+          '(focus ring). Keyboard, when the list itself has focus: Up / Down, Home / End, Enter or Space commit, Escape emits `closed`.\n\n' +
+          'Tokens: `--color-surface-primary`, `--color-border-default`, `--color-bg-hover`, `--color-bg-selected`, ' +
+          '`--color-border-focus`, `--color-display-primary`, `--color-text-primary/-secondary`, `--spacing-03/05/06`.',
+      },
+    },
+  },
   decorators: [
     moduleMetadata({ imports: [RaisDropdownMenuSearchableComponent] }),
     componentWrapperDecorator((story) => `<div style="width:491px">${story}</div>`),
   ],
   argTypes: {
-    selectedIndex:  { control: 'number' },
-    activeIndex:    { control: 'number' },
-    resultsState:   { control: 'select', options: ['default', 'filtered', 'no-results', 'loading'] },
-    query:          { control: 'text' },
-    maxVisibleRows: { control: 'number' },
+    options:        { control: 'object', description: 'Options to list (`name`, optional `detail`)' },
+    selectedIndex:  { control: 'number', description: 'Committed option (-1 for none)' },
+    activeIndex:    { control: 'number', description: 'Keyboard-active option (-1 for none)' },
+    resultsState:   { control: 'select', options: ['default', 'filtered', 'no-results', 'loading'], description: 'Which panel to show' },
+    query:          { control: 'text', description: 'Typed text, quoted in the no-results copy' },
+    noResultsTitle: { control: 'text', description: 'No-results title; `{query}` is replaced' },
+    noResultsHint:  { control: 'text', description: 'No-results hint line' },
+    loadingTitle:   { control: 'text', description: 'Loading title' },
+    loadingHint:    { control: 'text', description: 'Loading hint line' },
+    maxVisibleRows: { control: 'number', description: 'Two-line rows shown before the list scrolls (5)' },
+    focusable:      { control: 'boolean', description: 'false when the searchable field owns focus and drives the list' },
+    optionSelected: { control: false, description: 'Emits `{ index, option }` on click, Enter or Space' },
+    closed:         { control: false, description: 'Emits on Escape' },
   },
 };
 

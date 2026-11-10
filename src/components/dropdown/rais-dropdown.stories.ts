@@ -13,22 +13,44 @@ const meta: Meta<RaisDropdownComponent> = {
   title: 'RAIS/Inputs/Dropdown',
   component: RaisDropdownComponent,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Single-select field: label, optional "(Optional)" hint, wrapping instructions, the trigger and a ' +
+          '**Dropdown Menu** under it. Mirrors the Figma `Dropdown` set.\n\n' +
+          '**Width.** The field is fluid: label, instructions, trigger and error all fill the container, so it ' +
+          'lines up with the text fields beside it in a drawer. Wrap it to size it (these stories use 350px). ' +
+          'Long `instructionsText` wraps with 4px before the trigger.\n\n' +
+          '**Keyboard** (custom list, not the native `<select>` — the arrow keys never change the value by themselves):\n\n' +
+          '- Tab focuses the closed trigger.\n' +
+          '- Space, Enter, Up or Down open the menu with the current value as the keyboard-active row.\n' +
+          '- Up / Down / Home / End move the keyboard-active row (focus ring) without committing; typing a letter jumps to the first matching option.\n' +
+          '- Enter commits (`valueChange`) and closes; Escape closes without changes; Tab closes and moves on.\n\n' +
+          '`state` only forces the look for static mockups (`open` draws the menu). Real interaction opens and ' +
+          'closes the menu itself. The menu stops at `maxVisibleRows` (8) and scrolls.\n\n' +
+          'Tokens: `--color-input-bg`, `--color-border-default/-focus/-error`, `--color-text-primary/-placeholder/-disabled`, ' +
+          '`--color-icon-primary/-focused`, `--spacing-01/03/05`, `--border-radius-sm`, `--shadow-sm`.',
+      },
+    },
+  },
   decorators: [
     moduleMetadata({ imports: [RaisDropdownComponent, RaisTextFieldComponent] }),
     componentWrapperDecorator((story) => `<div style="width:350px">${story}</div>`),
   ],
   argTypes: {
-    label:            { control: 'text' },
-    optional:         { control: 'boolean' },
-    instructions:     { control: 'boolean' },
-    instructionsText: { control: 'text' },
-    placeholder:      { control: 'text' },
-    value:            { control: 'text' },
-    state:            { control: 'select', options: ['default', 'filled', 'focus', 'error', 'open'] },
-    errorMessage:     { control: 'text' },
-    maxVisibleRows:   { control: 'number' },
-    valueChange:      { action: 'valueChange' },
-    openChange:       { action: 'openChange' },
+    label:            { control: 'text', description: 'Field label' },
+    optional:         { control: 'boolean', description: 'Show "(Optional)" after the label' },
+    instructions:     { control: 'boolean', description: 'Show the instructions line' },
+    instructionsText: { control: 'text', description: 'Instructions copy; long text wraps above the trigger' },
+    placeholder:      { control: 'text', description: 'Shown when there is no value' },
+    value:            { control: 'text', description: 'Committed value (one of `options`)' },
+    options:          { control: 'object', description: 'Menu options' },
+    state:            { control: 'select', options: ['default', 'filled', 'focus', 'error', 'open'], description: 'Forces the look for mockups; `open` draws the menu' },
+    errorMessage:     { control: 'text', description: 'Shown under the trigger in the error state' },
+    maxVisibleRows:   { control: 'number', description: 'Menu rows shown before it scrolls (8)' },
+    valueChange:      { action: 'valueChange', description: 'Emits the new value when an option is committed' },
+    openChange:       { action: 'openChange', description: 'Emits true / false as the menu opens and closes' },
   },
 };
 
