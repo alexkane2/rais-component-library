@@ -22,7 +22,10 @@ const meta: Meta<RaisCalendarComponent> = {
     showOtherMonths: { control: 'boolean' },
     showToday: { control: 'boolean' },
     disabled: { control: 'boolean' },
+    showClear: { control: 'boolean' },
+    clearLabel: { control: 'text' },
     valueChange: { action: 'valueChange' },
+    cleared: { action: 'cleared' },
     viewChange: { action: 'viewChange' },
   },
 };
@@ -60,6 +63,16 @@ export const SundayStart: Story = {
 /** Adjacent-month days hidden. */
 export const CurrentMonthOnly: Story = {
   args: { showOtherMonths: false, value: new Date(2026, 2, 18) },
+};
+
+/** The footer Clear link removes the selection and emits `valueChange(null)`. */
+export const WithClear: Story = {
+  args: { value: new Date(2026, 1, 15), showToday: false, showClear: true },
+};
+
+/** No footer: for pickers where clearing is not allowed. */
+export const WithoutClear: Story = {
+  args: { value: new Date(2026, 1, 15), showToday: false, showClear: false },
 };
 
 export const Disabled: Story = {

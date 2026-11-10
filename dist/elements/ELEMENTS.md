@@ -240,10 +240,13 @@ Source: `src/components/calendar/rais-calendar.component.ts`.
 | showOtherMonths | `show-other-months` | `showOtherMonths` | `boolean` | `true` | Show the days from adjacent months that fill the grid. |
 | showToday | `show-today` | `showToday` | `boolean` | `true` | Highlight today's date. |
 | disabled | `disabled` | `disabled` | `boolean` | `false` | Disables the whole calendar. |
+| showClear | `show-clear` | `showClear` | `boolean` | `true` | Show the footer "Clear" link that removes the selected date. |
+| clearLabel | `clear-label` | `clearLabel` | `string` | `"Clear"` | Label of the footer clear link. |
 
 | Event | `event.detail` | Description |
 | --- | --- | --- |
-| `valueChange` | `Date` | Emits the newly selected date. |
+| `valueChange` | `Date \| null` | Emits the newly selected date, or null when cleared. |
+| `cleared` | `null` (no value) | Emits when the footer "Clear" link removes the selected date. |
 | `viewChange` | `CalendarView` | Emits when the displayed month or year changes. |
 
 ### `<rais-circular-progress-indicator>`
@@ -330,12 +333,21 @@ Source: `src/components/date-picker/rais-date-picker.component.ts`.
 | --- | --- | --- | --- | --- | --- |
 | label | `label` | `label` | `string` | `"Label"` | Field label shown above the input. |
 | optional | `optional` | `optional` | `boolean` | `false` | Show "(Optional)" next to the label. |
-| instructions | `instructions` | `instructions` | `boolean` | `true` | Show the secondary "More instructions here." line. |
+| instructions | `instructions` | `instructions` | `boolean` | `true` | Show the instructions line under the label. |
+| instructionsText | `instructions-text` | `instructionsText` | `string` | `"More instructions here."` | The instructions text; long text wraps above the field. |
+| placeholder | `placeholder` | `placeholder` | `string` | `"MM/DD/YYYY"` | Placeholder shown while empty. |
 | value | `value` | `value` | `string` | `"12/21/2024"` | Current value in MM/DD/YYYY format. |
 | state | `state` | `state` | `"focus" \| "error" \| "empty" \| "filled"` | `"empty"` | Visual state — drives border color and icon tint. |
 | errorMessage | `error-message` | `errorMessage` | `string` | `"Error message."` | Error message (only rendered when state === 'error'). |
+| showClear | `show-clear` | `showClear` | `boolean` | `true` | Show the X that clears the date while one is present. |
+| required | `required` | `required` | `boolean` | `false` | A required field shows `requiredMessage` as an error once cleared. |
+| requiredMessage | `required-message` | `requiredMessage` | `string` | `"Date is required."` | Error shown when a required field is cleared. |
 
-No custom events.
+| Event | `event.detail` | Description |
+| --- | --- | --- |
+| `valueChange` | `string` | Emits the value after a change ('' when cleared). |
+| `cleared` | `null` (no value) | Emits when the X clears the date. |
+| `calendarClicked` | `null` (no value) | Emits when the calendar icon is clicked (open your calendar popover). |
 
 ### `<rais-drawer>`
 
@@ -367,12 +379,28 @@ Source: `src/components/dropdown-menu-searchable/rais-dropdown-menu-searchable.c
 | Input | Attribute | Property | Type | Default | Description |
 | --- | --- | --- | --- | --- | --- |
 | options | `options` (JSON) | `options` (recommended) | `SearchableMenuOption[]` | `[{"name":"128 Plumbing Heating Inc","detail":…` | Menu options to render |
-| selectedIndex | `selected-index` | `selectedIndex` | `number` | `-1` | Index of selected option (-1 for none) |
-| showScrollbar | `show-scrollbar` | `showScrollbar` | `boolean` | `true` | Whether to show the decorative scrollbar |
+| selectedIndex | `selected-index` | `selectedIndex` | `number` | `-1` | Index of the committed (selected) option, -1 for none |
+| activeIndex | `active-index` | `activeIndex` | `number` | `-1` | Index of the keyboard-active option (arrow-key focus), -1 for none |
+| resultsState | `results-state` | `resultsState` | `"default" \| "filtered" \| "no-results" \| "loading"` | `"default"` | Which panel to show |
+| query | `query` | `query` | `string` | `""` | The typed text, quoted in the no-results copy |
+| noResultsTitle | `no-results-title` | `noResultsTitle` | `string` | `"No matches for “{query}”"` | No-results title; `{query}` is replaced with the typed text |
+| noResultsHint | `no-results-hint` | `noResultsHint` | `string` | `"Check the spelling or try a shorter search."` | No-results hint line |
+| loadingTitle | `loading-title` | `loadingTitle` | `string` | `"Searching…"` | Loading title |
+| loadingHint | `loading-hint` | `loadingHint` | `string` | `"Results update as you type."` | Loading hint line |
+| maxVisibleRows | `max-visible-rows` | `maxVisibleRows` | `number` | `5` | Two-line rows visible before the list scrolls |
+| ariaLabel | `aria-label` | `ariaLabel` | `string` | `"Results"` | Accessible name of the listbox |
+| focusable | `focusable` | `focusable` | `boolean` | `true` | Whether the list can take focus itself (false when a combobox drives it) |
+| listboxId | `listbox-id` | `listboxId` | `string` | — | `id` of the listbox element, so a combobox can reference it |
+| idPrefix | `id-prefix` | `idPrefix` | `string` | — | Prefix for the option ids (`<prefix>-opt-<index>`), for aria-activedescendant |
 
 `options` items: `SearchableMenuOption = { name: string; detail?: string }`
 
-No custom events.
+| Event | `event.detail` | Description |
+| --- | --- | --- |
+| `selectedIndexChange` | `number` | Emits the committed index when an option is chosen |
+| `activeIndexChange` | `number` | Emits the keyboard-active index as the arrow keys move it |
+| `optionSelected` | `SearchableMenuSelection` | Emits the chosen option (click, Enter or Space) |
+| `closed` | `null` (no value) | Emits when Escape is pressed on the list |
 
 ### `<rais-dropdown-menu>`
 
@@ -382,11 +410,21 @@ Source: `src/components/dropdown-menu/rais-dropdown-menu.component.ts`.
 
 | Input | Attribute | Property | Type | Default | Description |
 | --- | --- | --- | --- | --- | --- |
-| options | `options` (JSON) | `options` (recommended) | `string[]` | `["Option","Option","Option","Option","Option"…` | Menu options to render |
-| selectedIndex | `selected-index` | `selectedIndex` | `number` | `-1` | Index of selected option (-1 for none) |
-| showScrollbar | `show-scrollbar` | `showScrollbar` | `boolean` | `true` | Whether to show the decorative scrollbar |
+| options | `options` (JSON) | `options` (recommended) | `string[]` | `["Option 1","Option 2","Option 3","Option 4",…` | Menu options to render |
+| selectedIndex | `selected-index` | `selectedIndex` | `number` | `-1` | Index of the committed (selected) option, -1 for none |
+| activeIndex | `active-index` | `activeIndex` | `number` | `-1` | Index of the keyboard-active option (arrow-key focus), -1 for none |
+| maxVisibleRows | `max-visible-rows` | `maxVisibleRows` | `number` | `8` | Rows visible before the list scrolls (the panel's max height) |
+| ariaLabel | `aria-label` | `ariaLabel` | `string` | `"Options"` | Accessible name of the listbox |
+| focusable | `focusable` | `focusable` | `boolean` | `true` | Whether the list can take focus itself (false when a combobox drives it) |
+| listboxId | `listbox-id` | `listboxId` | `string` | — | `id` of the listbox element, so a combobox can reference it |
+| idPrefix | `id-prefix` | `idPrefix` | `string` | — | Prefix for the option ids (`<prefix>-opt-<index>`), for aria-activedescendant |
 
-No custom events.
+| Event | `event.detail` | Description |
+| --- | --- | --- |
+| `selectedIndexChange` | `number` | Emits the committed index when an option is chosen |
+| `activeIndexChange` | `number` | Emits the keyboard-active index as the arrow keys move it |
+| `optionSelected` | `DropdownMenuSelection` | Emits the chosen option (click, Enter or Space) |
+| `closed` | `null` (no value) | Emits when Escape is pressed on the list |
 
 ### `<rais-dropdown-multiselect>`
 
@@ -417,13 +455,25 @@ Source: `src/components/dropdown-searchable/rais-dropdown-searchable.component.t
 | label | `label` | `label` | `string` | `"Label"` | Field label |
 | optional | `optional` | `optional` | `boolean` | `false` | Show "(Optional)" hint |
 | instructions | `instructions` | `instructions` | `boolean` | `true` | Show the instructions line |
-| state | `state` | `state` | `"default" \| "error" \| "selection" \| "active"` | `"default"` | Visual state |
+| instructionsText | `instructions-text` | `instructionsText` | `string` | `"More instructions here."` | The instructions text; long text wraps above the field |
+| placeholder | `placeholder` | `placeholder` | `string` | `"Type name..."` | Placeholder shown when nothing is typed or selected |
+| state | `state` | `state` | `"default" \| "error" \| "selection" \| "open" \| "active"` | `"default"` | Visual state for static mockups |
 | errorMessage | `error-message` | `errorMessage` | `string` | `"Error message."` | Error message shown in 'error' state |
-| options | `options` (JSON) | `options` (recommended) | `SearchableOption[]` | `[{"name":"128 Plumbing Heating Inc","detail":…` | Options shown when active (searching) |
+| value | `value` | `value` | `string` | `""` | The committed selection (its name) |
+| query | `query` | `query` | `string` | `""` | The typed search text |
+| loading | `loading` | `loading` | `boolean` | `false` | Show the loading panel while results are being fetched |
+| options | `options` (JSON) | `options` (recommended) | `SearchableMenuOption[]` | `[{"name":"128 Plumbing Heating Inc","detail":…` | All options; the field filters them against `query` |
+| maxVisibleRows | `max-visible-rows` | `maxVisibleRows` | `number` | `5` | Two-line result rows visible before the panel scrolls |
 
-`options` items: `SearchableOption = { name: string; detail?: string }`
+`options` items: `SearchableMenuOption = { name: string; detail?: string }`
 
-No custom events.
+| Event | `event.detail` | Description |
+| --- | --- | --- |
+| `valueChange` | `string` | Emits the committed selection's name ('' when cleared) |
+| `queryChange` | `string` | Emits the typed text as it changes |
+| `optionSelected` | `SearchableOption` | Emits the committed option |
+| `cleared` | `null` (no value) | Emits when the X clears the field |
+| `openChange` | `boolean` | Emits when the results panel opens (true) or closes (false) |
 
 ### `<rais-dropdown>`
 
@@ -436,12 +486,18 @@ Source: `src/components/dropdown/rais-dropdown.component.ts`.
 | label | `label` | `label` | `string` | `"Label"` | Field label |
 | optional | `optional` | `optional` | `boolean` | `false` | Whether to show the "(Optional)" hint next to the label |
 | instructions | `instructions` | `instructions` | `boolean` | `false` | Whether to show the instructions line under the label |
-| value | `value` | `value` | `string` | `""` | Currently selected value (empty shows placeholder) |
-| state | `state` | `state` | `"default" \| "focus" \| "error" \| "filled" \| "open"` | `"default"` | Visual state |
+| instructionsText | `instructions-text` | `instructionsText` | `string` | `"More instructions here."` | The instructions text; long text wraps above the trigger |
+| placeholder | `placeholder` | `placeholder` | `string` | `"-- Select --"` | Placeholder shown when there is no value |
+| value | `value` | `value` | `string` | `""` | Currently selected value (empty shows the placeholder) |
+| state | `state` | `state` | `"default" \| "focus" \| "error" \| "filled" \| "open"` | `"default"` | Visual state for static mockups (`open` draws the menu) |
 | errorMessage | `error-message` | `errorMessage` | `string` | `"Error message."` | Error message shown when state === 'error' |
-| options | `options` (JSON) | `options` (recommended) | `string[]` | `["Option 1","Option 2","Option 3","Option 4",…` | Options shown in the open menu |
+| options | `options` (JSON) | `options` (recommended) | `string[]` | `["Option 1","Option 2","Option 3","Option 4",…` | Options shown in the menu |
+| maxVisibleRows | `max-visible-rows` | `maxVisibleRows` | `number` | `8` | Menu rows visible before the menu scrolls |
 
-No custom events.
+| Event | `event.detail` | Description |
+| --- | --- | --- |
+| `valueChange` | `string` | Emits the new value when an option is committed |
+| `openChange` | `boolean` | Emits when the menu opens (true) or closes (false) |
 
 ### `<rais-ellipse-button>`
 
@@ -483,21 +539,23 @@ Source: `src/components/file-upload-states/rais-file-upload-states.component.ts`
 | Input | Attribute | Property | Type | Default | Description |
 | --- | --- | --- | --- | --- | --- |
 | state | `state` | `state` | `"default" \| "success" \| "error" \| "uploading"` | `"default"` | Current state of the upload component. |
-| helperText | `helper-text` | `helperText` | `string` | `"SVG, PNG, JPG or GIF (max. 800x400px)"` | Helper text under the title (default state). |
+| title | `title` | `title` | `string` | `"Drag and drop your file here"` | Title of the drop area (default state). |
+| helperText | `helper-text` | `helperText` | `string` | `"Accepted formats: XLSX, CSV"` | Accepted-formats line under the title (default state). |
 | browseCtaLabel | `browse-cta-label` | `browseCtaLabel` | `string` | `"Browse Files"` | Primary CTA label (default state). |
-| accept | `accept` | `accept` | `string` | `"image/svg+xml,image/png,image/jpeg,image/gif"` | File types accepted in the native file picker. |
+| accept | `accept` | `accept` | `string` | `".xlsx,.csv,application/vnd.openxmlformats-of…` | File types accepted in the native file picker. |
+| multiple | `multiple` | `multiple` | `boolean` | `false` | Allow picking or dropping more than one file. |
 | progress | `progress` | `progress` | `number` | `65` | Upload progress (0–100, uploading state). |
-| uploadingTitle | `uploading-title` | `uploadingTitle` | `string` | `"Uploading Document..."` | Title text in uploading/success/error states. |
-| successTitle | `success-title` | `successTitle` | `string` | `"Uploading Document..."` | Success state title (defaults to same uploadingTitle). |
+| uploadingTitle | `uploading-title` | `uploadingTitle` | `string` | `"Uploading…"` | Title text in the uploading state. |
+| successTitle | `success-title` | `successTitle` | `string` | `"File Selected"` | Success state title; pages override it (e.g. "Report Uploaded"). |
 | errorTitle | `error-title` | `errorTitle` | `string` | `"Failed to Upload"` | Error state title. |
-| documentName | `document-name` | `documentName` | `string` | `"{Name of document}"` | Document name shown under the upload title. |
-| errorMessage | `error-message` | `errorMessage` | `string` | `"{Error Message}"` | Error message shown in error state. |
+| documentName | `document-name` | `documentName` | `string` | `"{File name}"` | File name shown under the uploading / success title. |
+| errorMessage | `error-message` | `errorMessage` | `string` | `"{Error message}"` | Error message shown in error state. |
 | clearLabel | `clear-label` | `clearLabel` | `string` | `"Clear Upload"` | "Clear Upload" link label (success state). |
 | tryAgainLabel | `try-again-label` | `tryAgainLabel` | `string` | `"Try Again"` | "Try Again" link label (error state). |
 
 | Event | `event.detail` | Description |
 | --- | --- | --- |
-| `filesSelected` | `FileList \| null` | Emitted when the user selects file(s) from the picker. |
+| `filesSelected` | `FileList \| null` | Emitted when the user picks or drops file(s). |
 | `clearClicked` | `null` (no value) | Emitted when "Clear Upload" is clicked (success). |
 | `tryAgain` | `null` (no value) | Emitted when "Try Again" is clicked (error). |
 

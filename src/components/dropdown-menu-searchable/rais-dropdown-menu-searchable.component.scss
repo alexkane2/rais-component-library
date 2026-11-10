@@ -1,88 +1,111 @@
 // Dropdown Menu - Searchable — RAIS Inputs component
-// Colors:
-//   option name      #101928
-//   option detail    #454545
-//   option hover bg  #EDF6FC
-//   border           #CCCCCC
-//   scrollbar thumb  #EFEFEF
-//   bg white         #FFFFFF
+// Mirrors the Figma `Dropdown Menu - Searchable` set. All colors, spacing and
+// radii come from the RAIS tokens in src/index.css:
+//   panel             --color-surface-primary / --color-border-default / --shadow-md
+//   panel padding     --spacing-06 --spacing-05 (16px 12px)
+//   option padding    --spacing-03 --spacing-05 (8px 12px), radius --border-radius-sm
+//   option name       --font-size-sm bold, --color-display-primary
+//   option detail     --font-size-sm, --color-text-primary
+//   hover             --color-bg-hover
+//   keyboard active   --color-bg-hover + 2px inset --color-border-focus ring
+//   selected          --color-bg-selected + --color-link-primary
+//   message           --color-text-primary semibold / --color-text-secondary hint
+//   scrollbar         thumb --color-border-default on --color-divider track
+
+// Figma: 2px between option rows (smaller than the smallest spacing token).
+$row-gap: 2px;
 
 :host {
-  display: inline-block;
-  font-family: 'Figtree', sans-serif;
+  display: block;
+  font-family: var(--font-family-text);
 }
 
 .rais-menu-search {
-  width: 350px;
-  background: #FFFFFF;
-  border: 1px solid #CCCCCC;
-  border-radius: 4px;
-  padding: 16px 12px;
+  width: 100%;
   box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 12px;
-  font-family: 'Figtree', sans-serif;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  background: var(--color-surface-primary);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--border-radius-sm);
+  padding: var(--spacing-06) var(--spacing-05);
+  box-shadow: var(--shadow-md);
+  outline: none;
 
-  &__container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex: 1;
-    min-width: 0;
+  &:focus-visible { border-color: var(--color-border-focus); }
+
+  // The viewport is capped at `maxVisibleRows` rows and scrolls inside the panel.
+  &__viewport {
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border-default) var(--color-divider);
+    scrollbar-gutter: stable;
+
+    &::-webkit-scrollbar { width: 4px; }
+    &::-webkit-scrollbar-track { background: var(--color-divider); border-radius: 2px; }
+    &::-webkit-scrollbar-thumb { background: var(--color-border-default); border-radius: 2px; }
   }
 
   &__options {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    flex: 1;
-    min-width: 0;
+    gap: $row-gap;
+    padding-right: var(--spacing-01);
   }
 
   &__option {
-    padding: 4px;
+    padding: var(--spacing-03) var(--spacing-05);
+    border-radius: var(--border-radius-sm);
     cursor: pointer;
-    border-radius: 2px;
 
-    &:hover { background: #EDF6FC; }
+    &:hover { background: var(--color-bg-hover); }
 
-    &--selected { background: #EDF6FC; }
+    // Reached with the arrow keys; not committed until Enter.
+    &--active {
+      background: var(--color-bg-hover);
+      box-shadow: inset 0 0 0 2px var(--color-border-focus);
+    }
+
+    // The committed value.
+    &--selected,
+    &--selected:hover,
+    &--selected.rais-menu-search__option--active {
+      background: var(--color-bg-selected);
+      .rais-menu-search__option-name { color: var(--color-link-primary); }
+    }
   }
 
   &__option-name {
-    font-size: 14px;
-    font-weight: 700;
-    color: #101928;
-    height: 20px;
-    display: flex;
-    align-items: center;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    line-height: 20px;
+    color: var(--color-display-primary);
   }
 
   &__option-detail {
-    font-size: 14px;
-    color: #454545;
-    height: 20px;
-    display: flex;
-    align-items: center;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-regular);
+    line-height: 20px;
+    color: var(--color-text-primary);
   }
 
-  &__scrollbar {
-    width: 5px;
-    padding-top: 8px;
-    flex-shrink: 0;
+  // No results / loading
+  &__message {
     display: flex;
     flex-direction: column;
+    gap: var(--spacing-01);
+    padding: var(--spacing-03) 0;
   }
 
-  &__scrollbar-thumb {
-    width: 5px;
-    height: 125px;
-    background: #EFEFEF;
-    border-radius: 8px;
+  &__message-title {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    line-height: 20px;
+    color: var(--color-text-primary);
+  }
+
+  &__message-hint {
+    font-size: var(--font-size-xs);
+    line-height: 1.4;
+    color: var(--color-text-secondary);
   }
 }

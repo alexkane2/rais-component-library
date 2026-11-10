@@ -31,6 +31,9 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
  *   - Works with Angular forms (`[(ngModel)]`, `formControlName`).
  *   - Keyboard: arrows move between days, Home/End jump to week edges,
  *     PageUp/PageDown change the month, Enter/Space selects.
+ *   - A footer "Clear" link (`showClear`) removes the selected date and emits
+ *     `valueChange(null)` and `cleared`: an optional Date Picker returns to
+ *     its empty state; a required one shows its error until a date is chosen.
  *
  * Styling uses the RAIS design tokens in `src/index.css` only.
  *
@@ -99,9 +102,15 @@ export class RaisCalendarComponent implements OnInit, OnChanges, ControlValueAcc
   @Input() showToday: boolean = true;
   /** Disables the whole calendar. */
   @Input() disabled: boolean = false;
+  /** Show the footer "Clear" link that removes the selected date. */
+  @Input() showClear: boolean = true;
+  /** Label of the footer clear link. */
+  @Input() clearLabel: string = 'Clear';
 
-  /** Emits the newly selected date. */
-  @Output() valueChange = new EventEmitter<Date>();
+  /** Emits the newly selected date, or null when cleared. */
+  @Output() valueChange = new EventEmitter<Date | null>();
+  /** Emits when the footer "Clear" link removes the selected date. */
+  @Output() cleared = new EventEmitter<void>();
   /** Emits when the displayed month or year changes. */
   @Output() viewChange = new EventEmitter<CalendarView>();
 
@@ -200,6 +209,21 @@ export class RaisCalendarComponent implements OnInit, OnChanges, ControlValueAcc
     this.rebuild();
     this.valueChange.emit(cell.date);
     this.onChange(cell.date);
+    this.onTouched();
+  }
+
+  /** True while a date is selected (the Clear link is enabled). */
+  get hasValue(): boolean {
+    return this.selected !== null;
+  }
+
+  clear(): void {
+    if (this.disabled || !this.selected) return;
+    this.selected = null;
+    this.rebuild();
+    this.valueChange.emit(null);
+    this.cleared.emit();
+    this.onChange(null);
     this.onTouched();
   }
 

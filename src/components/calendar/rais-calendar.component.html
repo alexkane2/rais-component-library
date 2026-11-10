@@ -83,4 +83,13 @@
       </button>
     </div>
   </div>
+
+  <div *ngIf="showClear" class="rais-calendar__footer">
+    <button
+      type="button"
+      class="rais-calendar__clear"
+      [disabled]="disabled || !hasValue"
+      (click)="clear()"
+    >{{ clearLabel }}</button>
+  </div>
 </div>

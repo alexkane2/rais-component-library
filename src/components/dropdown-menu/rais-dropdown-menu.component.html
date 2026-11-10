@@ -1,14 +1,25 @@
-<div class="rais-menu">
-  <div class="rais-menu__container">
+<div
+  class="rais-menu"
+  role="listbox"
+  [id]="listboxId || null"
+  [attr.aria-label]="ariaLabel"
+  [attr.aria-activedescendant]="activeOptionId"
+  [attr.tabindex]="focusable ? 0 : -1"
+  (keydown)="onKeydown($event)"
+>
+  <div #viewport class="rais-menu__viewport" [style.max-height]="maxHeight">
     <div class="rais-menu__options">
       <div
-        *ngFor="let o of options; let i = index"
+        *ngFor="let o of options; let i = index; trackBy: trackOption"
         class="rais-menu__option"
+        role="option"
+        [id]="optionId(i)"
+        [attr.data-rais-option]="i"
+        [attr.aria-selected]="i === selectedIndex"
+        [class.rais-menu__option--active]="i === activeIndex"
         [class.rais-menu__option--selected]="i === selectedIndex"
+        (click)="select(i)"
       >{{ o }}</div>
-    </div>
-    <div *ngIf="showScrollbar" class="rais-menu__scrollbar">
-      <div class="rais-menu__scrollbar-thumb"></div>
     </div>
   </div>
 </div>

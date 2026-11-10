@@ -13,6 +13,8 @@
 //   day today      --color-border-focus + --color-link-primary
 //   other month    --color-text-disabled
 //   disabled       --color-text-disabled at reduced opacity
+//   footer         --color-surface-primary, top border --color-divider
+//   clear link     Text Button/Link Large Blue: --color-link-primary / -hover / -disabled
 
 $cell: 34px;
 
@@ -157,6 +159,33 @@ $cell: 34px;
   &__week {
     display: flex;
     gap: var(--spacing-01);
+  }
+
+  // ── Footer: Clear (Figma: Text Button/Link, Large, Blue) ─────────
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: var(--spacing-03) var(--spacing-06) var(--spacing-05);
+    background: var(--color-surface-primary);
+    border-top: 1px solid var(--color-divider);
+  }
+
+  &__clear {
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    font: inherit;
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-bold);
+    line-height: 1.2;
+    color: var(--color-link-primary);
+    border-radius: 2px;
+
+    &:hover { color: var(--color-link-primary-hover); }
+    &:focus-visible { outline: 2px solid var(--color-border-focus); outline-offset: 2px; }
+    &:disabled { color: var(--color-link-primary-disabled); cursor: default; }
   }
 
   &__sr-only {
