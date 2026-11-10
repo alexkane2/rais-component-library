@@ -72,6 +72,21 @@ export const LongListScrolls: Story = {
   args: { options: CARRIERS, selectedIndex: 4, activeIndex: 2 },
 };
 
+/** Long carrier names wrap inside the row instead of overflowing the panel (CRE-3438). */
+export const LongOptionNames: Story = {
+  args: {
+    options: [
+      'Allied Insurance',
+      "Builders & Tradesmen's Insurance Services, Inc.",
+      'Chubb',
+      'Nationwide Mutual Insurance Company of America, Commercial Lines',
+      'Zurich',
+    ],
+    selectedIndex: 1,
+    activeIndex: 3,
+  },
+};
+
 /** The keyboard-active row is kept in view as it moves down a long list. */
 export const LongListScrolledToBottom: Story = {
   args: { options: CARRIERS, selectedIndex: 4, activeIndex: 10 },

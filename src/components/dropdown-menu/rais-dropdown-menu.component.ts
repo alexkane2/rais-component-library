@@ -22,6 +22,8 @@ import { CommonModule } from '@angular/common';
  *
  * - The panel never grows past `maxVisibleRows` (8 by default): longer lists
  *   scroll inside the panel with a real, token-colored scrollbar.
+ * - Long labels wrap inside the row instead of overflowing or being cut
+ *   (CRE-3438: "Builders & Tradesmen's Insurance Services, Inc.").
  * - `selectedIndex` is the committed value (blue row); `activeIndex` is the
  *   row reached with the arrow keys (focus ring) — distinct from hover and
  *   not committed until Enter.
