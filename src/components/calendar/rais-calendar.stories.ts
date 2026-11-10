@@ -7,6 +7,22 @@ const meta: Meta<RaisCalendarComponent> = {
   title: 'RAIS/Inputs/Calendar',
   component: RaisCalendarComponent,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A working month-view date picker. Mirrors the Figma `Calendar` set: previous / next chevrons, Month and ' +
+          'Year selects, a Mo–Su weekday row, a 6 × 7 grid of `Calendar/Day` cells and a footer **Clear** link.\n\n' +
+          '- Click a day to select it; `value` is a `Date` and `valueChange` emits it. The chevrons and selects move the view and emit `viewChange`.\n' +
+          '- `minDate` / `maxDate` disable days outside the range; `minYear` / `maxYear` bound the Year select.\n' +
+          '- Keyboard: arrows move between days, Home / End jump to week edges, PageUp / PageDown change the month, Enter / Space selects.\n' +
+          '- **Clear** (`showClear`, on by default) removes the selection and emits `valueChange(null)` and `cleared`: an optional Date Picker returns to its empty state, a required one shows its error until a date is chosen. Hide the footer where clearing is not allowed.\n' +
+          '- Works with Angular forms (`[(ngModel)]`, `formControlName`).\n\n' +
+          'Day states follow the Figma `Calendar/Day` set: default, hover, selected, today, other-month, disabled. ' +
+          'Styling uses the RAIS tokens only; the Clear link is the Text Button/Link (Large, Blue) treatment.',
+      },
+    },
+  },
   decorators: [
     moduleMetadata({ imports: [RaisCalendarComponent, FormsModule] }),
   ],
@@ -19,14 +35,14 @@ const meta: Meta<RaisCalendarComponent> = {
     minYear: { control: 'number', description: 'First year in the Year select' },
     maxYear: { control: 'number', description: 'Last year in the Year select' },
     firstDayOfWeek: { control: 'radio', options: [1, 0], description: '1 = Monday, 0 = Sunday' },
-    showOtherMonths: { control: 'boolean' },
-    showToday: { control: 'boolean' },
-    disabled: { control: 'boolean' },
-    showClear: { control: 'boolean' },
-    clearLabel: { control: 'text' },
-    valueChange: { action: 'valueChange' },
-    cleared: { action: 'cleared' },
-    viewChange: { action: 'viewChange' },
+    showOtherMonths: { control: 'boolean', description: 'Show the gray fill-in days from adjacent months' },
+    showToday: { control: 'boolean', description: "Ring today's date" },
+    disabled: { control: 'boolean', description: 'Disable the whole calendar' },
+    showClear: { control: 'boolean', description: 'Show the footer Clear link' },
+    clearLabel: { control: 'text', description: 'Label of the footer Clear link' },
+    valueChange: { action: 'valueChange', description: 'Emits the selected date, or null when cleared' },
+    viewChange: { action: 'viewChange', description: 'Emits `{ month, year }` when the view moves' },
+    cleared: { action: 'cleared', description: 'Emits when the footer Clear link removes the selection' },
   },
 };
 

@@ -17,25 +17,47 @@ const meta: Meta<RaisDropdownSearchableComponent> = {
   title: 'RAIS/Inputs/Dropdown - Searchable',
   component: RaisDropdownSearchableComponent,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Type-ahead single-select. Mirrors the Figma `Dropdown - Searchable` set; the panel is ' +
+          '**Dropdown Menu – Searchable**.\n\n' +
+          '**Sequence:** `default` (closed, placeholder, caret) → `open` (click, Tab + Down or the caret: focus border, ' +
+          'caret up, full list) → `active` (typing filters the list as you type; the X appears) → `selection` ' +
+          '(a value is committed; the X clears it back to default). `error` adds the error border and message.\n\n' +
+          '**Caret and X are both buttons.** The caret toggles the list; the X clears the typed text or the committed ' +
+          'value (`cleared`).\n\n' +
+          '**Keyboard:** Up / Down move the keyboard-active result (focus ring, not committed), Enter commits ' +
+          '(`valueChange`, `optionSelected`), Escape closes and keeps the typed text, Tab closes and moves on.\n\n' +
+          'Filtering runs here against `options` (name and detail, case-insensitive). Set `loading` while a remote ' +
+          'search runs and feed its results into `options`. `state`, `query` and `value` only force the look for ' +
+          'static mockups; left alone, the field drives itself. Width is fluid: wrap it to size it (these stories use 491px).',
+      },
+    },
+  },
   decorators: [
     moduleMetadata({ imports: [RaisDropdownSearchableComponent] }),
     componentWrapperDecorator((story) => `<div style="width:491px">${story}</div>`),
   ],
   argTypes: {
-    label:            { control: 'text' },
-    optional:         { control: 'boolean' },
-    instructions:     { control: 'boolean' },
-    instructionsText: { control: 'text' },
-    placeholder:      { control: 'text' },
-    state:            { control: 'select', options: ['default', 'open', 'active', 'selection', 'error'] },
-    value:            { control: 'text' },
-    query:            { control: 'text' },
-    loading:          { control: 'boolean' },
-    errorMessage:     { control: 'text' },
-    valueChange:      { action: 'valueChange' },
-    queryChange:      { action: 'queryChange' },
-    optionSelected:   { action: 'optionSelected' },
-    cleared:          { action: 'cleared' },
+    label:            { control: 'text', description: 'Field label' },
+    optional:         { control: 'boolean', description: 'Show "(Optional)" after the label' },
+    instructions:     { control: 'boolean', description: 'Show the instructions line' },
+    instructionsText: { control: 'text', description: 'Instructions copy; long text wraps above the field' },
+    placeholder:      { control: 'text', description: 'Shown when nothing is typed or selected' },
+    options:          { control: 'object', description: 'All options; the field filters them against `query`' },
+    state:            { control: 'select', options: ['default', 'open', 'active', 'selection', 'error'], description: 'Forces the look for mockups; `open` and `active` draw the panel' },
+    value:            { control: 'text', description: 'Committed selection (its name)' },
+    query:            { control: 'text', description: 'Typed search text' },
+    loading:          { control: 'boolean', description: 'Show the loading panel while results are fetched' },
+    errorMessage:     { control: 'text', description: 'Shown under the field in the error state' },
+    maxVisibleRows:   { control: 'number', description: 'Two-line result rows shown before the panel scrolls (5)' },
+    valueChange:      { action: 'valueChange', description: 'Emits the committed name, or "" when cleared' },
+    queryChange:      { action: 'queryChange', description: 'Emits the typed text as it changes' },
+    optionSelected:   { action: 'optionSelected', description: 'Emits the committed option' },
+    cleared:          { action: 'cleared', description: 'Emits when the X clears the field' },
+    openChange:       { action: 'openChange', description: 'Emits true / false as the panel opens and closes' },
   },
 };
 
