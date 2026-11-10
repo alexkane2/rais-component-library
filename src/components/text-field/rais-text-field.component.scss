@@ -16,13 +16,14 @@
 
 :host {
   display: inline-block;
+  width: 350px; // set a width (or width:100%) on the host to resize the field
 }
 
 .rais-field {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  width: 350px;
+  width: 100%;
   font-family: 'Figtree', sans-serif;
 
   &__label-row {

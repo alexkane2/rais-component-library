@@ -1,17 +1,35 @@
-<div class="rais-menu-search">
-  <div class="rais-menu-search__container">
+<div
+  class="rais-menu-search"
+  [class.rais-menu-search--message]="!showList"
+  role="listbox"
+  [id]="listboxId || null"
+  [attr.aria-label]="ariaLabel"
+  [attr.aria-activedescendant]="showList ? activeOptionId : null"
+  [attr.aria-busy]="resultsState === 'loading' ? true : null"
+  [attr.tabindex]="focusable ? 0 : -1"
+  (keydown)="onKeydown($event)"
+>
+  <div *ngIf="showList" #viewport class="rais-menu-search__viewport" [style.max-height]="maxHeight">
     <div class="rais-menu-search__options">
       <div
-        *ngFor="let o of options; let i = index"
+        *ngFor="let o of options; let i = index; trackBy: trackOption"
         class="rais-menu-search__option"
+        role="option"
+        [id]="optionId(i)"
+        [attr.data-rais-option]="i"
+        [attr.aria-selected]="i === selectedIndex"
+        [class.rais-menu-search__option--active]="i === activeIndex"
         [class.rais-menu-search__option--selected]="i === selectedIndex"
+        (click)="select(i)"
       >
         <div class="rais-menu-search__option-name">{{ o.name }}</div>
         <div *ngIf="o.detail" class="rais-menu-search__option-detail">{{ o.detail }}</div>
       </div>
     </div>
-    <div *ngIf="showScrollbar" class="rais-menu-search__scrollbar">
-      <div class="rais-menu-search__scrollbar-thumb"></div>
-    </div>
+  </div>
+
+  <div *ngIf="!showList" class="rais-menu-search__message" role="status">
+    <div class="rais-menu-search__message-title">{{ messageTitle }}</div>
+    <div class="rais-menu-search__message-hint">{{ messageHint }}</div>
   </div>
 </div>

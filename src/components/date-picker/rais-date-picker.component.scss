@@ -1,27 +1,26 @@
 // Date Picker — RAIS Inputs component
-// Tokens (inlined from Figma variables):
-//   --color/label             #454545
-//   --color/optional          #8D9091
-//   --color/placeholder       #8D9091
-//   --color/text              #454545
-//   --color/error             #CA222D
-//   --color/border-default    #CCCCCC
-//   --color/border-focus      #007CBD
-//   --color/border-error      #CA222D
-//   --color/bg-white          #FFFFFF
-//   --border/radius-sm        4px
-//   font-family               'Figtree', sans-serif
+// Mirrors the Figma `Date Picker` set. All colors, spacing and radii come
+// from the RAIS tokens in src/index.css:
+//   label          --font-size-sm semibold, --color-text-primary
+//   optional       --color-text-disabled
+//   instructions   --font-size-xs, --color-text-primary; wraps
+//   box            --color-input-bg / --color-border-default, radius --border-radius-sm
+//   placeholder    --color-text-placeholder; value --color-text-primary
+//   focus          --color-border-focus; error --color-border-error
+//   clear X        --color-icon-secondary, --color-icon-focused on hover
+//   calendar icon  --color-icon-secondary, --color-icon-focused when focused
+//   error text     --font-size-xs, --color-border-error
 
 :host {
-  display: inline-block;
-  font-family: 'Figtree', sans-serif;
+  display: block;
+  font-family: var(--font-family-text);
 }
 
 .rais-datepicker {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  width: 350px;
+  gap: var(--spacing-01);
+  width: 100%;
 
   &__labels {
     display: flex;
@@ -33,89 +32,100 @@
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    gap: 12px;
+    gap: var(--spacing-05);
   }
 
   &__label {
-    font-size: 14px;
-    font-weight: 600;
-    color: #454545;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
     line-height: 1.2;
   }
 
   &__optional {
-    font-size: 14px;
-    color: #8D9091;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-disabled);
     line-height: 1.2;
   }
 
   &__instructions {
-    font-size: 12px;
-    color: #454545;
-    line-height: 1.2;
+    font-size: var(--font-size-xs);
+    color: var(--color-text-primary);
+    line-height: 1.4;
+    overflow-wrap: anywhere;
   }
 
-  // Input box: 350x40, padding T8 R16 B8 L16, gap 16
+  // Input box: 40px tall, padding --spacing-03 --spacing-06, icons --spacing-03 apart
   &__box {
     display: flex;
     flex-direction: row;
     align-items: center;
     height: 40px;
-    padding: 8px 16px;
-    background: #FFFFFF;
-    border: 1px solid #CCCCCC;
-    border-radius: 4px;
+    padding: var(--spacing-03) var(--spacing-06);
+    background: var(--color-input-bg);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--border-radius-sm);
     box-sizing: border-box;
-    gap: 16px;
+    gap: var(--spacing-03);
 
-    &--focus { border-color: #007CBD; }
-    &--error { border-color: #CA222D; }
+    &--focus { border-color: var(--color-border-focus); }
+    &--error { border-color: var(--color-border-error); }
   }
 
   &__date-container {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 4px;
+    gap: var(--spacing-01);
     flex: 1;
     min-width: 0;
   }
 
   &__date {
-    font-size: 14px;
-    color: #454545;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-primary);
     line-height: 1;
   }
 
   &__placeholder {
-    font-size: 14px;
-    color: #8D9091;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-placeholder);
     line-height: 1;
   }
 
-  // Calendar icon: 16x16 bxs-calendar.svg, tinted via CSS filter
+  // Clear X and calendar icon: 16×16 Boxicons SVGs as masks so the color is a token.
+  &__clear,
   &__icon {
     width: 16px;
     height: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     flex-shrink: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 2px;
+    background-color: var(--color-icon-secondary);
+    cursor: pointer;
+    -webkit-mask: center / 16px 16px no-repeat;
+    mask: center / 16px 16px no-repeat;
 
-    &--default img {
-      filter: brightness(0) saturate(100%) invert(29%) sepia(5%) saturate(580%) hue-rotate(169deg);
-    }
-    &--focus img {
-      filter: invert(35%) sepia(87%) saturate(500%) hue-rotate(170deg);
-    }
-    &--error img {
-      filter: invert(30%) sepia(10%) saturate(800%) hue-rotate(180deg);
-    }
+    &:hover { background-color: var(--color-icon-focused); }
+    &:focus-visible { outline: 2px solid var(--color-border-focus); outline-offset: 2px; }
+  }
+
+  &__clear {
+    -webkit-mask-image: url('/assets/boxicons/bx-x-large-spacing.svg');
+    mask-image: url('/assets/boxicons/bx-x-large-spacing.svg');
+  }
+
+  &__icon {
+    -webkit-mask-image: url('/assets/boxicons/bxs-calendar.svg');
+    mask-image: url('/assets/boxicons/bxs-calendar.svg');
+
+    &--focus { background-color: var(--color-icon-focused); }
   }
 
   &__error {
-    font-size: 12px;
-    color: #CA222D;
-    line-height: 1.2;
+    font-size: var(--font-size-xs);
+    color: var(--color-border-error);
+    line-height: 1.4;
   }
 }

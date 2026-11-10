@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { moduleMetadata } from '@storybook/angular';
+import { componentWrapperDecorator, moduleMetadata } from '@storybook/angular';
 import { RaisDatePickerComponent } from './rais-date-picker.component';
 
 const meta: Meta<RaisDatePickerComponent> = {
@@ -7,17 +7,23 @@ const meta: Meta<RaisDatePickerComponent> = {
   component: RaisDatePickerComponent,
   tags: ['autodocs'],
   decorators: [
-    moduleMetadata({
-      imports: [RaisDatePickerComponent],
-    }),
+    moduleMetadata({ imports: [RaisDatePickerComponent] }),
+    componentWrapperDecorator((story) => `<div style="width:350px">${story}</div>`),
   ],
   argTypes: {
-    label:        { control: 'text' },
-    optional:     { control: 'boolean' },
-    instructions: { control: 'boolean' },
-    value:        { control: 'text', description: 'MM/DD/YYYY format' },
-    state:        { control: 'select', options: ['empty', 'filled', 'focus', 'error'] },
-    errorMessage: { control: 'text' },
+    label:            { control: 'text' },
+    optional:         { control: 'boolean' },
+    instructions:     { control: 'boolean' },
+    instructionsText: { control: 'text' },
+    value:            { control: 'text', description: 'MM/DD/YYYY format' },
+    state:            { control: 'select', options: ['empty', 'filled', 'focus', 'error'] },
+    errorMessage:     { control: 'text' },
+    showClear:        { control: 'boolean' },
+    required:         { control: 'boolean' },
+    requiredMessage:  { control: 'text' },
+    valueChange:      { action: 'valueChange' },
+    cleared:          { action: 'cleared' },
+    calendarClicked:  { action: 'calendarClicked' },
   },
 };
 
@@ -44,11 +50,25 @@ export const Optional: Story = {
   args: { label: 'Label', optional: true, state: 'empty', instructions: true },
 };
 
+/** Optional field: clicking the X returns it to the empty state. */
+export const ClearOptional: Story = {
+  args: { label: 'Expiration Date', optional: true, state: 'filled', value: '12/21/2024', instructions: false },
+};
+
+/** Required field: clicking the X shows the "Date is required." error until a date is chosen. */
+export const ClearRequired: Story = {
+  args: { label: 'Effective Date', required: true, state: 'filled', value: '12/21/2024', instructions: false },
+};
+
+export const WithoutClear: Story = {
+  args: { label: 'Label', state: 'filled', value: '12/21/2024', showClear: false, instructions: true },
+};
+
 export const AllVariants: Story = {
-  render: (args) => ({
-    props: args,
+  decorators: [componentWrapperDecorator((story) => `<div style="width:auto">${story}</div>`)],
+  render: () => ({
     template: `
-      <div style="display:flex;flex-direction:column;gap:24px;padding:24px;background:#F0F2F5;border-radius:8px;">
+      <div style="display:flex;flex-direction:column;gap:24px;padding:24px;background:#F0F2F5;border-radius:8px;width:350px;">
         <rais-date-picker label="Empty"    state="empty"                          [instructions]="true"></rais-date-picker>
         <rais-date-picker label="Filled"   state="filled" value="12/21/2024"      [instructions]="true"></rais-date-picker>
         <rais-date-picker label="On Focus" state="focus"  value="12/21/2024"      [instructions]="true"></rais-date-picker>

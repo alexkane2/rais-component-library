@@ -1,17 +1,18 @@
 // File Upload States — RAIS File Management component
-//
-// Tokens (inlined from Figma):
-//   --color/surface-primary           #FFFFFF → bg
-//   --color/border-default            #CCCCCC → default border + dividers
-//   --color/border-focus              #007CBD → uploading border + progress fill
-//   --colors/system-green-500         #479E34 → success border
-//   --colors/system-red-400           #FC827F → error border
-//   --color/text-primary              #454545 → body text
-//   --color/text-secondary            #8D9091 → helper / subtitle text
-//   --color/btn-bg-primary            #007CBD → button bg + link color
-//   --color/btn-text-primary          #FFFFFF → button label
-//   --color/btn-text-secondary        #007CBD → "Click to upload" link
-//   --color/surface-secondary         #F0F2F5 → progress bar track
+// Mirrors the Figma `File Upload Vertical` set. All colors, spacing and radii
+// come from the RAIS tokens in src/index.css:
+//   panel            --color-surface-primary, radius --border-radius-xl, padding --spacing-09
+//   default border   1.5px dashed --color-border-default (the drop target)
+//   drag-over        dashed --color-border-focus
+//   uploading border dashed --color-border-focus; progress fill --color-btn-bg-primary
+//   success border   1.5px SOLID --primitive-system-green-500 (Figma binds this primitive)
+//   error border     dashed --primitive-system-red-400 (Figma binds this primitive)
+//   title            --font-size-md bold, --color-text-primary
+//   helper/subtitle  --font-size-xs, --color-text-secondary
+//   OR label         --font-size-xs semibold, --color-text-primary; lines --color-border-default
+//   button           --color-btn-bg-primary / --color-btn-text-primary, radius --border-radius-sm
+//   progress track   --color-surface-secondary
+//   links            --color-link-primary, --color-link-primary-hover
 
 :host {
   display: inline-block;
@@ -22,20 +23,22 @@
   box-sizing: border-box;
   width: 400px;
   height: 264px;
-  background: #FFFFFF;
-  border: 1.5px dashed #CCCCCC;
-  border-radius: 16px;
-  font-family: 'Figtree', sans-serif;
+  background: var(--color-surface-primary);
+  border: 1.5px dashed var(--color-border-default);
+  border-radius: var(--border-radius-xl);
+  font-family: var(--font-family-text);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding: 28px;
+  padding: var(--spacing-09);
 
-  &--default   { border-color: #CCCCCC; padding: 28px; }
-  &--uploading { border-color: #007CBD; padding: 28px 24px; }
-  &--success   { border-color: #479E34; padding: 28px 24px; }
-  &--error     { border-color: #FC827F; padding: 28px 24px; }
+  &--default   { border-color: var(--color-border-default); padding: var(--spacing-09); }
+  &--uploading { border-color: var(--color-border-focus); padding: var(--spacing-09) var(--spacing-08); }
+  // Solid border: the file was accepted (dashed means the area still takes a drop).
+  &--success   { border-style: solid; border-color: var(--primitive-system-green-500); padding: var(--spacing-09) var(--spacing-08); }
+  &--error     { border-color: var(--primitive-system-red-400); padding: var(--spacing-09) var(--spacing-08); }
+  &--dragging  { border-color: var(--color-border-focus); background: var(--color-bg-selected); }
 
   // ─── Inner content stack ─────────────────────────────────────
   &__content {
@@ -44,17 +47,17 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 16px;
+    gap: var(--spacing-06);
   }
   .rais-fus--uploading &__content,
-  .rais-fus--success   &__content { gap: 24px; }
+  .rais-fus--success   &__content { gap: var(--spacing-08); }
   .rais-fus--error     &__content { gap: 0; }
 
   &__stack {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 16px;
+    gap: var(--spacing-06);
     width: 100%;
   }
 
@@ -74,32 +77,21 @@
     gap: 2px;
     width: 100%;
   }
-  &__title-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
+  &__title {
+    margin: 0;
     width: 100%;
-    font-size: 16px;
+    color: var(--color-text-primary);
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-bold);
     line-height: 1.3;
-    letter-spacing: 0.3px;
-    white-space: nowrap;
-  }
-  &__upload-link {
-    color: #007CBD;
-    font-weight: 700;
-  }
-  &__upload-suffix {
-    color: #454545;
-    font-weight: 400;
+    text-align: center;
   }
   &__helper {
     margin: 0;
-    color: #8D9091;
-    font-size: 12px;
-    font-weight: 400;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-regular);
     line-height: 1.4;
-    letter-spacing: 0.18px;
     text-align: center;
     width: 100%;
   }
@@ -109,35 +101,34 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 6px 0;
+    padding: var(--spacing-02) 0;
     width: 100%;
   }
   &__divider-line {
     flex: 1 0 0;
     height: 1px;
-    background: #CCCCCC;
+    background: var(--color-border-default);
     min-width: 0;
   }
   &__divider-label {
-    padding: 0 8px;
-    color: #454545;
-    font-size: 12px;
-    font-weight: 600;
+    padding: 0 var(--spacing-03);
+    color: var(--color-text-primary);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
     line-height: 1.2;
     letter-spacing: 0.36px;
     text-align: center;
     white-space: nowrap;
   }
 
-  // ─── Browse Files button ─────────────────────────────────────
+  // ─── Browse Files button (Button / Primary / Large) ──────────
   &__btn {
-    background: #007CBD;
-    color: #FFFFFF;
-    padding: 10px 20px;
-    border-radius: 4px;
-    font-size: 16px;
-    font-weight: 600;
-    letter-spacing: 0.32px;
+    background: var(--color-btn-bg-primary);
+    color: var(--color-btn-text-primary);
+    padding: var(--spacing-04) var(--spacing-07);
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-semibold);
     line-height: 1.2;
     cursor: pointer;
     text-align: center;
@@ -147,7 +138,10 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: var(--spacing-03);
+
+    &:hover { background: var(--color-btn-bg-primary-hover); }
+    &:focus-within { outline: 2px solid var(--color-border-focus); outline-offset: 2px; }
   }
   &__file-input {
     position: absolute;
@@ -165,28 +159,28 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: var(--spacing-03);
     width: 100%;
   }
   &__progress-pct {
     margin: 0;
-    color: #454545;
-    font-size: 16px;
-    font-weight: 600;
+    color: var(--color-text-primary);
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-semibold);
     line-height: 1.2;
-    letter-spacing: 0.32px;
   }
   &__progress-bar {
     width: 313px;
+    max-width: 100%;
     height: 6px;
-    background: #F0F2F5;
-    border-radius: 13px;
+    background: var(--color-surface-secondary);
+    border-radius: var(--border-radius-full);
     overflow: hidden;
   }
   &__progress-bar-fill {
     height: 100%;
-    background: #007CBD;
-    border-radius: 16px;
+    background: var(--color-btn-bg-primary);
+    border-radius: var(--border-radius-full);
     transition: width 0.2s ease;
   }
 
@@ -195,28 +189,27 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
+    gap: var(--spacing-01);
     width: 100%;
     text-align: center;
   }
   &__caption-title {
     margin: 0;
-    color: #454545;
-    font-size: 14px;
-    font-weight: 600;
+    color: var(--color-text-primary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
     line-height: 1.2;
-    letter-spacing: 0.42px;
   }
   &__caption-subtitle {
     margin: 0;
-    color: #8D9091;
-    font-size: 12px;
-    font-weight: 400;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-regular);
     line-height: 1.4;
-    letter-spacing: 0.18px;
+    overflow-wrap: anywhere;
   }
 
-  // ─── Action link (Clear / Try Again) ─────────────────────────
+  // ─── Action link (Clear / Try Again) — Text Button/Link, Large, Blue ─
   &__link {
     background: none;
     border: none;
@@ -224,19 +217,22 @@
     cursor: pointer;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    color: #007CBD;
+    gap: var(--spacing-02);
+    color: var(--color-link-primary);
     font-family: inherit;
-    font-size: 16px;
-    font-weight: 700;
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-bold);
     line-height: 1.2;
-    letter-spacing: 0.32px;
-    margin-top: 24px;
+    margin-top: var(--spacing-08);
+
+    &:hover { color: var(--color-link-primary-hover); }
+    &:hover .rais-fus__link-icon { background-color: var(--color-link-primary-hover); }
+    &:focus-visible { outline: 2px solid var(--color-border-focus); outline-offset: 2px; border-radius: 2px; }
   }
   &__link-icon {
     width: 16px;
     height: 16px;
-    background-color: #007CBD;
+    background-color: var(--color-link-primary);
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
     -webkit-mask-position: center;

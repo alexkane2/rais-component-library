@@ -1,15 +1,28 @@
-<div class="rais-dropdown">
-  <div class="rais-dropdown__label-row">
-    <span class="rais-dropdown__label">{{ label }}</span>
-    <span *ngIf="optional" class="rais-dropdown__optional">(Optional)</span>
+<div class="rais-dropdown" [class.rais-dropdown--open]="isOpen">
+  <div class="rais-dropdown__labels">
+    <div class="rais-dropdown__label-row">
+      <span class="rais-dropdown__label" [id]="labelId">{{ label }}</span>
+      <span *ngIf="optional" class="rais-dropdown__optional">(Optional)</span>
+    </div>
+    <span *ngIf="instructions" class="rais-dropdown__instructions" [id]="instructionsId">{{ instructionsText }}</span>
   </div>
-  <span *ngIf="instructions" class="rais-dropdown__instructions">More instructions here.</span>
 
-  <div
+  <button
+    type="button"
     class="rais-dropdown__trigger"
+    role="combobox"
+    aria-haspopup="listbox"
+    [attr.aria-expanded]="isOpen"
+    [attr.aria-controls]="listboxId"
+    [attr.aria-labelledby]="labelId"
+    [attr.aria-describedby]="instructions ? instructionsId : null"
+    [attr.aria-activedescendant]="activeOptionId"
+    [attr.aria-invalid]="isError ? true : null"
     [class.rais-dropdown__trigger--focus]="isFocus"
     [class.rais-dropdown__trigger--error]="isError"
     [class.rais-dropdown__trigger--open]="isOpen"
+    (click)="toggle()"
+    (keydown)="onTriggerKeydown($event)"
   >
     <span
       class="rais-dropdown__value"
@@ -18,14 +31,24 @@
     <span
       class="rais-dropdown__caret"
       [class.rais-dropdown__caret--open]="isOpen"
-    >
-      <img [src]="'assets/boxicons/' + caretIcon + '.svg'" width="16" height="16" alt="caret" />
-    </span>
-  </div>
+      aria-hidden="true"
+    ></span>
+  </button>
 
-  <div *ngIf="isOpen" class="rais-dropdown__menu">
-    <div *ngFor="let o of options" class="rais-dropdown__option">{{ o }}</div>
-  </div>
+  <rais-dropdown-menu
+    *ngIf="isOpen"
+    class="rais-dropdown__menu"
+    [options]="options"
+    [selectedIndex]="selectedIndex"
+    [activeIndex]="activeIndex"
+    [maxVisibleRows]="maxVisibleRows"
+    [focusable]="false"
+    [listboxId]="listboxId"
+    [idPrefix]="listboxId"
+    [ariaLabel]="label"
+    (optionSelected)="commit($event.index)"
+    (closed)="close()"
+  ></rais-dropdown-menu>
 
   <span *ngIf="isError" class="rais-dropdown__error">{{ errorMessage }}</span>
 </div>

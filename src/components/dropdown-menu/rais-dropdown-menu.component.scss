@@ -1,83 +1,87 @@
 // Dropdown Menu — RAIS Inputs component
-// Colors:
-//   text                 #454545
-//   option hover bg      #EDF6FC
-//   option selected bg   #EDF6FC
-//   option selected text #007CBD
-//   border               #CCCCCC
-//   scrollbar thumb      #EFEFEF
-//   bg white             #FFFFFF
+// Mirrors the Figma `Dropdown Menu` set and `Dropdown Menu / Option` states.
+// All colors, spacing and radii come from the RAIS tokens in src/index.css:
+//   panel             --color-surface-primary / --color-border-default / --shadow-md
+//   panel padding     --spacing-03 (8px)
+//   option padding    --spacing-03 --spacing-05 (8px 12px), radius --border-radius-sm
+//   option text       --font-size-sm, --color-text-primary
+//   hover             --color-bg-hover
+//   keyboard active   --color-bg-hover + 2px inset --color-border-focus ring
+//   selected          --color-bg-selected + --color-link-primary, semibold
+//   scrollbar         thumb --color-border-default on --color-divider track
+
+// Figma: 2px between option rows (smaller than the smallest spacing token).
+$row-gap: 2px;
+$row-height: 36px; // 20px line + 2 × --spacing-03 — keep in sync with ROW_HEIGHT in the .ts
 
 :host {
-  display: inline-block;
-  font-family: 'Figtree', sans-serif;
+  display: block;
+  font-family: var(--font-family-text);
 }
 
 .rais-menu {
-  width: 350px;
-  background: #FFFFFF;
-  border: 1px solid #CCCCCC;
-  border-radius: 4px;
-  padding: 16px 12px;
+  width: 100%;
   box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 12px;
-  font-family: 'Figtree', sans-serif;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  background: var(--color-surface-primary);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--border-radius-sm);
+  padding: var(--spacing-03);
+  box-shadow: var(--shadow-md);
+  outline: none;
 
-  &__container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex: 1;
-    min-width: 0;
+  &:focus-visible { border-color: var(--color-border-focus); }
+
+  // The viewport is capped at `maxVisibleRows` rows and scrolls inside the panel.
+  &__viewport {
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border-default) var(--color-divider);
+    scrollbar-gutter: stable;
+
+    &::-webkit-scrollbar { width: 4px; }
+    &::-webkit-scrollbar-track { background: var(--color-divider); border-radius: 2px; }
+    &::-webkit-scrollbar-thumb { background: var(--color-border-default); border-radius: 2px; }
   }
 
   &__options {
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    flex: 1;
-    min-width: 0;
+    gap: $row-gap;
+    padding-right: var(--spacing-01);
   }
 
   &__option {
-    height: 20px;
     display: flex;
     align-items: center;
-    font-size: 14px;
-    font-weight: 400;
-    color: #454545;
-    padding: 0 4px;
-    border-radius: 2px;
+    min-height: $row-height;
+    box-sizing: border-box;
+    padding: var(--spacing-03) var(--spacing-05);
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-regular);
+    line-height: 20px;
+    color: var(--color-text-primary);
     cursor: pointer;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
-    &:hover { background: #EDF6FC; }
+    &:hover { background: var(--color-bg-hover); }
 
-    &--selected {
-      background: #EDF6FC;
-      color: #007CBD;
-      font-weight: 500;
+    // Reached with the arrow keys; not committed until Enter.
+    &--active {
+      background: var(--color-bg-hover);
+      box-shadow: inset 0 0 0 2px var(--color-border-focus);
     }
-  }
 
-  &__scrollbar {
-    width: 5px;
-    padding-top: 8px;
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-  }
-
-  &__scrollbar-thumb {
-    width: 5px;
-    height: 125px;
-    background: #EFEFEF;
-    border-radius: 8px;
+    // The committed value.
+    &--selected,
+    &--selected:hover,
+    &--selected.rais-menu__option--active {
+      background: var(--color-bg-selected);
+      color: var(--color-link-primary);
+      font-weight: var(--font-weight-semibold);
+    }
   }
 }

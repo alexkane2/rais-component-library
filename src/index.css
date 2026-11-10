@@ -132,21 +132,25 @@
   --color-surface-primary:   #FFFFFF;
   --color-surface-secondary: #F0F2F5;
   --color-surface-disabled:  #EFEFEF;
+  --color-surface-success:   #117C1A; /* Figma: system-green-600 */
+  --color-surface-error:     #CA222D; /* Figma: system-red-600 */
+  --color-surface-focus:     #007CBD; /* Figma: brand-blue-200 */
   --color-bg-page:           #F0F2F5;
   --color-bg-hover:          #FBFBFB;
   --color-bg-selected:       #EDF6FC; /* selected row, active nav, selected tab, filter chip */
 
   /* Text */
-  --color-text-primary:     #4D586A;
-  --color-text-secondary:   #8D9091;
+  --color-text-primary:     #454545; /* Figma: gray-800 */
+  --color-text-secondary:   #606060; /* Figma: gray-700 */
   --color-text-disabled:    #8D9091;
-  --color-text-placeholder: #CCCCCC;
+  --color-text-placeholder: #8D9091; /* Figma: gray-600 */
   --color-text-inverse:     #FFFFFF;
   --color-display-primary:  #333333; /* headings and display text */
 
   /* Icons */
   --color-icon-primary:   #333333;
   --color-icon-secondary: #454545;
+  --color-icon-focused:   #007CBD; /* Figma: brand-blue-200 */
 
   /* Borders */
   --color-border-default:  #CCCCCC;

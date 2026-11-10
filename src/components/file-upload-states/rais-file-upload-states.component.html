@@ -4,6 +4,10 @@
   [class.rais-fus--uploading]="state === 'uploading'"
   [class.rais-fus--success]="state === 'success'"
   [class.rais-fus--error]="state === 'error'"
+  [class.rais-fus--dragging]="dragging"
+  (dragover)="onDragOver($event)"
+  (dragleave)="onDragLeave()"
+  (drop)="onDrop($event)"
 >
   <!-- ─── DEFAULT state ─── -->
   <div *ngIf="state === 'default'" class="rais-fus__content">
@@ -15,10 +19,7 @@
     />
 
     <div class="rais-fus__text">
-      <div class="rais-fus__title-row">
-        <span class="rais-fus__upload-link">Click to upload</span>
-        <span class="rais-fus__upload-suffix">or drag and drop</span>
-      </div>
+      <p class="rais-fus__title">{{ title }}</p>
       <p class="rais-fus__helper">{{ helperText }}</p>
     </div>
 
@@ -34,7 +35,7 @@
         type="file"
         class="rais-fus__file-input"
         [accept]="accept"
-        multiple
+        [multiple]="multiple"
         (change)="onFileInput($event)"
       />
     </label>
@@ -44,7 +45,7 @@
   <div *ngIf="state === 'uploading'" class="rais-fus__content">
     <img
       class="rais-fus__icon"
-      src="/assets/file-type-icon.svg"
+      src="/assets/file-upload-states.svg"
       alt=""
       aria-hidden="true"
     />

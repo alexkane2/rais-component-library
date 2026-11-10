@@ -1,107 +1,123 @@
 // Dropdown — RAIS Inputs component
-// Colors:
-//   label/text     #454545
-//   optional       #8D9091
-//   placeholder    #CCCCCC
-//   error          #CA222D
-//   border default #CCCCCC
-//   border focus   #007CBD
-//   bg white       #FFFFFF
+// Mirrors the Figma `Dropdown` set. All colors, spacing and radii come from
+// the RAIS tokens in src/index.css:
+//   label          --font-size-sm semibold, --color-text-primary
+//   optional       --color-text-disabled
+//   instructions   --font-size-xs, --color-text-primary; wraps, --spacing-01 above the trigger
+//   trigger        --color-input-bg / --color-border-default, radius --border-radius-sm
+//   placeholder    --color-text-placeholder; value --color-text-primary
+//   focus / open   --color-border-focus; error --color-border-error
+//   caret          --color-icon-primary, --color-icon-focused when open
+//   error text     --font-size-xs, --color-border-error
 
 :host {
   display: block;
-  font-family: 'Figtree', sans-serif;
+  font-family: var(--font-family-text);
 }
 
 .rais-dropdown {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  width: 350px;
-  font-family: 'Figtree', sans-serif;
+  gap: var(--spacing-01);
+  width: 100%;
   position: relative;
+
+  &__labels {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
 
   &__label-row {
     display: flex;
-    gap: 4px;
+    gap: var(--spacing-01);
     align-items: center;
   }
 
   &__label {
-    font-size: 14px;
-    font-weight: 600;
-    color: #454545;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    line-height: 1.2;
+    color: var(--color-text-primary);
   }
 
   &__optional {
-    font-size: 14px;
-    color: #8D9091;
+    font-size: var(--font-size-sm);
+    line-height: 1.2;
+    color: var(--color-text-disabled);
   }
 
   &__instructions {
-    font-size: 12px;
-    color: #454545;
+    font-size: var(--font-size-xs);
+    line-height: 1.4;
+    color: var(--color-text-primary);
+    overflow-wrap: anywhere;
   }
 
   &__trigger {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 12px;
+    gap: var(--spacing-03);
+    width: 100%;
     height: 40px;
-    background: #FFFFFF;
-    border: 1px solid #CCCCCC;
-    border-radius: 4px;
-    cursor: pointer;
+    padding: 0 var(--spacing-05) 0 var(--spacing-05);
+    background: var(--color-input-bg);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--border-radius-sm);
     box-sizing: border-box;
+    cursor: pointer;
+    text-align: left;
+    font: inherit;
+    outline: none;
 
-    &--focus { border-color: #007CBD; }
-    &--error { border-color: #CA222D; }
-    &--open  { border-color: #007CBD; }
+    &:focus-visible,
+    &--focus { border-color: var(--color-border-focus); }
+    &--open  { border-color: var(--color-border-focus); box-shadow: var(--shadow-sm); }
+    &--error { border-color: var(--color-border-error); }
   }
 
   &__value {
-    font-size: 14px;
-    color: #CCCCCC;
+    flex: 1;
+    min-width: 0;
+    font-size: var(--font-size-sm);
+    line-height: 20px;
+    color: var(--color-text-placeholder);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
-    &--filled { color: #454545; }
+    &--filled { color: var(--color-text-primary); }
   }
 
+  // Caret: Boxicons SVG as a mask so its color is a token.
   &__caret {
-    display: flex;
-    align-items: center;
+    width: 16px;
+    height: 16px;
     flex-shrink: 0;
+    background-color: var(--color-icon-primary);
+    -webkit-mask: url('/assets/boxicons/bx-caret-down.svg') center / 16px 16px no-repeat;
+    mask: url('/assets/boxicons/bx-caret-down.svg') center / 16px 16px no-repeat;
 
-    &--open img {
-      filter: invert(35%) sepia(87%) saturate(500%) hue-rotate(170deg);
+    &--open {
+      background-color: var(--color-icon-focused);
+      -webkit-mask-image: url('/assets/boxicons/bx-caret-up.svg');
+      mask-image: url('/assets/boxicons/bx-caret-up.svg');
     }
   }
 
   &__menu {
     position: absolute;
-    top: calc(100% + 2px);
+    top: 100%;
     left: 0;
     right: 0;
-    background: #FFFFFF;
-    border: 1px solid #CCCCCC;
-    border-radius: 4px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    margin-top: var(--spacing-01);
     z-index: 10;
-    max-height: 240px;
-    overflow-y: auto;
-  }
-
-  &__option {
-    padding: 10px 12px;
-    font-size: 14px;
-    color: #454545;
-    cursor: pointer;
-
-    &:hover { background: #EDF6FC; }
   }
 
   &__error {
-    font-size: 12px;
-    color: #CA222D;
+    font-size: var(--font-size-xs);
+    line-height: 1.4;
+    color: var(--color-border-error);
   }
 }
