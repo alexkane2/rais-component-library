@@ -200,6 +200,18 @@ export const COMPONENTS = {
       ],
     },
   },
+  'rais-dropdown-menu-multiselect': {
+    summary: 'The checkbox panel under the multiselect field: Select All and Clear, a search, a scrolling checkbox list, and Cancel and Apply.',
+    example:
+      '<DropdownMenuMultiselect options={producers} value={["Spencer, Dana", "Haggerty, James"]} onApply={(names) => setProducers(names)} onCancel={close} />',
+    notes: [
+      'Checking rows is pending until Apply, which emits the checked options in `options` order (`onApply`). Cancel or Escape drops the changes (`onCancel`).',
+      'The applied selection (`value`) is pinned above a divider at the top of the list; `pinSelected={false}` turns that off. Rows do not move while they are checked.',
+      'The search filters both groups; Select All checks the rows that match it, Clear unchecks everything. The list stops at 213px and scrolls.',
+      'It is the panel alone: `DropdownMultiselect` draws it under its field when given `options`.',
+    ],
+    preview: { layout: 'row', height: 420, stories: ['Default', 'With Selection', 'Filtered'] },
+  },
   'rais-dropdown-menu-searchable': {
     summary: 'The results panel under the searchable dropdown: two-line options, filtered, no-results and loading states, scrolling after five rows.',
     example:
@@ -222,11 +234,12 @@ export const COMPONENTS = {
     preview: { layout: 'row', height: 400, stories: ['Default', 'With Selection', 'Long List Scrolls'] },
   },
   'rais-dropdown-multiselect': {
-    summary: 'A multi-select field that shows selections as removable chips, with focus, error and max-selected summary states.',
-    example: '<DropdownMultiselect label="Producers" state="selection" chipLabels={["Johnson, Olivia", "Nicola, Sarah"]} />',
+    summary: 'A multi-select field that shows selections as removable chips and opens a checkbox menu with search, Select All, Clear, Cancel and Apply.',
+    example: '<DropdownMultiselect label="Producers" options={producers} value={selected} onValueChange={(names) => setSelected(names)} />',
     notes: [
-      '`state` is the look: `default`, `mouse-enter`, `selection` (chips from `chipLabels`), `max-selected` (the `maxSelectedText` summary) or `error`.',
-      'The chips are squared `SelectionLabel`s.',
+      'Give it `options` and it opens `DropdownMenuMultiselect` under the field. Apply sets `value` and emits `onValueChange`; Cancel, Escape or a click outside closes without changes.',
+      'Up to `maxChips` (3) values show as squared `SelectionLabel` chips — each X removes one, the field X clears all — and more show as "N items selected".',
+      '`state` forces the look for mockups: `default`, `mouse-enter`, `selection` (chips from `chipLabels`), `max-selected` (the `maxSelectedText` summary), `error` or `open` (draws the menu).',
     ],
     preview: { layout: 'grid', min: 360, height: 310, stories: ['Default', 'Selection', 'Max Selected', 'Error'] },
   },

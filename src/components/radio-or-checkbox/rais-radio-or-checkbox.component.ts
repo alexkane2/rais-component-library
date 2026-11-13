@@ -27,7 +27,7 @@ const CHECK_SIZES: Record<RcSize, number> = {
   styleUrls: ['./rais-radio-or-checkbox.component.scss'],
 })
 export class RaisRadioOrCheckboxComponent {
-  /** Label text shown next to the input */
+  /** Label text shown next to the input — '' draws the box alone (e.g. inside a menu row that sets its own label) */
   @Input() label: string = 'Label';
   /** radio | checkbox | circle-checkbox */
   @Input() type: RcType = 'checkbox';

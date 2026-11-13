@@ -1,64 +1,95 @@
 <div class="rais-multi">
   <div class="rais-multi__labels">
     <div class="rais-multi__label-row">
-      <span class="rais-multi__label">{{ label }}</span>
+      <span class="rais-multi__label" [id]="labelId">{{ label }}</span>
       <span *ngIf="optional" class="rais-multi__optional">(Optional)</span>
     </div>
     <span *ngIf="instructions" class="rais-multi__instructions">More instructions here.</span>
   </div>
 
-  <div
-    class="rais-multi__field"
-    [class.rais-multi__field--focus]="isMouseEnter"
-    [class.rais-multi__field--error]="isError"
-  >
-    <!-- Inner content varies by state -->
-    <ng-container [ngSwitch]="state">
-      <div *ngSwitchCase="'selection'" class="rais-multi__inner">
-        <rais-selection-label
-          *ngFor="let l of chipLabels"
-          [label]="l"
-          style="squared"
-        ></rais-selection-label>
-      </div>
+  <!-- Field + menu: the menu is positioned under the field, above the error text. -->
+  <div class="rais-multi__control">
+    <div
+      class="rais-multi__field"
+      role="combobox"
+      aria-haspopup="listbox"
+      [attr.tabindex]="canOpen ? 0 : null"
+      [attr.aria-expanded]="isOpen"
+      [attr.aria-controls]="isOpen ? listboxId : null"
+      [attr.aria-labelledby]="labelId"
+      [attr.aria-invalid]="isError ? true : null"
+      [class.rais-multi__field--focus]="isActive"
+      [class.rais-multi__field--error]="isError"
+      [class.rais-multi__field--interactive]="canOpen"
+      (click)="toggle()"
+      (keydown)="onFieldKeydown($event)"
+    >
+      <!-- Inner content varies by state / value -->
+      <ng-container [ngSwitch]="display">
+        <div *ngSwitchCase="'chips'" class="rais-multi__inner">
+          <rais-selection-label
+            *ngFor="let l of chips"
+            [label]="l"
+            style="squared"
+            (click)="onChipClick($event, l)"
+          ></rais-selection-label>
+        </div>
 
-      <div *ngSwitchCase="'max-selected'" class="rais-multi__inner">
-        <span class="rais-multi__count">{{ maxSelectedText }}</span>
-      </div>
+        <div *ngSwitchCase="'summary'" class="rais-multi__inner">
+          <span class="rais-multi__count">{{ summaryText }}</span>
+        </div>
 
-      <div *ngSwitchCase="'mouse-enter'" class="rais-multi__inner">
-        <span class="rais-multi__cursor">|</span>
-      </div>
+        <div *ngSwitchCase="'cursor'" class="rais-multi__inner">
+          <span class="rais-multi__cursor">|</span>
+        </div>
 
-      <div *ngSwitchDefault class="rais-multi__inner">
-        <input class="rais-multi__input" type="text" placeholder="Search..." />
-      </div>
-    </ng-container>
+        <div *ngSwitchDefault class="rais-multi__inner">
+          <span class="rais-multi__placeholder">{{ placeholder }}</span>
+        </div>
+      </ng-container>
 
-    <!-- Right side icons -->
-    <div *ngIf="isSelection; else iconOnly" class="rais-multi__icons-divider">
-      <span class="rais-multi__clear">
-        <img src="assets/boxicons/bx-x-large-spacing.svg" width="16" height="16" alt="clear" />
-      </span>
-      <div class="rais-multi__divider"></div>
-      <span
-        class="rais-multi__caret"
-        [class.rais-multi__caret--up]="isMouseEnter"
-      >
-        <img [src]="'assets/boxicons/' + caretIcon + '.svg'" width="16" height="16" alt="caret" />
-      </span>
-    </div>
-    <ng-template #iconOnly>
-      <div class="rais-multi__icon-divider">
+      <!-- Right side icons -->
+      <div *ngIf="showClear; else iconOnly" class="rais-multi__icons-divider">
+        <button
+          type="button"
+          class="rais-multi__clear"
+          aria-label="Clear selections"
+          (click)="clearAll($event)"
+        >
+          <img src="assets/boxicons/bx-x-large-spacing.svg" width="16" height="16" alt="" />
+        </button>
         <div class="rais-multi__divider"></div>
         <span
           class="rais-multi__caret"
-          [class.rais-multi__caret--up]="isMouseEnter"
+          [class.rais-multi__caret--up]="isActive"
         >
-          <img [src]="'assets/boxicons/' + caretIcon + '.svg'" width="16" height="16" alt="caret" />
+          <img [src]="'assets/boxicons/' + caretIcon + '.svg'" width="16" height="16" alt="" />
         </span>
       </div>
-    </ng-template>
+      <ng-template #iconOnly>
+        <div class="rais-multi__icon-divider">
+          <div class="rais-multi__divider"></div>
+          <span
+            class="rais-multi__caret"
+            [class.rais-multi__caret--up]="isActive"
+          >
+            <img [src]="'assets/boxicons/' + caretIcon + '.svg'" width="16" height="16" alt="" />
+          </span>
+        </div>
+      </ng-template>
+    </div>
+
+    <rais-dropdown-menu-multiselect
+      *ngIf="isOpen"
+      class="rais-multi__menu"
+      [options]="options"
+      [value]="value"
+      [ariaLabel]="label"
+      [listboxId]="listboxId"
+      [focusSearch]="menuOpen"
+      (apply)="onApply($event)"
+      (cancel)="onCancel()"
+    ></rais-dropdown-menu-multiselect>
   </div>
 
   <span *ngIf="isError" class="rais-multi__error">{{ errorMessage }}</span>
