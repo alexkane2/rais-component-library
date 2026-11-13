@@ -1,0 +1,81 @@
+<div class="rais-msmenu" (keydown)="onPanelKeydown($event)">
+  <div class="rais-msmenu__body">
+    <div class="rais-msmenu__actions">
+      <button type="button" class="rais-msmenu__action" (click)="selectAll()">Select All</button>
+      <button type="button" class="rais-msmenu__action" (click)="clear()">Clear</button>
+    </div>
+
+    <div class="rais-msmenu__divider" aria-hidden="true"></div>
+
+    <div class="rais-msmenu__list-area">
+      <div class="rais-msmenu__search">
+        <input
+          #search
+          type="text"
+          class="rais-msmenu__search-input"
+          autocomplete="off"
+          [placeholder]="searchPlaceholder"
+          [value]="query"
+          [attr.aria-label]="searchPlaceholder + ' ' + ariaLabel"
+          [attr.aria-controls]="resolvedListboxId"
+          (input)="onQueryInput($any($event.target).value)"
+          (keydown)="onSearchKeydown($event)"
+        />
+        <span class="rais-msmenu__search-icon" aria-hidden="true"></span>
+      </div>
+
+      <div #viewport class="rais-msmenu__viewport">
+        <div
+          *ngIf="rows.length"
+          #list
+          class="rais-msmenu__options"
+          role="listbox"
+          aria-multiselectable="true"
+          tabindex="0"
+          [id]="resolvedListboxId"
+          [attr.aria-label]="ariaLabel"
+          [attr.aria-activedescendant]="activeOptionId"
+          (focus)="onListFocus()"
+          (keydown)="onListKeydown($event)"
+        >
+          <ng-container *ngFor="let o of rows; let i = index; trackBy: trackRow">
+            <!-- Applied selection above, everything else below (Figma "Multiselect 2"). -->
+            <div *ngIf="showDivider && i === pinnedRows.length" class="rais-msmenu__group-divider" aria-hidden="true"></div>
+            <div
+              class="rais-msmenu__option"
+              role="option"
+              [id]="optionId(i)"
+              [attr.data-rais-option]="i"
+              [attr.aria-selected]="isChecked(o)"
+              [class.rais-msmenu__option--active]="i === activeIndex"
+              (click)="toggleAt(i)"
+              (mouseenter)="hovered = o"
+              (mouseleave)="hovered = null"
+            >
+              <rais-radio-or-checkbox
+                class="rais-msmenu__check"
+                type="checkbox"
+                size="x-large"
+                label=""
+                aria-hidden="true"
+                [state]="checkState(o, i)"
+              ></rais-radio-or-checkbox>
+              <span class="rais-msmenu__label">{{ o }}</span>
+            </div>
+          </ng-container>
+        </div>
+
+        <div *ngIf="!rows.length" class="rais-msmenu__empty" role="status">
+          {{ query.trim() ? 'No results for “' + query.trim() + '”' : 'No options' }}
+        </div>
+      </div>
+
+      <div class="rais-msmenu__divider" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <div class="rais-msmenu__footer">
+    <button type="button" class="rais-msmenu__btn rais-msmenu__btn--cancel" (click)="onCancel()">Cancel</button>
+    <button type="button" class="rais-msmenu__btn rais-msmenu__btn--apply" (click)="onApply()">Apply</button>
+  </div>
+</div>

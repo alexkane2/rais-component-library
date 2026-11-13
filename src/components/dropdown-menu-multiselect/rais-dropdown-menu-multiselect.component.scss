@@ -1,0 +1,244 @@
+// Dropdown Menu - Multiselect — RAIS Inputs component
+// Mirrors the Figma `Dropdown Menu - Multiselect` component (node 3357:941).
+// Figma strokes sit inside the box, so every bordered element takes 1px off its
+// padding here to keep the Figma outer size (e.g. the panel's 16px 12px padding).
+// Colors, spacing and radii come from the RAIS tokens in src/index.css:
+//   panel             --color-surface-primary / --color-border-default, radius --border-radius-sm,
+//                     padding --spacing-06 --spacing-05, gap --spacing-05
+//   Select All/Clear  --color-btn-border-secondary / --color-btn-text-secondary, 12px semibold,
+//                     hover --color-btn-bg-secondary-hover
+//   dividers          --color-divider
+//   search            --color-border-dark (focus --color-border-focus), 12px medium,
+//                     placeholder --color-text-secondary, icon --color-icon-primary
+//   rows              14px regular / 1.4, --color-text-primary, 12px apart, 8px checkbox gap
+//   scrollbar         5px thumb --color-divider, radius --border-radius-md, no track
+//   Cancel            --color-surface-primary / --color-border-dark / --color-display-primary
+//   Apply             --color-btn-bg-primary / --color-btn-text-primary (hover --color-btn-bg-primary-hover)
+//   focus ring        2px --color-border-focus
+
+// Figma "Shadow #3" (0 2 5 #0000004A) — no RAIS shadow token matches it yet.
+$panel-shadow: 0 2px 5px rgba(0, 0, 0, 0.29);
+// Figma: the list area is 250px — search (28) + 4 + list + 4 + divider (1) → list 213px.
+$list-max-height: 213px;
+$search-height: 28px;
+
+:host {
+  display: block;
+  font-family: var(--font-family-text);
+}
+
+%focus-ring {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+.rais-msmenu {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; // footer buttons sit on the right
+  gap: var(--spacing-05);
+  width: 100%;
+  box-sizing: border-box;
+  padding: calc(var(--spacing-06) - 1px) calc(var(--spacing-05) - 1px);
+  background: var(--color-surface-primary);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--border-radius-sm);
+  box-shadow: $panel-shadow;
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-05);
+    align-self: stretch;
+    min-width: 0;
+  }
+
+  // ── Select All · Clear ──────────────────────────────────────────────────
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-05);
+  }
+
+  &__action {
+    padding: calc(var(--spacing-01) - 1px) calc(var(--spacing-03) - 1px); // 24px tall
+    background: var(--color-btn-bg-secondary);
+    border: 1px solid var(--color-btn-border-secondary);
+    border-radius: var(--border-radius-sm);
+    font-family: inherit;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    line-height: 16px;
+    color: var(--color-btn-text-secondary);
+    white-space: nowrap;
+    cursor: pointer;
+
+    &:hover { background: var(--color-btn-bg-secondary-hover); }
+    &:focus-visible { @extend %focus-ring; }
+  }
+
+  &__divider {
+    height: 1px;
+    flex-shrink: 0;
+    background: var(--color-divider);
+  }
+
+  // ── Search + list ───────────────────────────────────────────────────────
+  &__list-area {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-01);
+  }
+
+  &__search {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-03);
+    height: $search-height;
+    box-sizing: border-box;
+    padding: 0 calc(var(--spacing-05) - 1px);
+    background: var(--color-input-bg);
+    border: 1px solid var(--color-border-dark);
+    border-radius: var(--border-radius-sm);
+
+    &:focus-within { border-color: var(--color-border-focus); }
+  }
+
+  &__search-input {
+    flex: 1;
+    min-width: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: inherit;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    line-height: 16px;
+    color: var(--color-text-primary);
+
+    &::placeholder { color: var(--color-text-secondary); opacity: 1; }
+  }
+
+  // Boxicons SVG as a mask so its color is a token (same as the Dropdown caret).
+  &__search-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    background-color: var(--color-icon-primary);
+    -webkit-mask: url('/assets/boxicons/bx-search.svg') center / 16px 16px no-repeat;
+    mask: url('/assets/boxicons/bx-search.svg') center / 16px 16px no-repeat;
+  }
+
+  &__viewport {
+    position: relative; // offsetTop of the rows is measured from here
+    max-height: $list-max-height;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    // Figma: a 5px rounded thumb in the divider color, starting 8px down, no track.
+    &::-webkit-scrollbar { width: 5px; }
+    &::-webkit-scrollbar-track { background: transparent; margin-top: var(--spacing-03); }
+    &::-webkit-scrollbar-thumb { background: var(--color-divider); border-radius: var(--border-radius-md); }
+
+    // Browsers without ::-webkit-scrollbar (Firefox) get the standard properties.
+    // Chromium ignores the pseudo-elements above once these are set, so keep them apart.
+    @supports not selector(::-webkit-scrollbar) {
+      scrollbar-width: thin;
+      scrollbar-color: var(--color-divider) transparent;
+    }
+  }
+
+  &__options {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-05);
+    // Figma: 8px above the first row, 24px under the last, 8px before the scrollbar.
+    padding: var(--spacing-03) var(--spacing-03) var(--spacing-08) 0;
+    outline: none;
+  }
+
+  &__group-divider {
+    height: 1px;
+    flex-shrink: 0;
+    background: var(--color-divider);
+  }
+
+  &__option {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-03);
+    border-radius: 2px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  // The row reached with the arrow keys — shown only while the list has keyboard focus.
+  &__options:focus-visible &__option--active { @extend %focus-ring; }
+
+  &__check {
+    display: flex; // no inline-block baseline gap under the 16px box
+    flex-shrink: 0;
+    margin-top: 2px; // centers the 16px box on the 19.6px first line
+  }
+
+  &__label {
+    min-width: 0;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-regular);
+    line-height: 1.4;
+    letter-spacing: 0.14px;
+    color: var(--color-text-primary);
+    // Long names wrap inside the row (same rule as Dropdown Menu, CRE-3438).
+    overflow-wrap: anywhere;
+  }
+
+  &__empty {
+    padding: var(--spacing-03) var(--spacing-03) var(--spacing-08) 0;
+    font-size: var(--font-size-sm);
+    line-height: 1.4;
+    color: var(--color-text-secondary);
+  }
+
+  // ── Cancel · Apply ──────────────────────────────────────────────────────
+  &__footer {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-05);
+  }
+
+  &__btn {
+    padding: calc(var(--spacing-02) - 1px) calc(var(--spacing-05) - 1px);
+    border: 1px solid transparent;
+    border-radius: var(--border-radius-sm);
+    font-family: inherit;
+    font-size: 13px; // Figma Label/M SemiBold
+    font-weight: var(--font-weight-semibold);
+    line-height: 1.2;
+    letter-spacing: 0.39px;
+    white-space: nowrap;
+    cursor: pointer;
+
+    &:focus-visible { @extend %focus-ring; }
+
+    &--cancel {
+      background: var(--color-surface-primary);
+      border-color: var(--color-border-dark);
+      color: var(--color-display-primary);
+
+      &:hover { background: var(--color-bg-hover); }
+    }
+
+    &--apply {
+      background: var(--color-btn-bg-primary);
+      border-color: var(--color-btn-bg-primary);
+      color: var(--color-btn-text-primary);
+
+      &:hover {
+        background: var(--color-btn-bg-primary-hover);
+        border-color: var(--color-btn-bg-primary-hover);
+      }
+    }
+  }
+}

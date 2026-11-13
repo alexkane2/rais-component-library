@@ -103,6 +103,16 @@ export const ELEMENT_INPUTS: Readonly<Record<string, readonly InputSpec[]>> = {
     {"prop":"showCta","attr":"show-cta","kind":"boolean","default":true},
     {"prop":"showCloseButton","attr":"show-close-button","kind":"boolean","default":true},
   ],
+  'rais-dropdown-menu-multiselect': [
+    {"prop":"options","attr":"options","kind":"json","default":["Agency House Account","Johnson, Olivia","Nicola, Sarah","Wentz, Douglas","Thornberg, Jeffery","Tersa, Pamela","Slater, Mary","Stanley, Kathleen"]},
+    {"prop":"value","attr":"value","kind":"json","default":[]},
+    {"prop":"pinSelected","attr":"pin-selected","kind":"boolean","default":true},
+    {"prop":"query","attr":"query","kind":"string","default":""},
+    {"prop":"searchPlaceholder","attr":"search-placeholder","kind":"string","default":"Search"},
+    {"prop":"ariaLabel","attr":"aria-label","kind":"string","default":"Options"},
+    {"prop":"focusSearch","attr":"focus-search","kind":"boolean","default":false},
+    {"prop":"listboxId","attr":"listbox-id","kind":"string"},
+  ],
   'rais-dropdown-menu-searchable': [
     {"prop":"options","attr":"options","kind":"json","default":[{"name":"128 Plumbing Heating Inc","detail":"78 Foundry Street, Wakefield, MA 01880"},{"name":"3D Plumbing Heating Inc","detail":"140 Grove St Apt 1, Clinton, MA 01510"},{"name":"4 H Plumbing Inc","detail":""},{"name":"A Advantage Plumbing","detail":"34625 Cedar Avenue, Yucaipa, CA 92399"},{"name":"A Plus Plumbing LLC","detail":"25 Sycamore Avenue, Gustine, CA 92794"}]},
     {"prop":"selectedIndex","attr":"selected-index","kind":"number","default":-1},
@@ -137,6 +147,10 @@ export const ELEMENT_INPUTS: Readonly<Record<string, readonly InputSpec[]>> = {
     {"prop":"chipLabels","attr":"chip-labels","kind":"json","default":["Label","Label","Label"]},
     {"prop":"maxSelectedText","attr":"max-selected-text","kind":"string","default":"3 items selected"},
     {"prop":"errorMessage","attr":"error-message","kind":"string","default":"Error message."},
+    {"prop":"options","attr":"options","kind":"json","default":[]},
+    {"prop":"value","attr":"value","kind":"json","default":[]},
+    {"prop":"maxChips","attr":"max-chips","kind":"number","default":3},
+    {"prop":"placeholder","attr":"placeholder","kind":"string","default":"Search..."},
   ],
   'rais-dropdown-searchable': [
     {"prop":"label","attr":"label","kind":"string","default":"Label"},

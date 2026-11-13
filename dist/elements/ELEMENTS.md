@@ -101,7 +101,7 @@ listed files win over `RAIS_ASSET_BASE` (the Claude Design bundle embeds every i
 - `rais-elements.css` contains `src/index.css`, so it includes its page-level base styles (`* { box-sizing: border-box }`
   and `body` font/colour/background) and the Figtree `@import` from Google Fonts.
 
-## Elements (41)
+## Elements (42)
 
 - [`<rais-accordion-link>`](#rais-accordion-link)
 - [`<rais-applied-filter-chip>`](#rais-applied-filter-chip)
@@ -115,6 +115,7 @@ listed files win over `RAIS_ASSET_BASE` (the Claude Design bundle embeds every i
 - [`<rais-datatable-footer>`](#rais-datatable-footer)
 - [`<rais-date-picker>`](#rais-date-picker)
 - [`<rais-drawer>`](#rais-drawer)
+- [`<rais-dropdown-menu-multiselect>`](#rais-dropdown-menu-multiselect)
 - [`<rais-dropdown-menu-searchable>`](#rais-dropdown-menu-searchable)
 - [`<rais-dropdown-menu>`](#rais-dropdown-menu)
 - [`<rais-dropdown-multiselect>`](#rais-dropdown-multiselect)
@@ -370,6 +371,30 @@ Source: `src/components/drawer/rais-drawer.component.ts`.
 
 Projects its child nodes (`<ng-content>`).
 
+### `<rais-dropdown-menu-multiselect>`
+
+Dropdown Menu - Multiselect — RAIS Inputs component
+
+Source: `src/components/dropdown-menu-multiselect/rais-dropdown-menu-multiselect.component.ts`.
+
+| Input | Attribute | Property | Type | Default | Description |
+| --- | --- | --- | --- | --- | --- |
+| options | `options` (JSON) | `options` (recommended) | `string[]` | `["Agency House Account","Johnson, Olivia","Ni…` | Options to choose from, in order |
+| value | `value` (JSON) | `value` (recommended) | `string[]` | `[]` | The applied selection: checked when the menu opens, and pinned to the top |
+| pinSelected | `pin-selected` | `pinSelected` | `boolean` | `true` | Pin the applied selection above a divider at the top of the list |
+| query | `query` | `query` | `string` | `""` | Search text that filters the list (set it to show a filtered mockup) |
+| searchPlaceholder | `search-placeholder` | `searchPlaceholder` | `string` | `"Search"` | Placeholder of the search field |
+| ariaLabel | `aria-label` | `ariaLabel` | `string` | `"Options"` | Accessible name of the list |
+| focusSearch | `focus-search` | `focusSearch` | `boolean` | `false` | Move focus to the search field when the menu appears (a field opening it sets this) |
+| listboxId | `listbox-id` | `listboxId` | `string` | — | `id` of the listbox element, so a combobox can reference it |
+
+| Event | `event.detail` | Description |
+| --- | --- | --- |
+| `apply` | `string[]` | Emits the checked options (in `options` order) when Apply is pressed |
+| `cancel` | `null` (no value) | Emits when Cancel or Escape drops the pending changes |
+| `selectionChange` | `string[]` | Emits the pending (not yet applied) selection whenever a row, Select All or Clear changes it |
+| `queryChange` | `string` | Emits the search text as it is typed |
+
 ### `<rais-dropdown-menu-searchable>`
 
 Dropdown Menu - Searchable — RAIS Inputs component
@@ -437,12 +462,19 @@ Source: `src/components/dropdown-multiselect/rais-dropdown-multiselect.component
 | label | `label` | `label` | `string` | `"Label"` | Field label |
 | optional | `optional` | `optional` | `boolean` | `false` | Show "(Optional)" hint |
 | instructions | `instructions` | `instructions` | `boolean` | `true` | Show the instructions line |
-| state | `state` | `state` | `"default" \| "error" \| "mouse-enter" \| "selection" \| "max-selected"` | `"default"` | Visual state |
+| state | `state` | `state` | `"default" \| "error" \| "mouse-enter" \| "selection" \| "max-selected" \| "open"` | `"default"` | Visual state (`open` draws the menu for static mockups) |
 | chipLabels | `chip-labels` (JSON) | `chipLabels` (recommended) | `string[]` | `["Label","Label","Label"]` | Chip labels shown in 'selection' state |
 | maxSelectedText | `max-selected-text` | `maxSelectedText` | `string` | `"3 items selected"` | Summary text used in 'max-selected' state |
 | errorMessage | `error-message` | `errorMessage` | `string` | `"Error message."` | Error message shown in 'error' state |
+| options | `options` (JSON) | `options` (recommended) | `string[]` | `[]` | Options listed in the menu; with none, the field doesn't open |
+| value | `value` (JSON) | `value` (recommended) | `string[]` | `[]` | Applied selection, shown as chips (or the "N items selected" summary) |
+| maxChips | `max-chips` | `maxChips` | `number` | `3` | Most values shown as chips; more show "N items selected" |
+| placeholder | `placeholder` | `placeholder` | `string` | `"Search..."` | Placeholder shown when nothing is selected |
 
-No custom events.
+| Event | `event.detail` | Description |
+| --- | --- | --- |
+| `valueChange` | `string[]` | Emits the new selection when Apply is pressed, a chip is removed or the field is cleared |
+| `openChange` | `boolean` | Emits when the menu opens (true) or closes (false) |
 
 ### `<rais-dropdown-searchable>`
 
@@ -703,7 +735,7 @@ Source: `src/components/radio-or-checkbox/rais-radio-or-checkbox.component.ts`.
 
 | Input | Attribute | Property | Type | Default | Description |
 | --- | --- | --- | --- | --- | --- |
-| label | `label` | `label` | `string` | `"Label"` | Label text shown next to the input |
+| label | `label` | `label` | `string` | `"Label"` | Label text shown next to the input — '' draws the box alone (e.g. inside a menu row that sets its own label) |
 | type | `type` | `type` | `"radio" \| "checkbox" \| "circle-checkbox"` | `"checkbox"` | radio \| checkbox \| circle-checkbox |
 | state | `state` | `state` | `"hover" \| "disabled" \| "unselected" \| "selected" \| "indeterminate"` | `"unselected"` | Visual state |
 | size | `size` | `size` | `"large" \| "medium" \| "small" \| "x-large"` | `"large"` | Size variant |

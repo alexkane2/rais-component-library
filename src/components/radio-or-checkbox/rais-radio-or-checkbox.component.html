@@ -22,5 +22,6 @@
     </span>
     <span *ngIf="showDash" class="rais-rc__dash"></span>
   </div>
-  <span class="rais-rc__label">{{ label }}</span>
+  <!-- No label → no span, so the box stands alone without a trailing gap. -->
+  <span *ngIf="label" class="rais-rc__label">{{ label }}</span>
 </div>

@@ -16,6 +16,7 @@ import { RaisContentCardComponent } from './components/content-card/rais-content
 import { RaisDatatableFooterComponent } from './components/datatable-footer/rais-datatable-footer.component';
 import { RaisDatePickerComponent } from './components/date-picker/rais-date-picker.component';
 import { RaisDrawerComponent } from './components/drawer/rais-drawer.component';
+import { RaisDropdownMenuMultiselectComponent } from './components/dropdown-menu-multiselect/rais-dropdown-menu-multiselect.component';
 import { RaisDropdownMenuSearchableComponent } from './components/dropdown-menu-searchable/rais-dropdown-menu-searchable.component';
 import { RaisDropdownMenuComponent } from './components/dropdown-menu/rais-dropdown-menu.component';
 import { RaisDropdownMultiselectComponent } from './components/dropdown-multiselect/rais-dropdown-multiselect.component';
@@ -59,6 +60,7 @@ defineRaisElements([
   ['rais-datatable-footer', RaisDatatableFooterComponent],
   ['rais-date-picker', RaisDatePickerComponent],
   ['rais-drawer', RaisDrawerComponent],
+  ['rais-dropdown-menu-multiselect', RaisDropdownMenuMultiselectComponent],
   ['rais-dropdown-menu-searchable', RaisDropdownMenuSearchableComponent],
   ['rais-dropdown-menu', RaisDropdownMenuComponent],
   ['rais-dropdown-multiselect', RaisDropdownMultiselectComponent],
